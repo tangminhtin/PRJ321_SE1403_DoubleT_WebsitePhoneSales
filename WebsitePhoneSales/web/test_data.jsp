@@ -4,6 +4,7 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.DAO.UserDAO"%>
 <%@page import="Models.Entites.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
@@ -26,21 +27,31 @@
 //                out.println(resultSet.getString("brandName"));
 //                out.println(resultSet.getString("brandImage"));
 //            }
-            ArrayList<User> user = (ArrayList<User>)session.getAttribute("user");
-                for (User u : user) {
+            ArrayList<User> user = (ArrayList<User>) session.getAttribute("user");
+            for (User u : user) {
 //                        int userId = u.getUserId();
 //                        String userName = u.getUserName();
 //                        String userPassword = u.getUserPassword();
 //                        String userRole = u.getUserRole(); 
-                         out.println("<tr>");
-                            out.println("<td>" + u.getUserId() + "</td>");
-                            out.println("<td>" + u.getUserName() + "</td>");
-                            out.println("<td>" + u.getUserPassword() + "</td>");
-                            out.println("<td>" + u.getUserRole() + "</td>");
-                            out.println("<tr>");
-                    }
+                out.println("<tr>");
+                out.println("<td>" + u.getUserId() + "</td>");
+                out.println("<td>" + u.getUserName() + "</td>");
+                out.println("<td>" + u.getUserPassword() + "</td>");
+                out.println("<td>" + u.getUserRole() + "</td>");
+                out.println("<tr>");
+            }
+            int userId = 7;
+            String userName = "phucthinhbach";
+            String userPassword = "12456789";
+            String userRole = "admin";
+            UserDAO userDAO = new UserDAO();
+            boolean check = userDAO.update(userName, userPassword, userRole, userId);
+          if (check!=false) {
+              out.print("Success");
+             }
+
 
         %>
-         
+
     </body>
 </html>
