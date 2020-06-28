@@ -13,5 +13,10 @@
     </head>
     <body>
         <div>Big Project Website Phone Sales made by Double T</div>
+        <jsp:forward page="login.jsp"
+            
+            
+        
+        />
     </body>
 </html>
