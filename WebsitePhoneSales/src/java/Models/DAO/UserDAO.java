@@ -50,7 +50,7 @@ public class UserDAO {
                 db_aPass = rs.getString("userPassword");
 
                 if (Username.equals(db_aUser)) {
-                       
+
                     return getUserByUserName(db_aUser);
                 }
             }
@@ -58,11 +58,12 @@ public class UserDAO {
         }
         return null;
     }
-    public ArrayList<User> getUserByUserName(String username){
+
+    public ArrayList<User> getUserByUserName(String username) {
         try {
             ArrayList<User> user = new ArrayList<User>();
             ResultSet rs;
-            String sql ="SELECT * FROM `user` WHERE `userName`=?";
+            String sql = "SELECT * FROM `user` WHERE `userName`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, username);
             rs = pst.executeQuery();
@@ -72,14 +73,14 @@ public class UserDAO {
                 String userPassword = rs.getString("userPassword");
                 String userRole = rs.getString("userRole");
                 user.add(new User(userId, userName, userPassword, userRole));
-                
+
                 return user;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return null;
+        return null;
     }
-    
+
 }
