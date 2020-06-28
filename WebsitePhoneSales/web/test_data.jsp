@@ -4,6 +4,8 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.Entites.User"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Models.DAO.BrandDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,12 +21,26 @@
             BrandDAO bdao = new BrandDAO();
             ResultSet resultSet = bdao.getBrands();
 
-            while(resultSet.next()) {
-                out.println(resultSet.getInt("brandId"));
-                out.println(resultSet.getString("brandName"));
-                out.println(resultSet.getString("brandImage"));
-            }
+//            while(resultSet.next()) {
+//                out.println(resultSet.getInt("brandId"));
+//                out.println(resultSet.getString("brandName"));
+//                out.println(resultSet.getString("brandImage"));
+//            }
+            ArrayList<User> user = (ArrayList<User>)session.getAttribute("user");
+                for (User u : user) {
+//                        int userId = u.getUserId();
+//                        String userName = u.getUserName();
+//                        String userPassword = u.getUserPassword();
+//                        String userRole = u.getUserRole(); 
+                         out.println("<tr>");
+                            out.println("<td>" + u.getUserId() + "</td>");
+                            out.println("<td>" + u.getUserName() + "</td>");
+                            out.println("<td>" + u.getUserPassword() + "</td>");
+                            out.println("<td>" + u.getUserRole() + "</td>");
+                            out.println("<tr>");
+                    }
 
         %>
+         
     </body>
 </html>

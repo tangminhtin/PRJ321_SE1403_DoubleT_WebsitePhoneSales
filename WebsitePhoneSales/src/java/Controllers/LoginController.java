@@ -6,13 +6,16 @@
 package Controllers;
 
 import Models.DAO.UserDAO;
+import Models.Entites.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,7 +41,7 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
@@ -60,18 +63,20 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDAO userDAO = new UserDAO();
-        if (request.getParameter("txtUsername")!=null && request.getParameter("txtPassword")!= null) {
-            
-        
-        String username = request.getParameter("txtUsername");
-        String password = request.getParameter("txtPassword");
-        
-        int checkLogin = userDAO.login(username, password);
-        if (checkLogin==1) {
-            response.sendRedirect("index.jsp");
-        }
-        
-        processRequest(request, response);
+        if (request.getParameter("txtUsername") != null && request.getParameter("txtPassword") != null) {
+
+            String username = request.getParameter("txtUsername");
+            String password = request.getParameter("txtPassword");
+
+            ArrayList<User> checkLogin = userDAO.login(username, password);
+            if (checkLogin != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("user", checkLogin);
+                response.sendRedirect("test_data.jsp");
+            } else {
+                response.sendRedirect("index.jsp");
+            }
+            processRequest(request, response);
         }
     }
 

@@ -12,7 +12,7 @@
         <%@include file="components/head.jsp" %>
     </head>
     <body>
-        <h1>Login Page</h1>
+        <h1 style="font-family: fantasy">Login Page</h1>
 
         <!-- Register Section Begin -->
         <div class="register-login-section spad">
