@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 25, 2020 at 05:26 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 5.6.40
+-- Host: localhost
+-- Generation Time: Jun 28, 2020 at 03:37 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -69,23 +68,23 @@ INSERT INTO `body` (`bodyId`, `bodyDimensions`, `bodyWeight`, `bodyBuild`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `branch`
+-- Table structure for table `brand`
 --
 
-CREATE TABLE `branch` (
-  `branchId` int(11) NOT NULL,
-  `branchName` varchar(30) DEFAULT NULL,
-  `branchImage` varchar(100) DEFAULT NULL
+CREATE TABLE `brand` (
+  `brandId` int(11) NOT NULL,
+  `brandName` varchar(30) DEFAULT NULL,
+  `brandImage` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `branch`
+-- Dumping data for table `brand`
 --
 
-INSERT INTO `branch` (`branchId`, `branchName`, `branchImage`) VALUES
-(1, 'Apple', NULL),
-(2, 'Samsung', NULL),
-(3, 'Google', NULL);
+INSERT INTO `brand` (`brandId`, `brandName`, `brandImage`) VALUES
+(1, 'Apple', 'apple.png'),
+(2, 'Samsung', 'samsung.png'),
+(3, 'Google', 'google.png');
 
 -- --------------------------------------------------------
 
@@ -95,7 +94,7 @@ INSERT INTO `branch` (`branchId`, `branchName`, `branchImage`) VALUES
 
 CREATE TABLE `comment` (
   `commentId` int(11) NOT NULL,
-  `commentContent` text,
+  `commentContent` text DEFAULT NULL,
   `commentDate` datetime DEFAULT NULL,
   `customerId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -291,7 +290,7 @@ CREATE TABLE `phone` (
   `phoneDiscount` double DEFAULT NULL,
   `phonePrice` double DEFAULT NULL,
   `phoneShortDescription` varchar(250) DEFAULT NULL,
-  `branchId` int(11) DEFAULT NULL,
+  `brandId` int(11) DEFAULT NULL,
   `phoneDetailId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -299,7 +298,7 @@ CREATE TABLE `phone` (
 -- Dumping data for table `phone`
 --
 
-INSERT INTO `phone` (`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `branchId`, `phoneDetailId`) VALUES
+INSERT INTO `phone` (`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `brandId`, `phoneDetailId`) VALUES
 (1, 'https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-se-2020.jpg', 'Apple iPhone SE (2020)', 0, 399, 'Ah, the Apple iPhone SE. The Special Edition. Even if the Smaller Edition was more appropriate. And just like the first iPhone SE, its second generation is both - Small, even if larger than the first one, and Special - as such launch happens once in ', 1, 1),
 (2, 'https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-z-flip-01.jpg', 'Samsung Galaxy Z Flip', 0, 1050, 'Samsung wowed everyone last year when it introduced the Galaxy Fold. Sure, it took a few months to figure out the kinks after the first batch of units saw some fatal manufacturing defects. ', 2, 2),
 (3, 'https://fdn2.gsmarena.com/vv/bigpic/google-pixel-4-r1.jpg', 'Google Pixel 4', 0, 549.99, 'We already had the 4 XL for review and we have more than a general idea of this gen\'s pros and cons, but now we set out to discover how the small Pixel 4 performs and how it stands in the context of its own specific competitors.', 3, 3);
@@ -313,7 +312,7 @@ INSERT INTO `phone` (`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `pho
 CREATE TABLE `phonedetail` (
   `phoneDetailId` int(11) NOT NULL,
   `phoneDetailImage` varchar(100) DEFAULT NULL,
-  `phoneDetailDescription` text,
+  `phoneDetailDescription` text DEFAULT NULL,
   `phoneDetailVideo` varchar(100) DEFAULT NULL,
   `phoneDetailSpecialFeatures` varchar(150) DEFAULT NULL,
   `displayId` int(11) DEFAULT NULL,
@@ -466,10 +465,10 @@ ALTER TABLE `body`
   ADD PRIMARY KEY (`bodyId`);
 
 --
--- Indexes for table `branch`
+-- Indexes for table `brand`
 --
-ALTER TABLE `branch`
-  ADD PRIMARY KEY (`branchId`);
+ALTER TABLE `brand`
+  ADD PRIMARY KEY (`brandId`);
 
 --
 -- Indexes for table `comment`
@@ -532,7 +531,7 @@ ALTER TABLE `orderdetail`
 --
 ALTER TABLE `phone`
   ADD PRIMARY KEY (`phoneId`),
-  ADD KEY `branchId` (`branchId`),
+  ADD KEY `branchId` (`brandId`),
   ADD KEY `phoneDetailId` (`phoneDetailId`);
 
 --
@@ -597,10 +596,10 @@ ALTER TABLE `body`
   MODIFY `bodyId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `branch`
+-- AUTO_INCREMENT for table `brand`
 --
-ALTER TABLE `branch`
-  MODIFY `branchId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `brand`
+  MODIFY `brandId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -728,7 +727,7 @@ ALTER TABLE `orderdetail`
 -- Constraints for table `phone`
 --
 ALTER TABLE `phone`
-  ADD CONSTRAINT `phone_ibfk_1` FOREIGN KEY (`branchId`) REFERENCES `branch` (`branchId`),
+  ADD CONSTRAINT `phone_ibfk_1` FOREIGN KEY (`brandId`) REFERENCES `brand` (`brandId`),
   ADD CONSTRAINT `phone_ibfk_2` FOREIGN KEY (`phoneDetailId`) REFERENCES `phonedetail` (`phoneDetailId`);
 
 --
