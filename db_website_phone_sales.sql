@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 28, 2020 at 03:37 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.6
+-- Generation Time: Jul 01, 2020 at 07:13 PM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.2.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -433,7 +433,7 @@ CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `userName` varchar(50) DEFAULT NULL,
   `userPassword` varchar(32) DEFAULT NULL,
-  `userRole` varchar(10) DEFAULT NULL
+  `userRole` varchar(10) DEFAULT 'customer'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -446,7 +446,10 @@ INSERT INTO `user` (`userId`, `userName`, `userPassword`, `userRole`) VALUES
 (3, 'huaquocvinh', '123456', 'customer'),
 (4, 'truongnhatnam', '123456', 'customer'),
 (5, 'nguyenngocanhtu', '123456', 'customer'),
-(6, 'huynhthinhien', '123456', 'staff');
+(6, 'huynhthinhien', '123456', 'staff'),
+(7, 'phucthinhbach', 'd4f1d5711a23a6c2d211be77a40a7f88', 'admin'),
+(8, 'minhtin', 'e10adc3949ba59abbe56e057f20f883e', 'customer'),
+(9, 'admin', '202cb962ac59075b964b07152d234b70', 'customer');
 
 --
 -- Indexes for dumped tables
@@ -577,7 +580,8 @@ ALTER TABLE `storage`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`userId`);
+  ADD PRIMARY KEY (`userId`),
+  ADD UNIQUE KEY `userName` (`userName`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -683,7 +687,7 @@ ALTER TABLE `storage`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

@@ -4,14 +4,18 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.Entites.User"%>
+<%@page import="Models.DAO.UserDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Double T Shop | Login page</title>
         <%@include file="components/head.jsp" %>
+        <title>Double T Shop | Login page</title>
     </head>
     <body>
+        <%@include file="components/header.jsp" %>
+        
         <h1 style="font-family: fantasy">Login Page</h1>
 
         <!-- Register Section Begin -->
@@ -21,7 +25,7 @@
                     <div class="col-lg-6 offset-lg-3">
                         <div class="login-form">
                             <h2>Login</h2>
-                            <form action="LoginController">
+                            <form method="POST">
                                 <div class="group-input">
                                     <label for="username">Username or email address *</label>
                                     <input type="text" id="username" name="txtUsername">
@@ -52,7 +56,49 @@
         </div>
         <!-- Register Form Section End -->
 
+        <%
+            UserDAO userDAO = new UserDAO();
+            if (request.getParameter("txtUsername") != null && request.getParameter("txtPassword") != null) {
+                String username = request.getParameter("txtUsername");
+                String password = request.getParameter("txtPassword");
+
+                User userLogin = userDAO.login(username, password);
+                if (userLogin != null) {
+                    session = request.getSession();
+                    session.setAttribute("user", userLogin);
+                    response.sendRedirect("test_data.jsp");
+                } else {
+        %>
+        
+                <!-- Frame Modal Bottom -->
+                <div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+                    <div class="modal-dialog modal-frame modal-top" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row d-flex justify-content-center align-items-center">
+                                    <p class="pt-3 pr-2 text-danger">Oops! Your username or password incorrect!</p>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Frame Modal Bottom -->
+
+        <%
+                }
+            }
+
+        %>
+
 
         <%@include file="components/footer.jsp" %>
+        <script>
+            $(document).ready(function () {
+                $("#frameModalBottom").modal('show');
+            });
+        </script>
     </body>
 </html>

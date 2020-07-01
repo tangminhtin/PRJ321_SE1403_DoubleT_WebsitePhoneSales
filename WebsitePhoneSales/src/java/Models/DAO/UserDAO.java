@@ -25,6 +25,7 @@ public class UserDAO {
     private Connection connection;
     DBConnection dBConnection;
     PreparedStatement pst;
+    ResultSet rs;
 
     public UserDAO() {
         dBConnection = new DBConnection();
@@ -32,9 +33,23 @@ public class UserDAO {
 
     }
 
+    public boolean insert(String userName, String userPassword) {
+        try {
+            String sql = "INSERT INTO `user`(`userName`, `userPassword`) VALUES (?, MD5(?))";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, userName);
+            pst.setString(2, userPassword);
+            return pst.execute();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
     public boolean insert(String userName, String userPassword, String userRole) {
         try {
-            String sql = "INSERT INTO `user`(`userName`, `userPassword`, `userRole`) VALUES (?,?,?)";
+            String sql = "INSERT INTO `user`(`userName`, `userPassword`, `userRole`) VALUES (?, MD5(?), ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, userName);
             pst.setString(2, userPassword);
@@ -49,7 +64,7 @@ public class UserDAO {
 
     public boolean update(String userName, String userPassword, String userRole, int userId) {
         try {
-            String sql = "UPDATE `user` SET `userName`=?,`userPassword`=?,`userRole`=? WHERE `userId`=?";
+            String sql = "UPDATE `user` SET `userName`=?,`userPassword`=MD5(?),`userRole`=? WHERE `userId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, userName);
             pst.setString(2, userPassword);
@@ -76,37 +91,52 @@ public class UserDAO {
         return false;
     }
 
-    public ArrayList<User> login(String Username, String Password) {
+    public User login(String username, String password) {
         try {
-            ResultSet rs;
-            String sql = "SELECT * FROM `user` WHERE `userName`=? AND `userPassword`=?";
+            String sql = "SELECT * FROM `user` WHERE `userName`=? AND `userPassword`=MD5(?)";
             pst = connection.prepareStatement(sql);
-            pst.setString(1, Username);
-            pst.setString(2, Password);
+            pst.setString(1, username);
+            pst.setString(2, password);
             rs = pst.executeQuery();
-
-            int check = 0;
-            String db_aUser;
-            String db_aPass;
-            if (rs.next()) {
-
-                db_aUser = rs.getString("userName");
-                db_aPass = rs.getString("userPassword");
-
-                if (Username.equals(db_aUser)) {
-
-                    return searchUserByUserName(db_aUser);
-                }
+            if (rs.first()) {
+                return new User(rs.getInt("userId"), rs.getString("userName"), rs.getString("userPassword"), rs.getString("userRole"));
             }
         } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
+//    public ArrayList<User> login(String Username, String Password) {
+//        try {
+//            ResultSet rs;
+//            String sql = "SELECT * FROM `user` WHERE `userName`=? AND `userPassword`=?";
+//            pst = connection.prepareStatement(sql);
+//            pst.setString(1, Username);
+//            pst.setString(2, Password);
+//            rs = pst.executeQuery();
+//
+//            int check = 0;
+//            String db_aUser;
+//            String db_aPass;
+//            if (rs.next()) {
+//
+//                db_aUser = rs.getString("userName");
+//                db_aPass = rs.getString("userPassword");
+//
+//                if (Username.equals(db_aUser)) {
+//
+//                    return searchUserByUserName(db_aUser);
+//                }
+//            }
+//        } catch (SQLException ex) {
+//        }
+//        return null;
+//    }
     public ArrayList<User> searchUserByUserName(String username) {
         try {
             ArrayList<User> user = new ArrayList<User>();
-            ResultSet rs;
+
             String sql = "SELECT * FROM `user` WHERE `userName`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, username);
@@ -126,8 +156,8 @@ public class UserDAO {
         }
         return null;
     }
-    
-       public ArrayList<User> searchUserByUserId(int userId) {
+
+    public ArrayList<User> searchUserByUserId(int userId) {
         try {
             ArrayList<User> user = new ArrayList<User>();
             ResultSet rs;
@@ -150,6 +180,5 @@ public class UserDAO {
         }
         return null;
     }
-    
 
 }

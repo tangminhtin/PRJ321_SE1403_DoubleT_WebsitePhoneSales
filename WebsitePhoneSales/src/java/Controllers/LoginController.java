@@ -62,22 +62,22 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserDAO userDAO = new UserDAO();
-        if (request.getParameter("txtUsername") != null && request.getParameter("txtPassword") != null) {
-
-            String username = request.getParameter("txtUsername");
-            String password = request.getParameter("txtPassword");
-
-            ArrayList<User> checkLogin = userDAO.login(username, password);
-            if (checkLogin != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", checkLogin);
-                response.sendRedirect("test_data.jsp");
-            } else {
-                response.sendRedirect("index.jsp");
-            }
-            processRequest(request, response);
-        }
+//        UserDAO userDAO = new UserDAO();
+//        if (request.getParameter("txtUsername") != null && request.getParameter("txtPassword") != null) {
+//
+//            String username = request.getParameter("txtUsername");
+//            String password = request.getParameter("txtPassword");
+//
+//            ArrayList<User> checkLogin = userDAO.login(username, password);
+//            if (checkLogin != null) {
+//                HttpSession session = request.getSession();
+//                session.setAttribute("user", checkLogin);
+//                response.sendRedirect("test_data.jsp");
+//            } else {
+//                response.sendRedirect("index.jsp");
+//            }
+//            processRequest(request, response);
+//        }
     }
 
     /**
