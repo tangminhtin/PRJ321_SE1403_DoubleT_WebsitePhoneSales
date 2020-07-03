@@ -11,7 +11,7 @@ package Models.Entites;
  */
 public class Employee {
     private int employeeId;
-    private String employeeFullName;
+    private String employeeFullname;
     private String employeeAddress;
     private String employeePhone;
     private String employeeEmail;
@@ -21,9 +21,9 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int employeeId, String employeeFullName, String employeeAddress, String employeePhone, String employeeEmail, String employeeImage, int userId) {
+    public Employee(int employeeId, String employeeFullname, String employeeAddress, String employeePhone, String employeeEmail, String employeeImage, int userId) {
         this.employeeId = employeeId;
-        this.employeeFullName = employeeFullName;
+        this.employeeFullname = employeeFullname;
         this.employeeAddress = employeeAddress;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
@@ -39,12 +39,12 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public String getEmployeeFullName() {
-        return employeeFullName;
+    public String getEmployeeFullname() {
+        return employeeFullname;
     }
 
-    public void setEmployeeFullName(String employeeFullName) {
-        this.employeeFullName = employeeFullName;
+    public void setEmployeeFullname(String employeeFullname) {
+        this.employeeFullname = employeeFullname;
     }
 
     public String getEmployeeAddress() {
@@ -89,7 +89,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + ", employeeFullName=" + employeeFullName + ", employeeAddress=" + employeeAddress + ", employeePhone=" + employeePhone + ", employeeEmail=" + employeeEmail + ", employeeImage=" + employeeImage + ", userId=" + userId + '}';
+        return "Employee{" + "employeeId=" + employeeId + ", employeeFullname=" + employeeFullname + ", employeeAddress=" + employeeAddress + ", employeePhone=" + employeePhone + ", employeeEmail=" + employeeEmail + ", employeeImage=" + employeeImage + ", userId=" + userId + '}';
     }
     
 }

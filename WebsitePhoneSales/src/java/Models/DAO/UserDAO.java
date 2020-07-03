@@ -26,11 +26,12 @@ public class UserDAO {
     DBConnection dBConnection;
     PreparedStatement pst;
     ResultSet rs;
+    ArrayList<User> users;
 
     public UserDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
-
+        users = new ArrayList<>();
     }
 
     public boolean insert(String userName, String userPassword) {
@@ -178,6 +179,23 @@ public class UserDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
+    }
+
+    public ArrayList<User> getUsers() {
+        try {
+            String sql = "SELECT * FROM `user`";
+            pst = connection.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                users.add(new User(rs.getInt("userId"), rs.getString("userName"),
+                        rs.getString("userPassword"), rs.getString("userRole")));
+            }
+            return users;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return null;
     }
 

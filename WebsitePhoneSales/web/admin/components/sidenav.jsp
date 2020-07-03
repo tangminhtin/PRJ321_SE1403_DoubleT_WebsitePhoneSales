@@ -15,7 +15,7 @@
                     Dashboard
                 </a>
                 <div class="sb-sidenav-menu-heading">Management</div>
-                <a class="nav-link" href="./users.jsp">
+                <a class="nav-link" href="../UserController">
                     <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                     Users
                 </a>
@@ -72,9 +72,9 @@
                 </a>
             </div>
         </div>
-        <div class="sb-sidenav-footer">
+<!--        <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
             Start Bootstrap
-        </div>
+        </div>-->
     </nav>
 </div>
