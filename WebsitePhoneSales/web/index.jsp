@@ -4,6 +4,9 @@
     Author     : phuct
 --%>
 
+<%@page import="Models.DAO.phoneDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.Entites.Phone"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,13 +24,23 @@
         <div class="container">
             <h3 class="text-center font-weight-bold mb-5">Best sellers</h3>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                <% for (int i = 0; i < 4; i++) { %>
+                <%
+                    ArrayList<Phone> phones = new ArrayList<>();
+                    phoneDAO phonedao = new phoneDAO();
+                    phones = phonedao.getAllPhone();
+                    int k = 0;
+                    for (Phone p : phones) {
+                        if (k >= 4) {
+                            break;
+                        }
+                        k++;
+                %>
                 <div class="col">
                     <div class="card h-100">
                         <!--Card image-->
                         <div class="view overlay">
-                            <img class="card-img-top" src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-se-2020.jpg"
-                                 alt="Card image cap">
+                             <img class="card-img-top" src="<%=p.getPhoneImage()%>"
+                             alt="Card image cap">
                             <a href="#!">
                                 <div class="mask rgba-white-slight"></div>
                             </a>
@@ -37,11 +50,12 @@
                         <div class="card-body">
 
                             <!--Title-->
-                            <h4 class="card-title">Apple iPhone SE (2020)</h4>
+                                <h4 class="card-title"><%=p.getPhoneName()%></h4>
+                                    <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
                             <!--Text-->
-                            <p class="card-text">Ah, the Apple iPhone SE. The Special Edition. Even if the Smaller Edition was more appropriate. And just like the first iPhone SE, its second generation is both - Small, even if larger than the first one, and Special - as such launch happens once in</p>
+                                <p class="card-text"><%=p.getPhoneShortDescription()%></p>
                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                            <button type="button" class="btn btn-light-blue btn-md"><i class="fas fa-dollar-sign">399</i></button>
+                            <button type="button" class="btn btn-light-blue btn-md">View details</button>
 
                         </div>
 
@@ -61,20 +75,32 @@
                 <h3 class="text-center font-weight-bold mb-5">Latest news</h3>
                 <!-- Grid row -->
                 <div class="row">
-                    <% for (int i = 0; i < 3; i++) { %>
+                    <%
+
+                        phones = phonedao.getAllPhone();
+                        k = 0;
+                        for (int i = phones.size() - 1; i >= 0; i--) {
+                            if (k >= 3) {
+                                break;
+                            }
+                            k++;
+                    %>
                     <!-- Grid column -->
                     <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
                         <!-- Card -->
                         <div class="card hoverable">
                             <!-- Card image -->
-                            <img class="card-img-top" src="https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-z-flip-01.jpg" alt="Card image cap">
+                                 <img class="card-img-top" src="<%=phones.get(i).getPhoneImage()%>" alt="Card image cap">
                             <!-- Card content -->
                             <div class="card-body">
                                 <!-- Title -->
-                                <a href="#!" class="black-text">Samsung Galaxy Z Flip</a>
+                                    <a href="#!" class="black-text"><%=phones.get(i).getPhoneName()%></a>
+                                <!--Title-->
+
+                                        <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=phones.get(i).getPhonePrice()%></i></h5>
                                 <!-- Text -->
-                                <p class="card-title text-muted font-small mt-3 mb-2">Samsung wowed everyone last year when it introduced the Galaxy Fold. Sure, it took a few months to figure out the kinks after the first batch of units saw some fatal manufacturing defects.</p>
-                                <button type="button" class="btn btn-light-blue btn-md"><i class="fas fa-dollar-sign">$1050</i></button>
+                                    <p class="card-title text-muted font-small mt-3 mb-2"><%=phones.get(i).getPhoneShortDescription()%></p>
+                                <button type="button" class="btn btn-light-blue btn-md">View Details</button>
                             </div>
                         </div>
                         <!-- Card -->

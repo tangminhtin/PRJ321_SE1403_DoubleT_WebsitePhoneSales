@@ -16,20 +16,20 @@ public class Phone {
     private double phoneDiscount;
     private double phonePrice;
     private String phoneShortDescription;
-    private int branchId;
+    private int brandId;
     private int phoneDetailId;
 
     public Phone() {
     }
 
-    public Phone(int phoneId, String phoneImage, String phoneName, double phoneDiscount, double phonePrice, String phoneShortDescription, int branchId, int phoneDetailId) {
+    public Phone(int phoneId, String phoneImage, String phoneName, double phoneDiscount, double phonePrice, String phoneShortDescription, int brandId, int phoneDetailId) {
         this.phoneId = phoneId;
         this.phoneImage = phoneImage;
         this.phoneName = phoneName;
         this.phoneDiscount = phoneDiscount;
         this.phonePrice = phonePrice;
         this.phoneShortDescription = phoneShortDescription;
-        this.branchId = branchId;
+        this.brandId = brandId;
         this.phoneDetailId = phoneDetailId;
     }
 
@@ -81,12 +81,12 @@ public class Phone {
         this.phoneShortDescription = phoneShortDescription;
     }
 
-    public int getBranchId() {
-        return branchId;
+    public int getBrandId() {
+        return brandId;
     }
 
     public void setBranchId(int branchId) {
-        this.branchId = branchId;
+        this.brandId = brandId;
     }
 
     public int getPhoneDetailId() {
@@ -99,7 +99,7 @@ public class Phone {
 
     @Override
     public String toString() {
-        return "Phone{" + "phoneId=" + phoneId + ", phoneImage=" + phoneImage + ", phoneName=" + phoneName + ", phoneDiscount=" + phoneDiscount + ", phonePrice=" + phonePrice + ", phoneShortDescription=" + phoneShortDescription + ", branchId=" + branchId + ", phoneDetailId=" + phoneDetailId + '}';
+        return "Phone{" + "phoneId=" + phoneId + ", phoneImage=" + phoneImage + ", phoneName=" + phoneName + ", phoneDiscount=" + phoneDiscount + ", phonePrice=" + phonePrice + ", phoneShortDescription=" + phoneShortDescription + ", branchId=" + brandId + ", phoneDetailId=" + phoneDetailId + '}';
     }
     
 }
