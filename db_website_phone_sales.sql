@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 03, 2020 lúc 10:21 AM
--- Phiên bản máy phục vụ: 10.4.11-MariaDB
--- Phiên bản PHP: 7.2.31
+-- Host: 127.0.0.1
+-- Generation Time: Jul 06, 2020 at 02:11 PM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `db_website_phone_sales`
+-- Database: `db_website_phone_sales`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `battery`
+-- Table structure for table `battery`
 --
 
 CREATE TABLE `battery` (
@@ -35,7 +35,7 @@ CREATE TABLE `battery` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `battery`
+-- Dumping data for table `battery`
 --
 
 INSERT INTO `battery` (`batteryId`, `batteryCapacity`, `batteryType`, `batteryTechnology`) VALUES
@@ -50,7 +50,7 @@ INSERT INTO `battery` (`batteryId`, `batteryCapacity`, `batteryType`, `batteryTe
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `body`
+-- Table structure for table `body`
 --
 
 CREATE TABLE `body` (
@@ -61,7 +61,7 @@ CREATE TABLE `body` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `body`
+-- Dumping data for table `body`
 --
 
 INSERT INTO `body` (`bodyId`, `bodyDimensions`, `bodyWeight`, `bodyBuild`) VALUES
@@ -76,7 +76,7 @@ INSERT INTO `body` (`bodyId`, `bodyDimensions`, `bodyWeight`, `bodyBuild`) VALUE
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `brand`
+-- Table structure for table `brand`
 --
 
 CREATE TABLE `brand` (
@@ -86,7 +86,7 @@ CREATE TABLE `brand` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `brand`
+-- Dumping data for table `brand`
 --
 
 INSERT INTO `brand` (`brandId`, `brandName`, `brandImage`) VALUES
@@ -97,7 +97,7 @@ INSERT INTO `brand` (`brandId`, `brandName`, `brandImage`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `comment`
+-- Table structure for table `comment`
 --
 
 CREATE TABLE `comment` (
@@ -108,7 +108,7 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `comment`
+-- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`commentId`, `commentContent`, `commentDate`, `customerId`) VALUES
@@ -121,7 +121,7 @@ INSERT INTO `comment` (`commentId`, `commentContent`, `commentDate`, `customerId
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `connection`
+-- Table structure for table `connection`
 --
 
 CREATE TABLE `connection` (
@@ -138,7 +138,7 @@ CREATE TABLE `connection` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `connection`
+-- Dumping data for table `connection`
 --
 
 INSERT INTO `connection` (`connectionId`, `connectionSIM`, `connectionMobileNetwork`, `connectionWLAN`, `connectionBluetooth`, `connectionGPS`, `connectionNFC`, `connectionRadio`, `connectionUSB`, `connectionJack`) VALUES
@@ -153,7 +153,7 @@ INSERT INTO `connection` (`connectionId`, `connectionSIM`, `connectionMobileNetw
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customer`
+-- Table structure for table `customer`
 --
 
 CREATE TABLE `customer` (
@@ -161,22 +161,24 @@ CREATE TABLE `customer` (
   `customerFullname` varchar(50) DEFAULT NULL,
   `customerAddress` varchar(100) DEFAULT NULL,
   `customerPhone` varchar(15) DEFAULT NULL,
+  `customerEmail` varchar(50) NOT NULL,
+  `customerImage` varchar(100) NOT NULL,
   `userId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `customer`
+-- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`customerId`, `customerFullname`, `customerAddress`, `customerPhone`, `userId`) VALUES
-(1, 'Hua Quoc Vinh', 'Can Tho', '0348432564', 3),
-(2, 'Truong Nhat Nam', 'Vinh Long', '0684567813', 4),
-(3, 'Nguyen Ngoc Anh Tu', 'An Giang', '0457894658', 5);
+INSERT INTO `customer` (`customerId`, `customerFullname`, `customerAddress`, `customerPhone`, `customerEmail`, `customerImage`, `userId`) VALUES
+(1, 'Hua Quoc Vinh', 'Can Tho', '0348432564', 'huaquocvinh@gmail.com', 'https://image.flaticon.com/icons/svg/2858/2858384.svg', 3),
+(2, 'Truong Nhat Nam', 'Vinh Long', '0684567813', 'truongnhatnam@gmail.com', 'https://image.flaticon.com/icons/svg/2858/2858384.svg', 4),
+(3, 'Nguyen Ngoc Anh Tu', 'An Giang', '0457894658', 'nguyenngocanhtu@gmai.com', 'https://image.flaticon.com/icons/svg/2858/2858384.svg', 5);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `display`
+-- Table structure for table `display`
 --
 
 CREATE TABLE `display` (
@@ -188,7 +190,7 @@ CREATE TABLE `display` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `display`
+-- Dumping data for table `display`
 --
 
 INSERT INTO `display` (`displayId`, `displayType`, `displaySize`, `displayResolution`, `displayProtection`) VALUES
@@ -203,7 +205,7 @@ INSERT INTO `display` (`displayId`, `displayType`, `displaySize`, `displayResolu
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `employee`
+-- Table structure for table `employee`
 --
 
 CREATE TABLE `employee` (
@@ -217,17 +219,17 @@ CREATE TABLE `employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `employee`
+-- Dumping data for table `employee`
 --
 
 INSERT INTO `employee` (`employeeId`, `employeeFullname`, `employeeAddress`, `employeePhone`, `employeeEmail`, `employeeImage`, `userId`) VALUES
-(1, 'Bach Nguyen Phuc Thinh', 'Hau Giang', '0354879462', 'bachnguyenphucthinh@gmail.com', NULL, 2),
-(2, 'Huynh Thi Nhien', 'Hau Giang', '0367894562', 'huynhthinhien@gmail.com', NULL, 6);
+(1, 'Bach Nguyen Phuc Thinh', 'Hau Giang', '0354879462', 'bachnguyenphucthinh@gmail.com', 'https://image.flaticon.com/icons/svg/2858/2858384.svg', 2),
+(2, 'Huynh Thi Nhien', 'Hau Giang', '0367894562', 'huynhthinhien@gmail.com', 'https://image.flaticon.com/icons/svg/2858/2858384.svg', 6);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `maincamera`
+-- Table structure for table `maincamera`
 --
 
 CREATE TABLE `maincamera` (
@@ -238,7 +240,7 @@ CREATE TABLE `maincamera` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `maincamera`
+-- Dumping data for table `maincamera`
 --
 
 INSERT INTO `maincamera` (`mainCameraId`, `mainCameraResolution`, `mainCameraFeatures`, `mainCameraVideo`) VALUES
@@ -253,7 +255,7 @@ INSERT INTO `maincamera` (`mainCameraId`, `mainCameraResolution`, `mainCameraFea
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order`
+-- Table structure for table `order`
 --
 
 CREATE TABLE `order` (
@@ -267,7 +269,7 @@ CREATE TABLE `order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `order`
+-- Dumping data for table `order`
 --
 
 INSERT INTO `order` (`orderId`, `orderDate`, `orderQuantity`, `orderTotalPrice`, `orderNote`, `phoneId`, `customerId`) VALUES
@@ -278,7 +280,7 @@ INSERT INTO `order` (`orderId`, `orderDate`, `orderQuantity`, `orderTotalPrice`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orderdetail`
+-- Table structure for table `orderdetail`
 --
 
 CREATE TABLE `orderdetail` (
@@ -291,7 +293,7 @@ CREATE TABLE `orderdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `orderdetail`
+-- Dumping data for table `orderdetail`
 --
 
 INSERT INTO `orderdetail` (`orderId`, `phoneId`, `shipperId`, `employeeId`, `orderDetailTotalPrice`, `orderDetailQuantity`) VALUES
@@ -302,7 +304,7 @@ INSERT INTO `orderdetail` (`orderId`, `phoneId`, `shipperId`, `employeeId`, `ord
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `phone`
+-- Table structure for table `phone`
 --
 
 CREATE TABLE `phone` (
@@ -317,7 +319,7 @@ CREATE TABLE `phone` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `phone`
+-- Dumping data for table `phone`
 --
 
 INSERT INTO `phone` (`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `brandId`, `phoneDetailId`) VALUES
@@ -332,7 +334,7 @@ INSERT INTO `phone` (`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `pho
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `phonedetail`
+-- Table structure for table `phonedetail`
 --
 
 CREATE TABLE `phonedetail` (
@@ -353,7 +355,7 @@ CREATE TABLE `phonedetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `phonedetail`
+-- Dumping data for table `phonedetail`
 --
 
 INSERT INTO `phonedetail` (`phoneDetailId`, `phoneDetailImage`, `phoneDetailDescription`, `phoneDetailVideo`, `phoneDetailSpecialFeatures`, `displayId`, `bodyId`, `platformId`, `mainCameraId`, `selfieCameraId`, `storageId`, `batteryId`, `connectionId`, `commentId`) VALUES
@@ -368,7 +370,7 @@ INSERT INTO `phonedetail` (`phoneDetailId`, `phoneDetailImage`, `phoneDetailDesc
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `platform`
+-- Table structure for table `platform`
 --
 
 CREATE TABLE `platform` (
@@ -380,7 +382,7 @@ CREATE TABLE `platform` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `platform`
+-- Dumping data for table `platform`
 --
 
 INSERT INTO `platform` (`platformId`, `platformOS`, `platformChipset`, `platformCPU`, `platformGPU`) VALUES
@@ -395,7 +397,7 @@ INSERT INTO `platform` (`platformId`, `platformOS`, `platformChipset`, `platform
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `selfiecamera`
+-- Table structure for table `selfiecamera`
 --
 
 CREATE TABLE `selfiecamera` (
@@ -406,7 +408,7 @@ CREATE TABLE `selfiecamera` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `selfiecamera`
+-- Dumping data for table `selfiecamera`
 --
 
 INSERT INTO `selfiecamera` (`selfieCameraId`, `selfieCameraResolution`, `selfieCameraFeatures`, `selfieCameraVideo`) VALUES
@@ -421,7 +423,7 @@ INSERT INTO `selfiecamera` (`selfieCameraId`, `selfieCameraResolution`, `selfieC
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `shipper`
+-- Table structure for table `shipper`
 --
 
 CREATE TABLE `shipper` (
@@ -431,7 +433,7 @@ CREATE TABLE `shipper` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `shipper`
+-- Dumping data for table `shipper`
 --
 
 INSERT INTO `shipper` (`shipperId`, `shipperName`, `shipperPhone`) VALUES
@@ -442,7 +444,7 @@ INSERT INTO `shipper` (`shipperId`, `shipperName`, `shipperPhone`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `storage`
+-- Table structure for table `storage`
 --
 
 CREATE TABLE `storage` (
@@ -453,7 +455,7 @@ CREATE TABLE `storage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `storage`
+-- Dumping data for table `storage`
 --
 
 INSERT INTO `storage` (`storageId`, `storageRAM`, `storageInternal`, `storageExternal`) VALUES
@@ -468,7 +470,7 @@ INSERT INTO `storage` (`storageId`, `storageRAM`, `storageInternal`, `storageExt
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -479,7 +481,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`userId`, `userName`, `userPassword`, `userRole`) VALUES
@@ -494,68 +496,68 @@ INSERT INTO `user` (`userId`, `userName`, `userPassword`, `userRole`) VALUES
 (9, 'admin', '202cb962ac59075b964b07152d234b70', 'customer');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `battery`
+-- Indexes for table `battery`
 --
 ALTER TABLE `battery`
   ADD PRIMARY KEY (`batteryId`);
 
 --
--- Chỉ mục cho bảng `body`
+-- Indexes for table `body`
 --
 ALTER TABLE `body`
   ADD PRIMARY KEY (`bodyId`);
 
 --
--- Chỉ mục cho bảng `brand`
+-- Indexes for table `brand`
 --
 ALTER TABLE `brand`
   ADD PRIMARY KEY (`brandId`);
 
 --
--- Chỉ mục cho bảng `comment`
+-- Indexes for table `comment`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`commentId`),
   ADD KEY `customerId` (`customerId`);
 
 --
--- Chỉ mục cho bảng `connection`
+-- Indexes for table `connection`
 --
 ALTER TABLE `connection`
   ADD PRIMARY KEY (`connectionId`);
 
 --
--- Chỉ mục cho bảng `customer`
+-- Indexes for table `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`customerId`),
   ADD KEY `userId` (`userId`);
 
 --
--- Chỉ mục cho bảng `display`
+-- Indexes for table `display`
 --
 ALTER TABLE `display`
   ADD PRIMARY KEY (`displayId`);
 
 --
--- Chỉ mục cho bảng `employee`
+-- Indexes for table `employee`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`employeeId`),
   ADD KEY `userId` (`userId`);
 
 --
--- Chỉ mục cho bảng `maincamera`
+-- Indexes for table `maincamera`
 --
 ALTER TABLE `maincamera`
   ADD PRIMARY KEY (`mainCameraId`);
 
 --
--- Chỉ mục cho bảng `order`
+-- Indexes for table `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`orderId`),
@@ -563,7 +565,7 @@ ALTER TABLE `order`
   ADD KEY `customerId` (`customerId`);
 
 --
--- Chỉ mục cho bảng `orderdetail`
+-- Indexes for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
   ADD KEY `orderId` (`orderId`),
@@ -572,7 +574,7 @@ ALTER TABLE `orderdetail`
   ADD KEY `employeeId` (`employeeId`);
 
 --
--- Chỉ mục cho bảng `phone`
+-- Indexes for table `phone`
 --
 ALTER TABLE `phone`
   ADD PRIMARY KEY (`phoneId`),
@@ -580,7 +582,7 @@ ALTER TABLE `phone`
   ADD KEY `phoneDetailId` (`phoneDetailId`);
 
 --
--- Chỉ mục cho bảng `phonedetail`
+-- Indexes for table `phonedetail`
 --
 ALTER TABLE `phonedetail`
   ADD PRIMARY KEY (`phoneDetailId`),
@@ -595,173 +597,173 @@ ALTER TABLE `phonedetail`
   ADD KEY `commentId` (`commentId`);
 
 --
--- Chỉ mục cho bảng `platform`
+-- Indexes for table `platform`
 --
 ALTER TABLE `platform`
   ADD PRIMARY KEY (`platformId`);
 
 --
--- Chỉ mục cho bảng `selfiecamera`
+-- Indexes for table `selfiecamera`
 --
 ALTER TABLE `selfiecamera`
   ADD PRIMARY KEY (`selfieCameraId`);
 
 --
--- Chỉ mục cho bảng `shipper`
+-- Indexes for table `shipper`
 --
 ALTER TABLE `shipper`
   ADD PRIMARY KEY (`shipperId`);
 
 --
--- Chỉ mục cho bảng `storage`
+-- Indexes for table `storage`
 --
 ALTER TABLE `storage`
   ADD PRIMARY KEY (`storageId`);
 
 --
--- Chỉ mục cho bảng `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`),
   ADD UNIQUE KEY `userName` (`userName`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `battery`
+-- AUTO_INCREMENT for table `battery`
 --
 ALTER TABLE `battery`
   MODIFY `batteryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `body`
+-- AUTO_INCREMENT for table `body`
 --
 ALTER TABLE `body`
   MODIFY `bodyId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `brand`
+-- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
   MODIFY `brandId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `comment`
+-- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
   MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `connection`
+-- AUTO_INCREMENT for table `connection`
 --
 ALTER TABLE `connection`
   MODIFY `connectionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `customer`
+-- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
   MODIFY `customerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `display`
+-- AUTO_INCREMENT for table `display`
 --
 ALTER TABLE `display`
   MODIFY `displayId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `employee`
+-- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employeeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `maincamera`
+-- AUTO_INCREMENT for table `maincamera`
 --
 ALTER TABLE `maincamera`
   MODIFY `mainCameraId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `order`
+-- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
   MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `phone`
+-- AUTO_INCREMENT for table `phone`
 --
 ALTER TABLE `phone`
   MODIFY `phoneId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `phonedetail`
+-- AUTO_INCREMENT for table `phonedetail`
 --
 ALTER TABLE `phonedetail`
   MODIFY `phoneDetailId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `platform`
+-- AUTO_INCREMENT for table `platform`
 --
 ALTER TABLE `platform`
   MODIFY `platformId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `selfiecamera`
+-- AUTO_INCREMENT for table `selfiecamera`
 --
 ALTER TABLE `selfiecamera`
   MODIFY `selfieCameraId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `shipper`
+-- AUTO_INCREMENT for table `shipper`
 --
 ALTER TABLE `shipper`
   MODIFY `shipperId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `storage`
+-- AUTO_INCREMENT for table `storage`
 --
 ALTER TABLE `storage`
   MODIFY `storageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT cho bảng `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `comment`
+-- Constraints for table `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`customerId`) REFERENCES `customer` (`customerId`);
 
 --
--- Các ràng buộc cho bảng `customer`
+-- Constraints for table `customer`
 --
 ALTER TABLE `customer`
   ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
 
 --
--- Các ràng buộc cho bảng `employee`
+-- Constraints for table `employee`
 --
 ALTER TABLE `employee`
   ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
 
 --
--- Các ràng buộc cho bảng `order`
+-- Constraints for table `order`
 --
 ALTER TABLE `order`
   ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`phoneId`) REFERENCES `phone` (`phoneId`),
   ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`customerId`) REFERENCES `customer` (`customerId`);
 
 --
--- Các ràng buộc cho bảng `orderdetail`
+-- Constraints for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
   ADD CONSTRAINT `orderdetail_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `order` (`orderId`),
@@ -770,14 +772,14 @@ ALTER TABLE `orderdetail`
   ADD CONSTRAINT `orderdetail_ibfk_4` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`);
 
 --
--- Các ràng buộc cho bảng `phone`
+-- Constraints for table `phone`
 --
 ALTER TABLE `phone`
   ADD CONSTRAINT `phone_ibfk_1` FOREIGN KEY (`brandId`) REFERENCES `brand` (`brandId`),
   ADD CONSTRAINT `phone_ibfk_2` FOREIGN KEY (`phoneDetailId`) REFERENCES `phonedetail` (`phoneDetailId`);
 
 --
--- Các ràng buộc cho bảng `phonedetail`
+-- Constraints for table `phonedetail`
 --
 ALTER TABLE `phonedetail`
   ADD CONSTRAINT `phonedetail_ibfk_1` FOREIGN KEY (`displayId`) REFERENCES `display` (`displayId`),

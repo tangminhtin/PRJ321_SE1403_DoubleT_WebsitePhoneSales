@@ -14,16 +14,20 @@ public class Customer {
     private String customerFullname;
     private String customerAddress;
     private String customerPhone;
+    private String customerEmail;
+    private String customerImage;
     private int userId;
 
     public Customer() {
     }
 
-    public Customer(int customerId, String customerFullname, String customerAddress, String customerPhone, int userId) {
+    public Customer(int customerId, String customerFullname, String customerAddress, String customerPhone, String customerEmail, String customerImage, int userId) {
         this.customerId = customerId;
         this.customerFullname = customerFullname;
         this.customerAddress = customerAddress;
         this.customerPhone = customerPhone;
+        this.customerEmail = customerEmail;
+        this.customerImage = customerImage;
         this.userId = userId;
     }
 
@@ -67,9 +71,25 @@ public class Customer {
         this.userId = userId;
     }
 
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public String getCustomerImage() {
+        return customerImage;
+    }
+
+    public void setCustomerImage(String customerImage) {
+        this.customerImage = customerImage;
+    }
+
     @Override
     public String toString() {
-        return "Customer{" + "customerId=" + customerId + ", customerFullname=" + customerFullname + ", customerAddress=" + customerAddress + ", customerPhone=" + customerPhone + ", userId=" + userId + '}';
+        return "Customer{" + "customerId=" + customerId + ", customerFullname=" + customerFullname + ", customerAddress=" + customerAddress + ", customerPhone=" + customerPhone + ", customerEmail=" + customerEmail + ", customerImage=" + customerImage + ", userId=" + userId + '}';
     }
     
 }

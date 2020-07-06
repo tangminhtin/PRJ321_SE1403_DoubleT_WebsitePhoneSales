@@ -46,7 +46,7 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <button type="button" class="btn btn-success px-3"><i class="fas fa-plus"></i> Add user</button>
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>Full name</th>
@@ -55,8 +55,7 @@
                                                 <th>Email</th>
                                                 <th>Avatar</th>
                                                 <th>Role</th>
-                                                <!--<th>Action</th>-->
-                                                <!--<th>Action</th>-->
+                                                <th colspan="2">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -68,10 +67,19 @@
                                                             <td>${e.employeeAddress}</td>
                                                             <td>${e.employeePhone}</td>
                                                             <td>${e.employeeEmail}</td>
-                                                            <td>${e.employeeImage}</td>
+                                                            <td>
+                                                                <img src="${e.employeeImage}" width="50px" height="50px" class="rounded float-left" alt="Avatar">
+                                                            </td>
                                                             <td>${u.userRole}</td>
-<!--                                                            <td><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button></td>
-                                                            <td><button type="button" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button></td>-->
+                                                            <td>
+                                                                
+                                                                    <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button>
+                                                            </td>
+                                                            <td>
+                                                                <a href="./users.jsp?userId=${u.userId}">
+                                                                    <button type="button" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                     </c:if>
                                                 </c:forEach>
@@ -82,11 +90,17 @@
                                                             <td>${c.customerFullname}
                                                             <td>${c.customerAddress}</td>
                                                             <td>${c.customerPhone}</td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td>${c.customerEmail}</td>
+                                                            <td>
+                                                                <img src="${c.customerImage}" width="50px" height="50px" class="rounded float-left" alt="Avatar">
+                                                            </td>
                                                             <td>${u.userRole}</td>
-<!--                                                            <td><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></td>
-                                                            <td><button type="button" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button></td>-->
+                                                            <td><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></td>
+                                                            <td>
+                                                                <a href="./users.jsp?userId=${u.userId}">
+                                                                    <button type="button" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                     </c:if>
                                                 </c:forEach>
@@ -142,6 +156,15 @@
                 </footer>-->
             </div>
         </div>
+            
+            <%
+              String userId = request.getParameter("userId");
+              if(userId != null) {
+                  out.print(userId);
+              }
+                
+                
+            %>
         
         <%@include file="components/footer.jsp" %>
     </body>

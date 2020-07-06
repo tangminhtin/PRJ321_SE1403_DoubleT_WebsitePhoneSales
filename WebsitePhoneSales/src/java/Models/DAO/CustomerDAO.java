@@ -41,7 +41,8 @@ public class CustomerDAO {
             while (rs.next()) {
                 customers.add(new Customer(rs.getInt("customerId"),
                         rs.getString("customerFullname"), rs.getString("customerAddress"),
-                        rs.getString("customerPhone"), rs.getInt("userId")));
+                        rs.getString("customerPhone"), rs.getString("customerEmail"),
+                        rs.getString("customerImage"), rs.getInt("userId")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
