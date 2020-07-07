@@ -26,6 +26,18 @@ import javax.servlet.http.HttpSession;
  * @author tangminhtin
  */
 public class UserController extends HttpServlet {
+    private UserDAO udao = null;
+    private EmployeeDAO edao = null;
+    private CustomerDAO cdao;
+    
+    public UserController() {
+        // call udao method to get the list of users
+        udao = new UserDAO();
+        edao = new EmployeeDAO();
+        cdao = new CustomerDAO();
+    }
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -67,11 +79,6 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        // call udao method to get the list of users
-        UserDAO udao = new UserDAO();
-        EmployeeDAO edao = new EmployeeDAO();
-        CustomerDAO cdao = new CustomerDAO();
-
         ArrayList<User> users = udao.getUsers();
         ArrayList<Employee> employees = edao.getEmployees();
         ArrayList<Customer> customers = cdao.getCustomers();
@@ -106,7 +113,19 @@ public class UserController extends HttpServlet {
         String fullname = request.getParameter("txtFullname");
         String address = request.getParameter("txtAddress");
         String phone = request.getParameter("txtPhone");
+        String email = request.getParameter("txtEmail");
         String image = request.getParameter("txtImage");
+        
+        if(user != null && pass != null && confirm != null 
+                && fullname != null && address != null
+                && phone != null && image != null) {
+            if(pass.equals(confirm)) {
+                int userId = udao.insert(user, pass, "staff");
+                edao.insert(fullname, address, phone, email, image, userId);
+                
+            }
+        }
+        
         
         
         

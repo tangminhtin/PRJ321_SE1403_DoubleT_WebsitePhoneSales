@@ -25,6 +25,13 @@
         <div id="layoutSidenav">
             <%@include file="components/sidenav.jsp" %>
             
+            <%
+                if(session.getAttribute("users") == null) {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("../UserController");
+                    dispatcher.forward(request, response);
+                }
+            %>
+            
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
@@ -47,7 +54,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <button type="button" class="btn btn-success px-3" data-toggle="modal" data-target="#modalLoginForm"><i class="fas fa-plus"></i> Add user</button>
+                                    <button type="button" class="btn btn-success px-3" data-toggle="modal" data-target="#modalAddUserForm"><i class="fas fa-plus"></i> Add user</button>
                                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -161,7 +168,7 @@
             
             
             <!--Add User-->
-        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        <div class="modal fade" id="modalAddUserForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -173,7 +180,7 @@
                     </div>
                     <div class="modal-body mx-3">
                         <div class="md-form mb-5">
-                            <input type="email" name="txtUsername" class="form-control validate">
+                            <input type="text" name="txtUsername" class="form-control validate">
                             <label data-error="wrong" data-success="right" for="defaultForm-email">Username</label>
                         </div>
                         <div class="md-form mb-4">
@@ -185,19 +192,23 @@
                             <label data-error="wrong" data-success="right" for="defaultForm-pass">Confirm password</label>
                         </div>
                         <div class="md-form mb-4">
-                            <input type="password" name="txtFullname" class="form-control validate">
+                            <input type="text" name="txtFullname" class="form-control validate">
                             <label data-error="wrong" data-success="right" for="defaultForm-pass">Full name</label>
                         </div>
                         <div class="md-form mb-4">
-                            <input type="password" name="txtAddress" class="form-control validate">
+                            <input type="text" name="txtAddress" class="form-control validate">
                             <label data-error="wrong" data-success="right" for="defaultForm-pass">Address</label>
                         </div>
                         <div class="md-form mb-4">
-                            <input type="password" name="txtPhone" class="form-control validate">
+                            <input type="text" name="txtPhone" class="form-control validate">
                             <label data-error="wrong" data-success="right" for="defaultForm-pass">Phone</label>
                         </div>
                         <div class="md-form mb-4">
-                            <input type="password" name="txtImage" class="form-control validate">
+                            <input type="email" name="txtEmail" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Email</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <input type="text" name="txtImage" class="form-control validate">
                             <label data-error="wrong" data-success="right" for="defaultForm-pass">Avatar</label>
                         </div>
                     </div>
@@ -241,17 +252,19 @@
               EmployeeDAO edao = new EmployeeDAO();
               
               if(userId != null) {
-                  udao.delete(Integer.parseInt(request.getParameter("userId")));
+//                  udao.delete(Integer.parseInt(request.getParameter("userId")));
 //                  cdao.delete(Integer.parseInt(request.getParameter("userId")));
 //                  edao.delete(Integer.parseInt(request.getParameter("userId")));
               }
                 
+              int a = udao.insert("ad888bc", "123", "staff");
+              out.print(a);
+              System.out.println("EEEEE" + a);
               out.print(userId);
                 
             %>
             
-            
-        
+    
         <%@include file="components/footer.jsp" %>
     </body>
 </html>

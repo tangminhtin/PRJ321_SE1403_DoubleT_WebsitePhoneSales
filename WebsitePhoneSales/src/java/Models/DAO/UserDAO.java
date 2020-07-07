@@ -34,33 +34,38 @@ public class UserDAO {
         users = new ArrayList<>();
     }
 
-    public boolean insert(String userName, String userPassword) {
-        try {
-            String sql = "INSERT INTO `user`(`userName`, `userPassword`) VALUES (?, MD5(?))";
-            PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, userName);
-            pst.setString(2, userPassword);
-            return pst.execute();
+//    public boolean insert(String userName, String userPassword) {
+//        try {
+//            String sql = "INSERT INTO `user`(`userName`, `userPassword`) VALUES (?, MD5(?))";
+//            PreparedStatement pst = connection.prepareStatement(sql);
+//            pst.setString(1, userName);
+//            pst.setString(2, userPassword);
+//            return pst.execute();
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return false;
+//    }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    public boolean insert(String userName, String userPassword, String userRole) {
+    public int insert(String userName, String userPassword, String userRole) {
         try {
             String sql = "INSERT INTO `user`(`userName`, `userPassword`, `userRole`) VALUES (?, MD5(?), ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, userName);
             pst.setString(2, userPassword);
             pst.setString(3, userRole);
-            return pst.execute();
+            pst.execute();
+            
+            rs = pst.executeQuery("SELECT * FROM `user`");
+            if(rs.last()) {
+                return rs.getInt("userId");
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return -1;
     }
 
     public boolean update(String userName, String userPassword, String userRole, int userId) {
