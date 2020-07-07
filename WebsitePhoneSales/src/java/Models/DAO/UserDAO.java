@@ -84,8 +84,8 @@ public class UserDAO {
             String sql = "DELETE FROM `user` WHERE `userId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, userId);
-
             pst.execute();
+//            load();
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

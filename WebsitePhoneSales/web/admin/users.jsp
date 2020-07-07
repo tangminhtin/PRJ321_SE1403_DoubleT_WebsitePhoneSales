@@ -4,6 +4,8 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.DAO.EmployeeDAO"%>
+<%@page import="Models.DAO.CustomerDAO"%>
 <%@page import="Models.Entites.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
@@ -45,7 +47,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <button type="button" class="btn btn-success px-3"><i class="fas fa-plus"></i> Add user</button>
+                                    <button type="button" class="btn btn-success px-3" data-toggle="modal" data-target="#modalLoginForm"><i class="fas fa-plus"></i> Add user</button>
                                     <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -157,14 +159,98 @@
             </div>
         </div>
             
+            
+            <!--Add User-->
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Add New User</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <input type="email" name="txtUsername" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">Username</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <input type="password" name="txtPassword" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <input type="password" name="txtConfirmPassword" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Confirm password</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <input type="password" name="txtFullname" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Full name</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <input type="password" name="txtAddress" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Address</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <input type="password" name="txtPhone" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Phone</label>
+                        </div>
+                        <div class="md-form mb-4">
+                            <input type="password" name="txtImage" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Avatar</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <form action="../UserController" method="POST">
+                            <button class="btn btn-default">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <%
               String userId = request.getParameter("userId");
+              UserDAO udao = new UserDAO();
+              CustomerDAO cdao = new CustomerDAO();
+              EmployeeDAO edao = new EmployeeDAO();
+              
               if(userId != null) {
-                  out.print(userId);
+                  udao.delete(Integer.parseInt(request.getParameter("userId")));
+//                  cdao.delete(Integer.parseInt(request.getParameter("userId")));
+//                  edao.delete(Integer.parseInt(request.getParameter("userId")));
               }
                 
+              out.print(userId);
                 
             %>
+            
+            
         
         <%@include file="components/footer.jsp" %>
     </body>

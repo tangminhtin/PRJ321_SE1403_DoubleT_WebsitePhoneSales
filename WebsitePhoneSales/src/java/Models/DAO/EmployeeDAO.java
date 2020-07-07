@@ -66,5 +66,35 @@ public class EmployeeDAO {
 //        return matchUser;
 //    }
 
+    public boolean insert(String employeeFullname, String employeeAddress, String employeePhone, String employeeEmail, String employeeImage, int userId) {
+        try {
+            String sql = "INSERT INTO `employee`(`employeeFullname`, `employeeAddress`, `employeePhone`, `employeeEmail`, `employeeImage`, `userId`) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, employeeFullname);
+            pst.setString(2, employeeAddress);
+            pst.setString(3, employeePhone);
+            pst.setString(4, employeeEmail);
+            pst.setString(5, employeeImage);
+            pst.setInt(6, userId);
+            return pst.execute();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean delete(int userId) {
+        try {
+            String sql = "DELETE FROM `employee` WHERE `userId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, userId);
+            pst.execute();
+            load();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
    
 }

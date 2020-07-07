@@ -100,7 +100,18 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String user = request.getParameter("txtUsername");
+        String pass = request.getParameter("txtPassword");
+        String confirm = request.getParameter("txtConfirmPassword");
+        String fullname = request.getParameter("txtFullname");
+        String address = request.getParameter("txtAddress");
+        String phone = request.getParameter("txtPhone");
+        String image = request.getParameter("txtImage");
+        
+        
+        
+        
+//        processRequest(request, response);
     }
 
     /**
