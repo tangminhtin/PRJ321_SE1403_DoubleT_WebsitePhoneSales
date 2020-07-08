@@ -68,54 +68,57 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${users}" var="u">
-                                                <c:forEach items="${employees}" var="e">
-                                                    <c:if test="${u.userId == e.userId && u.userRole == 'staff'}">
-                                                        <tr>
-                                                            <td>${e.employeeFullname}
-                                                            <td>${e.employeeAddress}</td>
-                                                            <td>${e.employeePhone}</td>
-                                                            <td>${e.employeeEmail}</td>
-                                                            <td>
-                                                                <img src="${e.employeeImage}" width="50px" height="50px" class="rounded float-left" alt="Avatar">
-                                                            </td>
-                                                            <td>${u.userRole}</td>
-                                                            <td>
-                                                                
-                                                                    <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td>
-                                                                <a href="./users.jsp?userId=${u.userId}">
-                                                                    <button type="button" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </c:if>
-                                                </c:forEach>
-                                               
-                                                <c:forEach items="${customers}" var="c">
-                                                    <c:if test="${u.userId == c.userId && u.userRole == 'customer'}">
-                                                        <tr>
-                                                            <td>${c.customerFullname}
-                                                            <td>${c.customerAddress}</td>
-                                                            <td>${c.customerPhone}</td>
-                                                            <td>${c.customerEmail}</td>
-                                                            <td>
-                                                                <img src="${c.customerImage}" width="50px" height="50px" class="rounded float-left" alt="Avatar">
-                                                            </td>
-                                                            <td>${u.userRole}</td>
-                                                            <td><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></td>
-                                                            <td>
-                                                                <a href="./users.jsp?userId=${u.userId}">
-                                                                    <button type="button" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </c:if>
-                                                </c:forEach>
-                                                        
-                                            </c:forEach>
+                                            
+                                                <c:forEach items="${users}" var="u">
+                                                    <c:forEach items="${employees}" var="e">
+                                                        <c:if test="${u.userId == e.userId && u.userRole == 'staff'}">
+                                                            <tr>
+                                                                <td>${e.employeeFullname}
+                                                                <td>${e.employeeAddress}</td>
+                                                                <td>${e.employeePhone}</td>
+                                                                <td>${e.employeeEmail}</td>
+                                                                <td>
+                                                                    <img src="${e.employeeImage}" width="50px" height="50px" class="rounded float-left" alt="Avatar">
+                                                                </td>
+                                                                <td>${u.userRole}</td>
+                                                                <td>
 
+                                                                        <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button>
+                                                                </td>
+                                                                <td>
+                                                                    <form action="../UserController" method="GET">
+                                                                        <!--<a href="./users.jsp?userId=${u.userId}">-->
+                                                                            <button name="deleteUserId" value="${u.userId}" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
+                                                                        <!--</a>-->
+                                                                    </form>    
+                                                                </td>
+                                                            </tr>
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                    <c:forEach items="${customers}" var="c">
+                                                        <c:if test="${u.userId == c.userId && u.userRole == 'customer'}">
+                                                            <tr>
+                                                                <td>${c.customerFullname}
+                                                                <td>${c.customerAddress}</td>
+                                                                <td>${c.customerPhone}</td>
+                                                                <td>${c.customerEmail}</td>
+                                                                <td>
+                                                                    <img src="${c.customerImage}" width="50px" height="50px" class="rounded float-left" alt="Avatar">
+                                                                </td>
+                                                                <td>${u.userRole}</td>
+                                                                <td><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></td>
+                                                                <td>
+                                                                    <a href="./users.jsp?userId=${u.userId}">
+                                                                        <button type="button" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                </c:forEach>
+                                            
                                             
                                         </tbody>
                                     </table>
@@ -168,58 +171,58 @@
             
             
             <!--Add User-->
-        <div class="modal fade" id="modalAddUserForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Add New User</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <div class="md-form mb-5">
-                            <input type="text" name="txtUsername" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-email">Username</label>
+            <form action="../UserController" method="POST">
+                <div class="modal fade" id="modalAddUserForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Add New User</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-3">
+                                <div class="md-form mb-5">
+                                    <input type="text" name="txtUsername" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-email">Username</label>
+                                </div>
+                                <div class="md-form mb-4">
+                                    <input type="password" name="txtPassword" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                                </div>
+                                <div class="md-form mb-4">
+                                    <input type="password" name="txtConfirmPassword" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Confirm password</label>
+                                </div>
+                                <div class="md-form mb-4">
+                                    <input type="text" name="txtFullname" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Full name</label>
+                                </div>
+                                <div class="md-form mb-4">
+                                    <input type="text" name="txtAddress" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Address</label>
+                                </div>
+                                <div class="md-form mb-4">
+                                    <input type="text" name="txtPhone" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Phone</label>
+                                </div>
+                                <div class="md-form mb-4">
+                                    <input type="email" name="txtEmail" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Email</label>
+                                </div>
+                                <div class="md-form mb-4">
+                                    <input type="text" name="txtImage" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Avatar</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button class="btn btn-default">Add</button>
+                            </div>
                         </div>
-                        <div class="md-form mb-4">
-                            <input type="password" name="txtPassword" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
-                        </div>
-                        <div class="md-form mb-4">
-                            <input type="password" name="txtConfirmPassword" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Confirm password</label>
-                        </div>
-                        <div class="md-form mb-4">
-                            <input type="text" name="txtFullname" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Full name</label>
-                        </div>
-                        <div class="md-form mb-4">
-                            <input type="text" name="txtAddress" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Address</label>
-                        </div>
-                        <div class="md-form mb-4">
-                            <input type="text" name="txtPhone" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Phone</label>
-                        </div>
-                        <div class="md-form mb-4">
-                            <input type="email" name="txtEmail" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Email</label>
-                        </div>
-                        <div class="md-form mb-4">
-                            <input type="text" name="txtImage" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Avatar</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <form action="../UserController" method="POST">
-                            <button class="btn btn-default">Add</button>
-                        </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </form>
 
       
 
@@ -255,13 +258,14 @@
 //                  udao.delete(Integer.parseInt(request.getParameter("userId")));
 //                  cdao.delete(Integer.parseInt(request.getParameter("userId")));
 //                  edao.delete(Integer.parseInt(request.getParameter("userId")));
+                out.print(userId);
               }
                 
-              int a = udao.insert("ad888bc", "123", "staff");
-              out.print(a);
-              System.out.println("EEEEE" + a);
-              out.print(userId);
-                
+//              int a = udao.insert("ad888bc", "123", "staff");
+//              out.print(a);
+//              System.out.println("EEEEE" + a);
+//              out.print(userId);
+
             %>
             
     

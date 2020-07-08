@@ -32,6 +32,7 @@ public class UserDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         users = new ArrayList<>();
+        load();
     }
 
 //    public boolean insert(String userName, String userPassword) {
@@ -56,7 +57,7 @@ public class UserDAO {
             pst.setString(2, userPassword);
             pst.setString(3, userRole);
             pst.execute();
-            
+            load();
             rs = pst.executeQuery("SELECT * FROM `user`");
             if(rs.last()) {
                 return rs.getInt("userId");
@@ -90,7 +91,7 @@ public class UserDAO {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, userId);
             pst.execute();
-//            load();
+            load();
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -188,20 +189,23 @@ public class UserDAO {
     }
 
     public ArrayList<User> getUsers() {
+        return users;
+    }
+    
+    public void load() {
         try {
             String sql = "SELECT * FROM `user`";
             pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
+            users.clear();
             while (rs.next()) {
                 users.add(new User(rs.getInt("userId"), rs.getString("userName"),
                         rs.getString("userPassword"), rs.getString("userRole")));
             }
-            return users;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return null;
     }
 
 }

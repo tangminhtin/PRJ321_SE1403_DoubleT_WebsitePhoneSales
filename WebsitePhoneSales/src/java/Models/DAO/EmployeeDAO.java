@@ -76,7 +76,9 @@ public class EmployeeDAO {
             pst.setString(4, employeeEmail);
             pst.setString(5, employeeImage);
             pst.setInt(6, userId);
-            return pst.execute();
+            pst.execute();
+            load();
+            return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
