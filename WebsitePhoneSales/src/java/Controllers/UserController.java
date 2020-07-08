@@ -119,7 +119,12 @@ public class UserController extends HttpServlet {
         String deleteUserId = request.getParameter("deleteUserId"); 
             if(deleteUserId != null) {
                 int userId = Integer.parseInt(deleteUserId);
-                edao.delete(userId);
+                String role = udao.getRoleByUserId(userId);
+                if(role.equals("staff")) {
+                    edao.delete(userId);
+                } else if(role.equals("customer")) {
+                    cdao.delete(userId);
+                }
                 udao.delete(userId);
             } 
         processRequest(request, response);

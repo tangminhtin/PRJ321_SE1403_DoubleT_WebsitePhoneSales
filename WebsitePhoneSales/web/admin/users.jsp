@@ -82,14 +82,11 @@
                                                                 </td>
                                                                 <td>${u.userRole}</td>
                                                                 <td>
-
-                                                                        <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button>
+                                                                    <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button>
                                                                 </td>
                                                                 <td>
                                                                     <form action="../UserController" method="GET">
-                                                                        <!--<a href="./users.jsp?userId=${u.userId}">-->
-                                                                            <button name="deleteUserId" value="${u.userId}" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
-                                                                        <!--</a>-->
+                                                                        <button name="deleteUserId" value="${u.userId}" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
                                                                     </form>    
                                                                 </td>
                                                             </tr>
@@ -109,17 +106,14 @@
                                                                 <td>${u.userRole}</td>
                                                                 <td><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></td>
                                                                 <td>
-                                                                    <a href="./users.jsp?userId=${u.userId}">
-                                                                        <button type="button" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
-                                                                    </a>
+                                                                    <form action="../UserController" method="GET">
+                                                                        <button name="deleteUserId" value="${c.userId}" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
+                                                                    </form>          
                                                                 </td>
                                                             </tr>
                                                         </c:if>
                                                     </c:forEach>
-
                                                 </c:forEach>
-                                            
-                                            
                                         </tbody>
                                     </table>
                                 </div>

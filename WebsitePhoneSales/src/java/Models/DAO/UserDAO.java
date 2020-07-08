@@ -207,5 +207,14 @@ public class UserDAO {
         }
 
     }
+    
+    public String getRoleByUserId(int userId) {
+       for(User u: users) {
+           if(u.getUserId() == userId) {
+               return u.getUserRole();
+           }
+       }
+       return null;
+    }
 
 }

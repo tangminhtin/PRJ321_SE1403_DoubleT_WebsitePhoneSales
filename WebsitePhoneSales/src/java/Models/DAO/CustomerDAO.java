@@ -64,7 +64,9 @@ public class CustomerDAO {
             pst.setString(4, customerEmail);
             pst.setString(5, customerImage);
             pst.setInt(6, userId);
-            return pst.execute();
+            pst.execute();
+            load();
+            return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
