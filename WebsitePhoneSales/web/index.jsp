@@ -31,19 +31,19 @@
                     ArrayList<PhoneDetail> phoneDetails = new ArrayList<>();
                     phoneDAO phonedao = new phoneDAO();
                     phoneDetailDAO phoneDetailDaos = new phoneDetailDAO();
-                    
+
                     phones = phonedao.getAllPhone();
                     int k = 0;
-                    
+
                     for (Phone p : phones) {
-                        int phoneDetailId = p.getPhoneDetailId();
-                            phoneDetails = phoneDetailDaos.getPhoneById(1);
+//                        int phoneId = p.getPhoneId();
+//                        phoneDetails.add(phoneDetailDaos.getPhoneById(phoneId));
                         if (k >= 4) {
-                                break;
-                            }
-                            k++;
-                            
-                         
+                            break;
+                        }
+                        k++;
+
+
                 %>
                 <div class="col">
                     <div class="card h-100">
@@ -67,8 +67,39 @@
                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
                             <!--<button type="button" class="btn btn-light-blue btn-md">View details</button>-->
                             <!--                            ------------------------------------>
-                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#modalQuickView">View details</button>
+                            <input type="hidden" id="hack" name="phoneIdNe" />
+                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#modalQuickView" value="<%=p.getPhoneId()%>">View details</button>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+                            <script>
+//                                var phoneId = $("button").val();
+<%
+                                $("button").click(function () {
+                                    var phoneId = $(this).val();
+                                    window.location.replace("index.jsp?phoneId=" + phoneId);
+                                request.setAttribute("phoneId", phoneId); 
+
+
+                                })
+
+                            </script>
+
+<!--                            <script language="javascript" type="text/javascript">
+                                function call() {
+                                    var name = "xyz";
+                                    window.location.replace("a.jsp?name=" + name);
+                                }
+                            </script>
+                            <input type="button" value="Get" onclick='call()'>-->
+                            <%
+                                String phoneId = request.getParameter("phoneId");
+                                if (phoneId != null) {
+                                    out.println(phoneId);
+                                }
+                            %>
+
                             <!-- Modal: modalQuickView -->
+
+
                             <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
@@ -83,21 +114,21 @@
                                                         <div class="carousel-inner" role="listbox">
                                                             <div class="carousel-item active">
                                                                 <img class="d-block w-100"
-                                                                     src="<%=phoneDetails.get(1).getPhoneDetailImage()%>"
+                                                                     src="<%=phoneDetailDaos.getPhoneById(p.getPhoneDetailId()).getPhoneDetailImage()%>"
                                                                      alt="First slide">
                                                             </div>
                                                         </div>
                                                         <!--/.Slides-->
-                                                        <!--Controls-->
-<!--                                                        <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
+                                                        Controls
+                                                        <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
                                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                             <span class="sr-only">Previous</span>
                                                         </a>
                                                         <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
                                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                             <span class="sr-only">Next</span>
-                                                        </a>-->
-                                                       
+                                                        </a>
+
                                                     </div>
                                                     <!--/.Carousel Wrapper-->
                                                 </div>
@@ -109,11 +140,11 @@
                                                         <span class="green-text">
                                                             <strong><%=p.getPhonePrice()%></strong>
                                                         </span>
-<!--                                                        <span class="grey-text">
-                                                            <small>
-                                                                <s>$89</s>
-                                                            </small>
-                                                        </span>-->
+                                                        <!--                                                        <span class="grey-text">
+                                                                                                                    <small>
+                                                                                                                        <s>$89</s>
+                                                                                                                    </small>
+                                                                                                                </span>-->
                                                     </h4>
 
                                                     <!--Accordion wrapper-->
@@ -136,9 +167,7 @@
                                                             <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
-                                                                    <%=
-                                                                    phoneDetails.get(1).getPhoneDetailDescription()
-                                                                    %>
+                                                                    <%=phoneDetailDaos.getPhoneById(p.getPhoneDetailId()).getPhoneDetailDescription()%>
                                                                 </div>
                                                             </div>
 
@@ -162,9 +191,7 @@
                                                             <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
-                                                                 <%=
-                                                                 phoneDetails.get(1).getPhoneDetailVideo()
-                                                                 %>
+                                                                    <%=p.getPhoneName()%>
                                                                 </div>
                                                             </div>
 
@@ -188,14 +215,12 @@
                                                             <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
-                                                                      <%=
-                                                                      phoneDetails.get(1).getPhoneDetailSpecialFeatures()
-                                                                      %>
+                                                                    <%=p.getPhoneName()%>
                                                                 </div>
                                                             </div>
 
                                                         </div>
-                                                         <div class="card">
+                                                        <div class="card">
 
                                                             <!-- Card header -->
                                                             <div class="card-header" role="tab" id="headingThree3">
@@ -211,9 +236,7 @@
                                                             <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
-                                                                    <%=
-                                                                     phoneDetails.get(1).getDisplayId()
-                                                                    %>
+                                                                    <%=p.getPhoneName()%>
                                                                 </div>
                                                             </div>
 
@@ -235,86 +258,14 @@
                                                             <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
-                                                                    <%=
-                                                                    phoneDetails.get(1).getBodyId()
-                                                                    %>
+                                                                    <%=p.getPhoneName()%>
                                                                 </div>
                                                             </div>
 
                                                         </div>
-                                                        <!-- Accordion card -->
-                                                        <div class="card">
 
-                                                            <!-- Card header -->
-                                                            <div class="card-header" role="tab" id="headingThree3">
-                                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
-                                                                   aria-expanded="false" aria-controls="collapseThree3">
-                                                                    <h5 class="mb-0">
-                                                                        Display <i class="fas fa-angle-down rotate-icon"></i>
-                                                                    </h5>
-                                                                </a>
-                                                            </div>
 
-                                                            <!-- Card body -->
-                                                            <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
-                                                                 data-parent="#accordionEx">
-                                                                <div class="card-body">
-                                                                    <%=
-                                                                    phoneDetails.get(1).getDisplayId()
-                                                                    %>
-                                                                </div>
-                                                            </div>
 
-                                                        </div>
-                                                        <!-- Accordion card -->
-                                                        <div class="card">
-
-                                                            <!-- Card header -->
-                                                            <div class="card-header" role="tab" id="headingThree3">
-                                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
-                                                                   aria-expanded="false" aria-controls="collapseThree3">
-                                                                    <h5 class="mb-0">
-                                                                        Display <i class="fas fa-angle-down rotate-icon"></i>
-                                                                    </h5>
-                                                                </a>
-                                                            </div>
-
-                                                            <!-- Card body -->
-                                                            <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
-                                                                 data-parent="#accordionEx">
-                                                                <div class="card-body">
-                                                                    <%=
-                                                                    phoneDetails.get(1).getDisplayId()
-                                                                    %>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <!-- Accordion card -->
-                                                        <div class="card">
-
-                                                            <!-- Card header -->
-                                                            <div class="card-header" role="tab" id="headingThree3">
-                                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
-                                                                   aria-expanded="false" aria-controls="collapseThree3">
-                                                                    <h5 class="mb-0">
-                                                                        Display <i class="fas fa-angle-down rotate-icon"></i>
-                                                                    </h5>
-                                                                </a>
-                                                            </div>
-
-                                                            <!-- Card body -->
-                                                            <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
-                                                                 data-parent="#accordionEx">
-                                                                <div class="card-body">
-                                                                    <%=
-                                                                    phoneDetails.get(1).getDisplayId()
-                                                                    %>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <!-- Accordion card -->
 
                                                     </div>
                                                     <!-- Accordion wrapper -->
@@ -334,17 +285,7 @@
                                                                 <label>Select color</label>
 
                                                             </div>
-                                                            <div class="col-md-6">
 
-                                                                <select class="md-form mdb-select colorful-select dropdown-primary">
-                                                                    <option value="" disabled selected>Choose your option</option>
-                                                                    <option value="1">XS</option>
-                                                                    <option value="2">S</option>
-                                                                    <option value="3">L</option>
-                                                                </select>
-                                                                <label>Select size</label>
-
-                                                            </div>
                                                         </div>
                                                         <div class="text-center">
 
@@ -370,7 +311,7 @@
                 </div>
 
                 <% }
-                    %>
+                %>
             </div>
         </div>
 
@@ -383,7 +324,6 @@
                 <!-- Grid row -->
                 <div class="row">
                     <%
-
                         phones = phonedao.getAllPhone();
                         k = 0;
                         for (int i = phones.size() - 1; i >= 0; i--) {
