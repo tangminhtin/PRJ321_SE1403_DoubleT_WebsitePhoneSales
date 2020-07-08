@@ -72,30 +72,28 @@
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
                             <script>
 //                                var phoneId = $("button").val();
-<%
+
+//                                $("button").click(function () {
+//                                    var phoneId = $(this).val();
+////                                    window.location.replace("index.jsp?phoneId=" + phoneId);
+//                                request.setAttribute("phoneId", phoneId); 
+//                                alert(phoneId);
+//
+//                                })
                                 $("button").click(function () {
                                     var phoneId = $(this).val();
-                                    window.location.replace("index.jsp?phoneId=" + phoneId);
-                                request.setAttribute("phoneId", phoneId); 
-
-
-                                })
-
+                                    sessionStorage.setItem("phoneId", phoneId);
+                                });
                             </script>
 
-<!--                            <script language="javascript" type="text/javascript">
-                                function call() {
-                                    var name = "xyz";
-                                    window.location.replace("a.jsp?name=" + name);
-                                }
-                            </script>
-                            <input type="button" value="Get" onclick='call()'>-->
-                            <%
-                                String phoneId = request.getParameter("phoneId");
-                                if (phoneId != null) {
-                                    out.println(phoneId);
-                                }
-                            %>
+                            <!--                            <script language="javascript" type="text/javascript">
+                                                            function call() {
+                                                                var name = "xyz";
+                                                                window.location.replace("a.jsp?name=" + name);
+                                                            }
+                                                        </script>
+                                                        <input type="button" value="Get" onclick='call()'>-->
+
 
                             <!-- Modal: modalQuickView -->
 
@@ -558,6 +556,15 @@
             </section>
             <!--Section: Content-->
         </div>
+        <%
+            //session.setAttribute("SSS", "dd");
+            String phoneId = (String) session.getAttribute("phoneId");
+            if (phoneId != null) {
+                out.println(phoneId);
+            } else {
+                System.out.println("nooooooooo");
+            }
+        %>
 
 
         <%@include file="components/footer.jsp" %>
