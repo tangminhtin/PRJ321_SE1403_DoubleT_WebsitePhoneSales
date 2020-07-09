@@ -5,14 +5,11 @@
  */
 package Models.DAO;
 
-import Models.Entites.Body;
-import Models.Entites.Comment;
 import Models.Entites.Display;
 import Models.Entites.Phone;
 import Models.Entites.PhoneDetail;
-import Models.Entites.Storage;
+import Models.Entites.Platform;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,36 +21,36 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class commentDAO {
+public class PlatformDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
-    ArrayList<Comment> comment;
+    ArrayList<Platform> platform;
 
-    public commentDAO() {
+    public PlatformDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
-        comment = new ArrayList<>();
+        platform = new ArrayList<>();
     }
 
-    public ArrayList<Comment> getAllPhone(int commentId) {
+    public ArrayList<Platform> getAllPhone() {
         try {
-            String sql = "SELECT * FROM `comment` WHERE `commentId`=?";
+            String sql = "SELECT * FROM `platform`";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, commentId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                commentId = rs.getInt("commentId");
-                String commentContent = rs.getString("commentContent");
-                Date commentDate = rs.getDate("commentDate");
-                int customerId = rs.getInt("customerId");
-            
-               comment.add(new Comment(commentId, commentContent, commentDate, customerId));
+                int platformId = rs.getInt("platformId");
+                String platformOS = rs.getString("platformOS");
+                String platformChipset = rs.getString("platformChipset");
+                String platformCPU = rs.getString("platformCPU");
+                String platformGPU = rs.getString("platformGPU");
+                
+               platform.add(new Platform(platformId, platformOS, platformChipset, platformCPU, platformGPU));
             }
-            return comment;
+            return platform;
         } catch (SQLException ex) {
-            Logger.getLogger(commentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlatformDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

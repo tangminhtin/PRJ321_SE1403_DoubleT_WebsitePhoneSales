@@ -4,9 +4,11 @@
     Author     : phuct
 --%>
 
-<%@page import="Models.DAO.phoneDetailDAO"%>
+<%@page import="Models.DAO.PhoneDetailDAO"%>
+<%@page import="Models.DAO.PhoneDAO"%>
+<%@page import="Models.DAO.PhoneDetailDAO"%>
 <%@page import="Models.Entites.PhoneDetail"%>
-<%@page import="Models.DAO.phoneDAO"%>
+<%@page import="Models.DAO.PhoneDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Entites.Phone"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -29,8 +31,8 @@
                 <%
                     ArrayList<Phone> phones = new ArrayList<>();
                     ArrayList<PhoneDetail> phoneDetails = new ArrayList<>();
-                    phoneDAO phonedao = new phoneDAO();
-                    phoneDetailDAO phoneDetailDaos = new phoneDetailDAO();
+                    PhoneDAO phonedao = new PhoneDAO();
+                    PhoneDetailDAO phoneDetailDaos = new PhoneDetailDAO();
 
                     phones = phonedao.getAllPhone();
                     int k = 0;
@@ -64,11 +66,18 @@
                             <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
                             <!--Text-->
                             <p class="card-text"><%=p.getPhoneShortDescription()%></p>
+                            
+                           
+                            
+                            
                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                            <!--<button type="button" class="btn btn-light-blue btn-md">View details</button>-->
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>" target="_blank"><button type="button"class="btn btn-light-blue btn-md">View details</button></a>
                             <!--                            ------------------------------------>
-                            <input type="hidden" id="hack" name="phoneIdNe" />
-                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#modalQuickView" value="<%=p.getPhoneId()%>">View details</button>
+                            <!--<input type="hidden" id="hack" name="phoneIdNe" />-->
+
+
+<!--                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#modalQuickView" value="<%=p.getPhoneId()%>">View details</button>
+
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
                             <script>
 //                                var phoneId = $("button").val();
@@ -83,20 +92,11 @@
                                 $("button").click(function () {
                                     var phoneId = $(this).val();
                                     sessionStorage.setItem("phoneId", phoneId);
+
+
                                 });
                             </script>
-
-                            <!--                            <script language="javascript" type="text/javascript">
-                                                            function call() {
-                                                                var name = "xyz";
-                                                                window.location.replace("a.jsp?name=" + name);
-                                                            }
-                                                        </script>
-                                                        <input type="button" value="Get" onclick='call()'>-->
-
-
-                            <!-- Modal: modalQuickView -->
-
+                             Modal: modalQuickView 
 
                             <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
@@ -105,10 +105,10 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col-lg-5">
-                                                    <!--Carousel Wrapper-->
+                                                    Carousel Wrapper
                                                     <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails"
                                                          data-ride="carousel">
-                                                        <!--Slides-->
+                                                        Slides
                                                         <div class="carousel-inner" role="listbox">
                                                             <div class="carousel-item active">
                                                                 <img class="d-block w-100"
@@ -116,7 +116,7 @@
                                                                      alt="First slide">
                                                             </div>
                                                         </div>
-                                                        <!--/.Slides-->
+                                                        /.Slides
                                                         Controls
                                                         <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
                                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -128,7 +128,7 @@
                                                         </a>
 
                                                     </div>
-                                                    <!--/.Carousel Wrapper-->
+                                                    /.Carousel Wrapper
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <h2 class="h2-responsive product-name">
@@ -138,20 +138,20 @@
                                                         <span class="green-text">
                                                             <strong><%=p.getPhonePrice()%></strong>
                                                         </span>
-                                                        <!--                                                        <span class="grey-text">
+                                                                                                                <span class="grey-text">
                                                                                                                     <small>
                                                                                                                         <s>$89</s>
                                                                                                                     </small>
-                                                                                                                </span>-->
+                                                                                                                </span>
                                                     </h4>
 
-                                                    <!--Accordion wrapper-->
+                                                    Accordion wrapper
                                                     <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
-                                                        <!-- Accordion card -->
+                                                         Accordion card 
                                                         <div class="card">
 
-                                                            <!-- Card header -->
+                                                             Card header 
                                                             <div class="card-header" role="tab" id="headingOne1">
                                                                 <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
                                                                    aria-controls="collapseOne1">
@@ -161,7 +161,7 @@
                                                                 </a>
                                                             </div>
 
-                                                            <!-- Card body -->
+                                                             Card body 
                                                             <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
@@ -170,12 +170,12 @@
                                                             </div>
 
                                                         </div>
-                                                        <!-- Accordion card -->
+                                                         Accordion card 
 
-                                                        <!-- Accordion card -->
+                                                         Accordion card 
                                                         <div class="card">
 
-                                                            <!-- Card header -->
+                                                             Card header 
                                                             <div class="card-header" role="tab" id="headingTwo2">
                                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
                                                                    aria-expanded="false" aria-controls="collapseTwo2">
@@ -185,7 +185,7 @@
                                                                 </a>
                                                             </div>
 
-                                                            <!-- Card body -->
+                                                             Card body 
                                                             <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
@@ -194,12 +194,12 @@
                                                             </div>
 
                                                         </div>
-                                                        <!-- Accordion card -->
+                                                         Accordion card 
 
-                                                        <!-- Accordion card -->
+                                                         Accordion card 
                                                         <div class="card">
 
-                                                            <!-- Card header -->
+                                                             Card header 
                                                             <div class="card-header" role="tab" id="headingThree3">
                                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
                                                                    aria-expanded="false" aria-controls="collapseThree3">
@@ -209,7 +209,7 @@
                                                                 </a>
                                                             </div>
 
-                                                            <!-- Card body -->
+                                                             Card body 
                                                             <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
@@ -220,7 +220,7 @@
                                                         </div>
                                                         <div class="card">
 
-                                                            <!-- Card header -->
+                                                             Card header 
                                                             <div class="card-header" role="tab" id="headingThree3">
                                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
                                                                    aria-expanded="false" aria-controls="collapseThree3">
@@ -230,7 +230,7 @@
                                                                 </a>
                                                             </div>
 
-                                                            <!-- Card body -->
+                                                             Card body 
                                                             <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
@@ -239,10 +239,10 @@
                                                             </div>
 
                                                         </div>
-                                                        <!-- Accordion card -->
+                                                         Accordion card 
                                                         <div class="card">
 
-                                                            <!-- Card header -->
+                                                             Card header 
                                                             <div class="card-header" role="tab" id="headingThree3">
                                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
                                                                    aria-expanded="false" aria-controls="collapseThree3">
@@ -252,7 +252,7 @@
                                                                 </a>
                                                             </div>
 
-                                                            <!-- Card body -->
+                                                             Card body 
                                                             <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
                                                                  data-parent="#accordionEx">
                                                                 <div class="card-body">
@@ -266,10 +266,10 @@
 
 
                                                     </div>
-                                                    <!-- Accordion wrapper -->
+                                                     Accordion wrapper 
 
 
-                                                    <!-- Add to Cart -->
+                                                     Add to Cart 
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
@@ -293,13 +293,13 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <!-- /.Add to Cart -->
+                                                     /.Add to Cart 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
 
                         </div>
@@ -556,15 +556,7 @@
             </section>
             <!--Section: Content-->
         </div>
-        <%
-            //session.setAttribute("SSS", "dd");
-            String phoneId = (String) session.getAttribute("phoneId");
-            if (phoneId != null) {
-                out.println(phoneId);
-            } else {
-                System.out.println("nooooooooo");
-            }
-        %>
+
 
 
         <%@include file="components/footer.jsp" %>

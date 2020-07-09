@@ -22,14 +22,14 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class storageDAO {
+public class StorageDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
     ArrayList<Storage> storage;
 
-    public storageDAO() {
+    public StorageDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         storage = new ArrayList<>();
@@ -50,7 +50,7 @@ public class storageDAO {
             }
             return storage;
         } catch (SQLException ex) {
-            Logger.getLogger(storageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StorageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

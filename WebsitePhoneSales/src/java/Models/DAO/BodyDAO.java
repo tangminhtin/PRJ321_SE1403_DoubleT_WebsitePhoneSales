@@ -5,9 +5,10 @@
  */
 package Models.DAO;
 
+import Models.Entites.Body;
+import Models.Entites.Display;
 import Models.Entites.Phone;
 import Models.Entites.PhoneDetail;
-import Models.Entites.SelfieCamera;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,35 +21,36 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class selfieCameraDAO {
+public class BodyDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
-    ArrayList<SelfieCamera> selfieCamera;
+    ArrayList<Body> body;
 
-    public selfieCameraDAO() {
+    public BodyDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
-        selfieCamera = new ArrayList<>();
+        body = new ArrayList<>();
     }
 
-    public ArrayList<SelfieCamera> getAllPhone() {
+    public ArrayList<Body> getAllPhone(int bodyId) {
         try {
-            String sql = "SELECT * FROM `selfiecamera`";
+            String sql = "SELECT * FROM `body` WHERE `bodyId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, bodyId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                int selfieCameraId = rs.getInt("selfieCameraId");
-                String selfieCameraResolution = rs.getString("selfieCameraResolution");
-                String selfieCameraFeatures = rs.getString("selfieCameraFeatures");
-                String selfieCameraVideo = rs.getString("selfieCameraVideo");
-   
-                selfieCamera.add(new SelfieCamera(selfieCameraId, selfieCameraResolution, selfieCameraFeatures, selfieCameraVideo));
+                bodyId = rs.getInt("bodyId");
+                String bodyDimensions = rs.getString("bodyDimensions");
+                String bodyWeight = rs.getString("bodyWeight");
+                String bodyBuild = rs.getString("bodyBuild");
+                
+                body.add(new Body(bodyId, bodyDimensions, bodyWeight, bodyBuild));
             }
-            return selfieCamera;
+            return body;
         } catch (SQLException ex) {
-            Logger.getLogger(selfieCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BodyDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

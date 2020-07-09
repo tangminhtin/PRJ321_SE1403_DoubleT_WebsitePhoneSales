@@ -19,14 +19,14 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class phoneDetailDAO {
+public class PhoneDetailDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
     ArrayList<PhoneDetail> phoneDetail;
 
-    public phoneDetailDAO() {
+    public PhoneDetailDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         phoneDetail = new ArrayList<>();
@@ -58,7 +58,7 @@ public class phoneDetailDAO {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(phoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -100,7 +100,7 @@ public class phoneDetailDAO {
 //            }
 //            return phoneDetail;
 //        } catch (SQLException ex) {
-//            Logger.getLogger(phoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        return null;
     }

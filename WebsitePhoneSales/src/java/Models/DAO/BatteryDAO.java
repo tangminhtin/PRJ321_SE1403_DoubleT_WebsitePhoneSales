@@ -5,10 +5,11 @@
  */
 package Models.DAO;
 
+import Models.Entites.Battery;
+import Models.Entites.Body;
 import Models.Entites.Display;
 import Models.Entites.Phone;
 import Models.Entites.PhoneDetail;
-import Models.Entites.Platform;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,36 +22,36 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class platformDAO {
+public class BatteryDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
-    ArrayList<Platform> platform;
+    ArrayList<Battery> battery;
 
-    public platformDAO() {
+    public BatteryDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
-        platform = new ArrayList<>();
+        battery = new ArrayList<>();
     }
 
-    public ArrayList<Platform> getAllPhone() {
+    public ArrayList<Battery> getAllPhone(int batteryId) {
         try {
-            String sql = "SELECT * FROM `platform`";
+            String sql = "SELECT * FROM `battery` WHERE `batteryId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, batteryId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                int platformId = rs.getInt("platformId");
-                String platformOS = rs.getString("platformOS");
-                String platformChipset = rs.getString("platformChipset");
-                String platformCPU = rs.getString("platformCPU");
-                String platformGPU = rs.getString("platformGPU");
-                
-               platform.add(new Platform(platformId, platformOS, platformChipset, platformCPU, platformGPU));
+                batteryId = rs.getInt("batteryId");
+                int batteryCapacity = rs.getInt("batteryCapacity");
+                String batteryType = rs.getString("batteryType");
+                String batteryTechnology = rs.getString("batteryTechnology");
+               
+               battery.add(new Battery(batteryId, batteryCapacity, batteryType, batteryTechnology));
             }
-            return platform;
+            return battery;
         } catch (SQLException ex) {
-            Logger.getLogger(platformDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BatteryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

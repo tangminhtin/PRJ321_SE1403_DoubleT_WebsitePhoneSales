@@ -18,14 +18,14 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class phoneDAO {
+public class PhoneDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
     ArrayList<Phone> phone;
 
-    public phoneDAO() {
+    public PhoneDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         phone = new ArrayList<>();
@@ -50,7 +50,7 @@ public class phoneDAO {
             }
             return phone;
         } catch (SQLException ex) {
-            Logger.getLogger(phoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

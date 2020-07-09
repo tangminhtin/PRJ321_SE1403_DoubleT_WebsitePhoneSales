@@ -5,11 +5,9 @@
  */
 package Models.DAO;
 
-import Models.Entites.Battery;
-import Models.Entites.Body;
-import Models.Entites.Display;
 import Models.Entites.Phone;
 import Models.Entites.PhoneDetail;
+import Models.Entites.SelfieCamera;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,36 +20,35 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class batteryDAO {
+public class SelfieCameraDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
-    ArrayList<Battery> battery;
+    ArrayList<SelfieCamera> selfieCamera;
 
-    public batteryDAO() {
+    public SelfieCameraDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
-        battery = new ArrayList<>();
+        selfieCamera = new ArrayList<>();
     }
 
-    public ArrayList<Battery> getAllPhone(int batteryId) {
+    public ArrayList<SelfieCamera> getAllPhone() {
         try {
-            String sql = "SELECT * FROM `battery` WHERE `batteryId`=?";
+            String sql = "SELECT * FROM `selfiecamera`";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, batteryId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                batteryId = rs.getInt("batteryId");
-                int batteryCapacity = rs.getInt("batteryCapacity");
-                String batteryType = rs.getString("batteryType");
-                String batteryTechnology = rs.getString("batteryTechnology");
-               
-               battery.add(new Battery(batteryId, batteryCapacity, batteryType, batteryTechnology));
+                int selfieCameraId = rs.getInt("selfieCameraId");
+                String selfieCameraResolution = rs.getString("selfieCameraResolution");
+                String selfieCameraFeatures = rs.getString("selfieCameraFeatures");
+                String selfieCameraVideo = rs.getString("selfieCameraVideo");
+   
+                selfieCamera.add(new SelfieCamera(selfieCameraId, selfieCameraResolution, selfieCameraFeatures, selfieCameraVideo));
             }
-            return battery;
+            return selfieCamera;
         } catch (SQLException ex) {
-            Logger.getLogger(batteryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SelfieCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

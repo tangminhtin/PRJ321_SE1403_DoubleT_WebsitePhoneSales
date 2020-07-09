@@ -27,7 +27,7 @@
             <div class="ht-right">
                 <a href="./login.jsp" class="login-panel"><i class="fa fa-user"></i>Login</a>
                 <div class="top-social">
-                    <a href="#"><i class="ti-facebook">Double T Shop</i></a>
+                    <a href="https://www.facebook.com/Double-T-Shop-109008594181602/"><i class="ti-facebook">Double T Shop</i></a>
                 </div>
             </div>
         </div>

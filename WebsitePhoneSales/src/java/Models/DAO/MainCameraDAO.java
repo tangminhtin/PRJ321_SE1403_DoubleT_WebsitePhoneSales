@@ -22,38 +22,48 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class mainCameraDAO {
+public class MainCameraDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
     ArrayList<MainCamera> mainCamera;
 
-    public mainCameraDAO() {
+    public MainCameraDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         mainCamera = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<MainCamera> getAllPhone(int mainCameraId) {
+    public void load() {
         try {
-            String sql = "SELECT * FROM `maincamera` WHERE `mainCameraId`=?";
+            String sql = "SELECT * FROM `maincamera`";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, mainCameraId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                mainCameraId = rs.getInt("mainCameraId");
+                int mainCameraId = rs.getInt("mainCameraId");
                 String mainCameraResolution = rs.getString("mainCameraResolution");
                 String mainCameraFeatures = rs.getString("mainCameraFeatures");
                 String mainCameraVideo = rs.getString("mainCameraVideo");
-                
+
                 mainCamera.add(new MainCamera(mainCameraId, mainCameraResolution, mainCameraFeatures, mainCameraVideo));
             }
-            return mainCamera;
         } catch (SQLException ex) {
-            Logger.getLogger(mainCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<MainCamera> getAllPhone() {
+        return mainCamera;
+    }
+
+    public MainCamera getPhoneById(int maincameraId) {
+        for (MainCamera mc : mainCamera) {
+            if (mc.getMainCameraId() == maincameraId) {
+                return mc;
+            }
         }
         return null;
     }
-
 }

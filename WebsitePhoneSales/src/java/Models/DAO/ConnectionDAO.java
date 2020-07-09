@@ -21,14 +21,14 @@ import java.util.logging.Logger;
  *
  * @author phuct
  */
-public class connectionDAO {
+public class ConnectionDAO {
 
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
     ArrayList<Models.Entites.Connection> connArray;
 
-    public connectionDAO() {
+    public ConnectionDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         connArray = new ArrayList<>();
@@ -56,7 +56,7 @@ public class connectionDAO {
             }
             return connArray;
         } catch (SQLException ex) {
-            Logger.getLogger(connectionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
