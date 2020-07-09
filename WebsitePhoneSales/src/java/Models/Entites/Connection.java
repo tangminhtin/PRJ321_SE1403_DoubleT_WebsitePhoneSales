@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Connection {
+public class Connection implements Serializable {
     private int connectionId;
     private String connectionSIM;
     private String connectionMobileNetwork;

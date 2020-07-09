@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Customer {
+public class Customer implements Serializable {
     private int customerId;
     private String customerFullname;
     private String customerAddress;

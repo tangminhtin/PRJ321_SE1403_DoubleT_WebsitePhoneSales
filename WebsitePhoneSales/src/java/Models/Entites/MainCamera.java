@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class MainCamera {
+public class MainCamera implements Serializable {
     private int mainCameraId;
     private String mainCameraResolution;
     private String mainCameraFeatures;

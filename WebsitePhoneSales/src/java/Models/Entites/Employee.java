@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Employee {
+public class Employee implements Serializable{
     private int employeeId;
     private String employeeFullname;
     private String employeeAddress;

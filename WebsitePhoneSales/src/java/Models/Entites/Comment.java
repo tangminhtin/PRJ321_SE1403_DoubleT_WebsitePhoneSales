@@ -5,13 +5,14 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Comment {
+public class Comment implements Serializable {
     private int commentId;
     private String commentContent;
     private Date commentDate;

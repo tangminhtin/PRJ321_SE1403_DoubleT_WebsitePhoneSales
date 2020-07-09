@@ -216,5 +216,28 @@ public class UserDAO {
        }
        return null;
     }
+    
+    
+    public ArrayList<User> getUsersInRange(int start, int limit) {
+        try {
+            ArrayList<User> userLimit = new ArrayList<>();
+            String sql = "SELECT * FROM `user` LIMIT ?, ?";
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, start);
+            pst.setInt(2, limit);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                userLimit.add(new User(rs.getInt("userId"), rs.getString("userName"),
+                        rs.getString("userPassword"), rs.getString("userRole")));
+            }
+            return userLimit;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
+    public int getNumberOfUser() {
+        return users.size();
+    }
 }

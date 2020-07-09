@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Display {
+public class Display implements Serializable {
     private int displayId;
     private String displayType;
     private String displaySize;

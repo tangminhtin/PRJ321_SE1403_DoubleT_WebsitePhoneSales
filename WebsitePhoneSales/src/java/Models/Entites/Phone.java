@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Phone {
+public class Phone implements Serializable {
     private int phoneId;
     private String phoneImage;
     private String phoneName;

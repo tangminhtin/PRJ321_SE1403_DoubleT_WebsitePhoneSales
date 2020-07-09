@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Battery {
+public class Battery implements Serializable{
     private int batteryId;
     private int batteryCapacity;
     private String batteryType;

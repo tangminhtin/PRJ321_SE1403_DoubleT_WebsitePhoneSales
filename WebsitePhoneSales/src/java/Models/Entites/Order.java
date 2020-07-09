@@ -5,13 +5,14 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Order {
+public class Order implements Serializable {
     private int orderId;
     private Date orderDate;
     private int orderQuantity;

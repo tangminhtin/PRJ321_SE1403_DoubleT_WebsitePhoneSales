@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Body {
+public class Body implements Serializable {
     private int bodyId;
     private String bodyDimensions;
     private String bodyWeight;

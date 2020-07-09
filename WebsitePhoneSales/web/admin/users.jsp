@@ -118,6 +118,83 @@
                                     </table>
                                 </div>
                             </div>
+                            
+                            
+                            
+                            
+         
+                            
+            <%
+                int limit = 10; // limit row show
+                UserDAO udao = new UserDAO();
+                int totalRow = udao.getNumberOfUser();
+                int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+                
+                // calculate total page
+                int totalPage = (int) Math.ceil(totalRow/(double)limit);
+                
+                if(currentPage < 1) {
+                    currentPage = 1;
+                } else if (currentPage > totalPage){
+                    currentPage = totalPage;
+                }
+                 
+                int start = (currentPage - 1) * limit;
+                
+                // SELECT * FROM user LIMIT $start, $limit
+                
+                ArrayList<User> users = udao.getUsersInRange(start, limit);            
+                
+                session.setAttribute("users", users);
+            %>
+                            
+                            
+                            
+                            
+<!--Pagination-->                            
+<nav class="container" aria-label="Page navigation example">
+  <ul class="pagination pagination-circle pg-blue">
+    <!--<li class="page-item disabled"><a class="page-link">First</a></li>-->
+    
+    <% if(currentPage > 1 && totalPage > 1) { %>
+            <li class="page-item">
+              <a href="?page=<%=currentPage-1%>" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+    <% } %>
+    
+    <% for(int i=1; i<=totalPage; i++) { %>
+        <% if(i == currentPage) { %>
+            <li class="page-item active"><a class="page-link"><%=i%></a></li>
+        <% } else {%>
+            <li class="page-item"><a class="page-link" href="?page=<%=i%>"><%=i%></a></li>
+        <% } %>
+    <% } %>
+    
+    <% if(currentPage < totalPage && totalPage > 1) { %>
+        <li class="page-item">
+          <a href="?page=<%=currentPage+1%>" class="page-link" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+    <% } %>
+    <!--<li class="page-item"><a class="page-link">Last</a></li>-->
+  </ul>
+</nav>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                         </div>
                                     
                                     
@@ -218,51 +295,9 @@
                 </div>
             </form>
 
-      
 
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <%
-              String userId = request.getParameter("userId");
-              UserDAO udao = new UserDAO();
-              CustomerDAO cdao = new CustomerDAO();
-              EmployeeDAO edao = new EmployeeDAO();
-              
-              if(userId != null) {
-//                  udao.delete(Integer.parseInt(request.getParameter("userId")));
-//                  cdao.delete(Integer.parseInt(request.getParameter("userId")));
-//                  edao.delete(Integer.parseInt(request.getParameter("userId")));
-                out.print(userId);
-              }
-                
-//              int a = udao.insert("ad888bc", "123", "staff");
-//              out.print(a);
-//              System.out.println("EEEEE" + a);
-//              out.print(userId);
-
-            %>
-            
-    
         <%@include file="components/footer.jsp" %>
     </body>
 </html>

@@ -26,18 +26,17 @@ import javax.servlet.http.HttpSession;
  * @author tangminhtin
  */
 public class UserController extends HttpServlet {
+
     private UserDAO udao = null;
     private EmployeeDAO edao = null;
     private CustomerDAO cdao;
-    
+
     public UserController() {
         // call udao method to get the list of users
         udao = new UserDAO();
         edao = new EmployeeDAO();
         cdao = new CustomerDAO();
     }
-    
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,39 +50,27 @@ public class UserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet UserController</title>");
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet UserController at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-
-        HttpSession session = request.getSession();
         
+        HttpSession session = request.getSession();
+
         ArrayList<User> users = udao.getUsers();
         ArrayList<Employee> employees = edao.getEmployees();
         ArrayList<Customer> customers = cdao.getCustomers();
         
-        // add users to request object
-        session.setAttribute("users", users);
-        session.setAttribute("employees", employees);
-        session.setAttribute("customers", customers);
+//        ArrayList<User> users;
+
+
         
+        // add users to request object
+            session.setAttribute("users", users);
+            session.setAttribute("employees", employees);
+            session.setAttribute("customers", customers);
+
 //        RequestDispatcher dispatcher = request.getRequestDispatcher("./admin/users.jsp");
 //        dispatcher.forward(request, response);
-
-
-        
         response.sendRedirect("./admin/users.jsp");
-        
-//        response.sendRedirect(request.getContextPath() + "/admin/users.jsp");
 
+//        response.sendRedirect(request.getContextPath() + "/admin/users.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -98,35 +85,17 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        
-//        ArrayList<User> users = udao.getUsers();
-//        ArrayList<Employee> employees = edao.getEmployees();
-//        ArrayList<Customer> customers = cdao.getCustomers();
-//        
-//        // add users to request object
-//        session.setAttribute("users", users);
-//        session.setAttribute("employees", employees);
-//        session.setAttribute("customers", customers);
-        
-        // get the request dispatcher objects
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("./admin/users.jsp");
-        
-        // forward the request and response objects
-//        dispatcher.forward(request, response);
-//        response.sendRedirect(request.getContextPath() + "/admin/users.jsp");
-
-        String deleteUserId = request.getParameter("deleteUserId"); 
-            if(deleteUserId != null) {
-                int userId = Integer.parseInt(deleteUserId);
-                String role = udao.getRoleByUserId(userId);
-                if(role.equals("staff")) {
-                    edao.delete(userId);
-                } else if(role.equals("customer")) {
-                    cdao.delete(userId);
-                }
-                udao.delete(userId);
-            } 
+        String deleteUserId = request.getParameter("deleteUserId");
+        if (deleteUserId != null) {
+            int userId = Integer.parseInt(deleteUserId);
+            String role = udao.getRoleByUserId(userId);
+            if (role.equals("staff")) {
+                edao.delete(userId);
+            } else if (role.equals("customer")) {
+                cdao.delete(userId);
+            }
+            udao.delete(userId);
+        }
         processRequest(request, response);
     }
 
@@ -149,20 +118,16 @@ public class UserController extends HttpServlet {
         String phone = request.getParameter("txtPhone");
         String email = request.getParameter("txtEmail");
         String image = request.getParameter("txtImage");
-        
-        if(user != null && pass != null && confirm != null 
+
+        if (user != null && pass != null && confirm != null
                 && fullname != null && address != null
                 && phone != null && image != null) {
-            if(pass.equals(confirm)) {
+            if (pass.equals(confirm)) {
                 int userId = udao.insert(user, pass, "staff");
                 edao.insert(fullname, address, phone, email, image, userId);
             }
         }
-        
-        
-        
-        
-        
+
         processRequest(request, response);
     }
 

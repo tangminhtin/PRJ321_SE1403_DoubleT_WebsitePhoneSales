@@ -5,11 +5,13 @@
  */
 package Models.Entites;
 
+import java.io.Serializable;
+
 /**
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Storage {
+public class Storage implements Serializable {
     private int storageId;
     private int storageRAM;
     private int storageInternal;
