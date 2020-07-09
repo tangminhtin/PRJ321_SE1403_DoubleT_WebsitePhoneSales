@@ -4,6 +4,10 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.Entites.SelfieCamera"%>
+<%@page import="Models.DAO.SelfieCameraDAO"%>
+<%@page import="Models.Entites.MainCamera"%>
+<%@page import="Models.DAO.MainCameraDAO"%>
 <%@page import="Models.DAO.PhoneDAO"%>
 <%@page import="Models.Entites.PhoneDetail"%>
 <%@page import="Models.DAO.PhoneDetailDAO"%>
@@ -67,29 +71,114 @@
                             </button>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVM">Video Review</button>
                         </p>
-                        <!--Text-->
                         <h4 style="font-family: inherit">
-                            Description
+                            <b>Description</b>
                         </h4>
+                        <br>
                         <p class="card-text"><%=phoneDetail.getPhoneDetailDescription()%></p>
                         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <%
+                                int idMainCamera = phoneDetail.getMainCameraId();
+                                MainCameraDAO mainCameraDAO = new MainCameraDAO();
+                                MainCamera mainCamera = mainCameraDAO.getPhoneById(idMainCamera);
+
+
+                            %>
+                            <h4 style="font-family: inherit">
+                                <b>Main camera</b>
+                            </h4>
+                            <br>
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">  </th>
+                                        <th scope="col">Technical data</th>
+                                        <!--                                        <th scope="col">Last</th>
+                                                                                <th scope="col">Handle</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Resolution Camera</th>
+                                        <td><%=mainCamera.getMainCameraResolution()%></td>
+                                        <!--                                        <td>Otto</td>
+                                                                                <td>@mdo</td>-->
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Features Camera</th>
+                                        <td><%=mainCamera.getMainCameraFeatures()%></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Video Camera </th>
+                                        <td><%=mainCamera.getMainCameraVideo()%></td>
+
+                                    </tr>
+                          
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <br>
+                        <%
+                            SelfieCameraDAO selfieCameraDAO = new SelfieCameraDAO();
+                            int selfieCameraId = phoneDetail.getSelfieCameraId();
+                            SelfieCamera selfieCamera = selfieCameraDAO.getPhoneById(selfieCameraId);
+                            
+
+                            %>
                         <h4 style="font-family: inherit">
-                            Special Features
+                                <b>Selfie camera</b>
+                            </h4>
+                            <br>
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">  </th>
+                                        <th scope="col">Technical data</th>
+                                        <!--                                        <th scope="col">Last</th>
+                                                                                <th scope="col">Handle</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Resolution Camera</th>
+                                        <td><%=selfieCamera.getSelfieCameraResolution() %></td>
+                                        <!--                                        <td>Otto</td>
+                                                                                <td>@mdo</td>-->
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Features Camera</th>
+                                        <td><%=selfieCamera.getSelfieCameraFeatures() %></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Video Camera </th>
+                                        <td><%=selfieCamera.getSelfieCameraVideo() %></td>
+
+                                    </tr>
+                          
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <br>
+                    
+                        <h4 style="font-family: inherit">
+                            <b>Special Features</b>
                         </h4>
+                        <br>
                         <p class="card-text"><%=phoneDetail.getPhoneDetailSpecialFeatures()%></p>
                         <h4 style="font-family: inherit">
                             Special Features
                         </h4>
                         <p class="card-text">
-                                <%
-                                int idMainCamera = phoneDetail.getMainCameraId();
-                                
 
-                                %>
                         </p>
                     </div>
                     <!-- Button trigger modal-->
-                    
+
 
                     <!--Modal: modalVM-->
                     <div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

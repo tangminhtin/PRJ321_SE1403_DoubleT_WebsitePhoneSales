@@ -31,9 +31,10 @@ public class SelfieCameraDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         selfieCamera = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<SelfieCamera> getAllPhone() {
+    public void load() {
         try {
             String sql = "SELECT * FROM `selfiecamera`";
             PreparedStatement pst = connection.prepareStatement(sql);
@@ -43,12 +44,23 @@ public class SelfieCameraDAO {
                 String selfieCameraResolution = rs.getString("selfieCameraResolution");
                 String selfieCameraFeatures = rs.getString("selfieCameraFeatures");
                 String selfieCameraVideo = rs.getString("selfieCameraVideo");
-   
                 selfieCamera.add(new SelfieCamera(selfieCameraId, selfieCameraResolution, selfieCameraFeatures, selfieCameraVideo));
+
             }
-            return selfieCamera;
         } catch (SQLException ex) {
-            Logger.getLogger(SelfieCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<SelfieCamera> getAllPhone() {
+        return selfieCamera;
+    }
+
+    public SelfieCamera getPhoneById(int selfieCameraId) {
+        for (SelfieCamera sc : selfieCamera) {
+            if (sc.getSelfieCameraId() == selfieCameraId) {
+                return sc;
+            }
         }
         return null;
     }
