@@ -4,6 +4,10 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.Entites.Body"%>
+<%@page import="Models.DAO.BodyDAO"%>
+<%@page import="Models.DAO.DisplayDAO"%>
+<%@page import="Models.Entites.Display"%>
 <%@page import="Models.Entites.SelfieCamera"%>
 <%@page import="Models.DAO.SelfieCameraDAO"%>
 <%@page import="Models.Entites.MainCamera"%>
@@ -77,6 +81,83 @@
                         <br>
                         <p class="card-text"><%=phoneDetail.getPhoneDetailDescription()%></p>
                         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+
+
+
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <h4 style="font-family: inherit">
+                                <b>Specifications</b>
+                            </h4>
+                            <br>
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="row"><b>Display</b></th>
+                                        <th scope="col">
+                                            <%
+                                                int displayId = phoneDetail.getDisplayId();
+                                                DisplayDAO disDisplayDAO = new DisplayDAO();
+                                                Display display = disDisplayDAO.getPhoneById(displayId);
+                                            %>
+
+                                        </th>
+                                        <!--                                        <th scope="col">Last</th>
+                                                                                <th scope="col">Handle</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Type display</th>
+                                        <td><%=display.getDisplayType()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Size display</th>
+                                        <td><%=display.getDisplaySize()%></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Resolution display</th>
+                                        <td><%=display.getDisplayResolution()%></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Protection display</th>
+                                        <td><%=display.getDisplayProtection()%></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"><b>Body phone</b></th>
+                                        <td><%
+                                            BodyDAO bodyDAO = new BodyDAO();
+                                            int bodyId = phoneDetail.getBodyId();
+                                            Body body = bodyDAO.getPhoneById(bodyId);
+                                            %></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Body build</th>
+                                        <td><%=body.getBodyBuild()%></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Body Dimensions</th>
+                                        <td><%=body.getBodyDimensions()%></td>
+
+                                    </tr>
+                                     <tr>
+                                        <th scope="row">Body Weight</th>
+                                        <td><%=body.getBodyWeight() %></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <%
                                 int idMainCamera = phoneDetail.getMainCameraId();
@@ -115,7 +196,7 @@
                                         <td><%=mainCamera.getMainCameraVideo()%></td>
 
                                     </tr>
-                          
+
                                 </tbody>
                             </table>
 
@@ -125,10 +206,11 @@
                             SelfieCameraDAO selfieCameraDAO = new SelfieCameraDAO();
                             int selfieCameraId = phoneDetail.getSelfieCameraId();
                             SelfieCamera selfieCamera = selfieCameraDAO.getPhoneById(selfieCameraId);
-                            
 
-                            %>
-                        <h4 style="font-family: inherit">
+
+                        %>
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <h4 style="font-family: inherit">
                                 <b>Selfie camera</b>
                             </h4>
                             <br>
@@ -144,38 +226,29 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">Resolution Camera</th>
-                                        <td><%=selfieCamera.getSelfieCameraResolution() %></td>
+                                        <td><%=selfieCamera.getSelfieCameraResolution()%></td>
                                         <!--                                        <td>Otto</td>
                                                                                 <td>@mdo</td>-->
                                     </tr>
                                     <tr>
                                         <th scope="row">Features Camera</th>
-                                        <td><%=selfieCamera.getSelfieCameraFeatures() %></td>
+                                        <td><%=selfieCamera.getSelfieCameraFeatures()%></td>
 
                                     </tr>
                                     <tr>
                                         <th scope="row">Video Camera </th>
-                                        <td><%=selfieCamera.getSelfieCameraVideo() %></td>
+                                        <td><%=selfieCamera.getSelfieCameraVideo()%></td>
 
                                     </tr>
-                          
+
                                 </tbody>
                             </table>
 
                         </div>
                         <br>
-                    
-                        <h4 style="font-family: inherit">
-                            <b>Special Features</b>
-                        </h4>
-                        <br>
-                        <p class="card-text"><%=phoneDetail.getPhoneDetailSpecialFeatures()%></p>
-                        <h4 style="font-family: inherit">
-                            Special Features
-                        </h4>
-                        <p class="card-text">
 
-                        </p>
+
+
                     </div>
                     <!-- Button trigger modal-->
 

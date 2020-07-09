@@ -32,16 +32,30 @@ public class ConnectionDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         connArray = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<Models.Entites.Connection> getAllPhone(int connectionId) {
+    public ArrayList<Models.Entites.Connection> getAllPhone() {
+        return connArray;
+    }
+
+    public Models.Entites.Connection getPhoneById(int connectionId) {
+        for (Models.Entites.Connection connection : connArray) {
+            if (connection.getConnectionId() == connectionId) {
+                return connection;
+            }
+        }
+
+        return null;
+    }
+
+    public void load() {
         try {
-            String sql = "SELECT * FROM `connection` WHERE `connectionId`=?";
+            String sql = "SELECT * FROM `connection`";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, connectionId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                connectionId = rs.getInt("connectionId");
+                int connectionId = rs.getInt("connectionId");
                 String connectionSIM = rs.getString("connectionSIM");
                 String connectionMobileNetwork = rs.getString("connectionMobileNetwork");
                 String connectionWLAN = rs.getString("connectionWLAN");
@@ -53,12 +67,11 @@ public class ConnectionDAO {
                 int connectionJack = rs.getInt("connectionJack");
 
                 connArray.add(new Models.Entites.Connection(connectionId, connectionSIM, connectionMobileNetwork, connectionWLAN, connectionBluetooth, connectionGPS, connectionNFC, connectionRadio, connectionUSB, connectionJack));
+
             }
-            return connArray;
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
 
 }

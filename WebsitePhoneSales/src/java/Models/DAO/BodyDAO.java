@@ -32,26 +32,38 @@ public class BodyDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         body = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<Body> getAllPhone(int bodyId) {
+    public void load() {
         try {
-            String sql = "SELECT * FROM `body` WHERE `bodyId`=?";
+            String sql = "SELECT * FROM `body`";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, bodyId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                bodyId = rs.getInt("bodyId");
+                int bodyId = rs.getInt("bodyId");
                 String bodyDimensions = rs.getString("bodyDimensions");
                 String bodyWeight = rs.getString("bodyWeight");
                 String bodyBuild = rs.getString("bodyBuild");
-                
+
                 body.add(new Body(bodyId, bodyDimensions, bodyWeight, bodyBuild));
             }
-            return body;
         } catch (SQLException ex) {
-            Logger.getLogger(BodyDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ArrayList<Body> getAllPhone() {
+        return body;
+    }
+
+    public Body getPhoneById(int bodyId) {
+        for (Body bd : body) {
+            if (bd.getBodyId() == bodyId) {
+                return bd;
+            }
+        }
+
         return null;
     }
 

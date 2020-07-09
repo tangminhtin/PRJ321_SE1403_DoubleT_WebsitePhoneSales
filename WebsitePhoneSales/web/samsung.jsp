@@ -4,7 +4,7 @@
     Author     : tangminhtin
 --%>
 
-<%@page import="Models.DAO.phoneDAO"%>
+<%@page import="Models.DAO.PhoneDAO"%>
 <%@page import="Models.Entites.Phone"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
@@ -25,7 +25,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                 <%
                     ArrayList<Phone> phones = new ArrayList<>();
-                    phoneDAO phonedao = new phoneDAO();
+                    PhoneDAO phonedao = new PhoneDAO();
                     phones = phonedao.getAllPhone();
                     int k = 0;
                     for (Phone p : phones) {
@@ -53,7 +53,7 @@
                             <!--Text-->
                             <p class="card-text"><%=p.getPhoneShortDescription()%></p>
                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                            <button type="button" class="btn btn-light-blue btn-md">View details</button>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>" target="_blank"><button type="button"class="btn btn-light-blue btn-md">View details</button></a>
 
                         </div>
 

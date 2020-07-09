@@ -31,26 +31,37 @@ public class DisplayDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         display = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<Display> getAllPhone(int displayId) {
+    public void load() {
         try {
-            String sql = "SELECT * FROM `display` WHERE `displayId`=?";
+            String sql = "SELECT * FROM `display`";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, displayId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                displayId = rs.getInt("displayId");
+                int displayId = rs.getInt("displayId");
                 String displayType = rs.getString("displayType");
                 String displaySize = rs.getString("displaySize");
                 String displayResolution = rs.getString("displayResolution");
                 String displayProtection = rs.getString("displayProtection");
-                
                 display.add(new Display(displayId, displayType, displaySize, displayResolution, displayProtection));
+
             }
-            return display;
         } catch (SQLException ex) {
-            Logger.getLogger(DisplayDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Display> getAllPhone() {
+        return display;
+    }
+
+    public Display getPhoneById(int displayId) {
+        for (Display displays : display) {
+            if (displays.getDisplayId() == displayId) {
+                return displays;
+            }
         }
         return null;
     }

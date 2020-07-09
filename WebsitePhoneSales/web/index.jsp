@@ -16,14 +16,25 @@
 <html>
     <head>
         <%@include file="components/head.jsp" %>
-        <title>Home | Double T Shop</title>
+        <title >Home | Double T Shop</title>
+       
     </head>
     <body>
         <%@include file="components/header.jsp" %>
-    <marquee width="100%" scrolldelay="10"><i style="font-family: cursive">Welcome to us, have a nice day</i></marquee>
+        <div   >
+                <img style="height: 800px;width: 95%; padding-left: 200px;padding-right: 100px;padding-top:20px  " alt="" src="https://lh3.googleusercontent.com/nYRep2EJW9SORB8IgkwjQnPdjlLN1PsecW-6cW6_BJ24Oahpiq-URp3-DFr06LEQ2T3Uy143C1DfSoVM4ivz5MGVZIfunzkDETNd9pxK5TOBI450Lod4Z1q4shI1LcSqitXwKRlnivHAfly1KEpziYBUTXE4tgZgCWYbQ0ifeuxtoxB5CUoyoSPunWh1au7HZGOLtQynk31lKhXQFt-qqfgkH48dE5NIY6KBUDGd__MFW2D7zJsnpUWOLauq3TrlGi8nDN2LzHG7ohR4xxSPLxTYv1W-Gevu3QR0SlqSk5UjOtH1H_WOtVbUU-Vvf26Rei7YNooMvJx1WV3o8fNMWQMcfIa37FHaJGqdwCDThceRrr_NZOpMgHkqKi8DQYYIqUvpLJ4CEw4vTzGNjoATjKdqVgEJfyTRHtyYePBA_KSoz2SBB10Vs2F3DQz5xF61vymiBGO1XVQQv8HjKywszTzT-l8yk-G6pvrRJI8nGqt62xF8Ly_Tq1_4t4MBZ5lxT1ouYpBooUY9cdKwOh_ED1nMhMr_jxi7uBLAAEeoIOa7_P5LhPMeWkVXC8ggFmpBW1KGtw9A7E32wv_apLBy6q79GBz6XmI4I7O-qimfNs7Ym2KMaEVE7y3ZcRvHCC3V_rt33UUjcYZQWOAxNRofbdbJh8nOqschkSNhhtB2yO6bxXiviYHlBjUOqqlbQQ=w1605-h903-no?authuser=0"/>
 
-    <h1>Big Project Website Phone Sales made by Double T</h1>
-
+            
+        </div>
+        <div style="padding-left: 260px "> 
+    <marquee width="86%" scrolldelay="10"><font size="5" face="Verdana"><b>Welcome to us, have a nice day</b></font></marquee>
+            
+        </div>  
+    
+    
+     
+    
+    
 
     <div class="container">
         <h3 class="text-center font-weight-bold mb-5">Best sellers</h3>
@@ -81,7 +92,7 @@
     </div>
 
 
-    <div class="container mt-5">
+        <div class="container mt-5">
         <!--Section: Content-->
         <section class="">
             <!-- Section heading -->
