@@ -33,9 +33,10 @@ public class StorageDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         storage = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<Storage> getAllPhone() {
+    public void load() {
         try {
             String sql = "SELECT * FROM `storage`";
             PreparedStatement pst = connection.prepareStatement(sql);
@@ -45,14 +46,24 @@ public class StorageDAO {
                 int storageRAM = rs.getInt("storageRAM");
                 int storageInternal = rs.getInt("storageInternal");
                 int storageExternal = rs.getInt("storageExternal");
-            
-              storage.add(new Storage(storageId, storageRAM, storageInternal, storageExternal));
+
+                storage.add(new Storage(storageId, storageRAM, storageInternal, storageExternal));
             }
-            return storage;
         } catch (SQLException ex) {
-            Logger.getLogger(StorageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Storage> getAllPhone() {
+        return storage;
+    }
+
+    public Storage getPhoneById(int storageId) {
+        for (Storage s : storage) {
+            if (s.getStorageId() == storageId) {
+                return s;
+            }
         }
         return null;
     }
-
 }

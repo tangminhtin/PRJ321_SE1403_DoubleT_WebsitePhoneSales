@@ -35,25 +35,36 @@ public class CommentDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         comment = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<Comment> getAllPhone(int commentId) {
+    public void load() {
         try {
-            String sql = "SELECT * FROM `comment` WHERE `commentId`=?";
+            String sql = "SELECT * FROM `comment`";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, commentId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                commentId = rs.getInt("commentId");
+                int commentId = rs.getInt("commentId");
                 String commentContent = rs.getString("commentContent");
                 Date commentDate = rs.getDate("commentDate");
                 int customerId = rs.getInt("customerId");
-            
-               comment.add(new Comment(commentId, commentContent, commentDate, customerId));
+
+                comment.add(new Comment(commentId, commentContent, commentDate, customerId));
             }
-            return comment;
         } catch (SQLException ex) {
-            Logger.getLogger(CommentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Comment> getAllPhone() {
+        return comment;
+    }
+
+    public Comment getPhoneById(int commentId) {
+        for (Comment cmt : comment) {
+            if (cmt.getCommentId() == commentId) {
+                return cmt;
+            }
         }
         return null;
     }

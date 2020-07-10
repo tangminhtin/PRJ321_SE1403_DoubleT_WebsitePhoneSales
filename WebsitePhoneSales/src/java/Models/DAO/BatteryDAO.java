@@ -33,25 +33,36 @@ public class BatteryDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         battery = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<Battery> getAllPhone(int batteryId) {
+    public void load() {
         try {
-            String sql = "SELECT * FROM `battery` WHERE `batteryId`=?";
+            String sql = "SELECT * FROM `battery`";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, batteryId);
             rs = pst.executeQuery();
             while (rs.next()) {
-                batteryId = rs.getInt("batteryId");
+                int batteryId = rs.getInt("batteryId");
                 int batteryCapacity = rs.getInt("batteryCapacity");
                 String batteryType = rs.getString("batteryType");
                 String batteryTechnology = rs.getString("batteryTechnology");
-               
-               battery.add(new Battery(batteryId, batteryCapacity, batteryType, batteryTechnology));
+
+                battery.add(new Battery(batteryId, batteryCapacity, batteryType, batteryTechnology));
             }
-            return battery;
         } catch (SQLException ex) {
-            Logger.getLogger(BatteryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Battery> getAllPhone() {
+        return battery;
+    }
+
+    public Battery getPhoneById(int batteryId) {
+        for (Battery batterys : battery) {
+            if (batterys.getBatteryId() == batteryId) {
+                return batterys;
+            }
         }
         return null;
     }

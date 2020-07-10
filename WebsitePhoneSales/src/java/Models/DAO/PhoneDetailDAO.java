@@ -72,7 +72,6 @@ public class PhoneDetailDAO {
                 return pd;
             }
         }
-
         return null;
     }
 

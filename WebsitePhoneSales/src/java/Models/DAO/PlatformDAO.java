@@ -32,9 +32,10 @@ public class PlatformDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         platform = new ArrayList<>();
+        load();
     }
 
-    public ArrayList<Platform> getAllPhone() {
+    public void load() {
         try {
             String sql = "SELECT * FROM `platform`";
             PreparedStatement pst = connection.prepareStatement(sql);
@@ -45,12 +46,23 @@ public class PlatformDAO {
                 String platformChipset = rs.getString("platformChipset");
                 String platformCPU = rs.getString("platformCPU");
                 String platformGPU = rs.getString("platformGPU");
-                
-               platform.add(new Platform(platformId, platformOS, platformChipset, platformCPU, platformGPU));
+
+                platform.add(new Platform(platformId, platformOS, platformChipset, platformCPU, platformGPU));
             }
-            return platform;
         } catch (SQLException ex) {
-            Logger.getLogger(PlatformDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ArrayList<Platform> getAllPhone() {
+        return platform;
+    }
+
+    public Platform getPhoneById(int platformId) {
+        for (Platform platforms : platform) {
+            if (platforms.getPlatformId() == platformId) {
+                return platforms;
+            }
         }
         return null;
     }

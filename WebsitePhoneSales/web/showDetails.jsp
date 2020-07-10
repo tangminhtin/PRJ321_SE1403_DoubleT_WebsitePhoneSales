@@ -4,6 +4,13 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.Entites.Battery"%>
+<%@page import="Models.DAO.BatteryDAO"%>
+<%@page import="Models.Entites.Platform"%>
+<%@page import="Models.DAO.PlatformDAO"%>
+<%@page import="Models.Entites.Storage"%>
+<%@page import="Models.DAO.StorageDAO"%>
+<%@page import="Models.DAO.ConnectionDAO"%>
 <%@page import="Models.Entites.Body"%>
 <%@page import="Models.DAO.BodyDAO"%>
 <%@page import="Models.DAO.DisplayDAO"%>
@@ -31,7 +38,7 @@
     <marquee width="100%" scrolldelay="10"><i style="font-family: cursive">Welcome to us, have a nice day</i></marquee>
 
 
-    <div class="container">
+    <div class="container" style="padding-bottom: 200px">
         <!--<h3 class="text-center font-weight-bold mb-5">Best sellers</h3>-->
         <div class="">
             <%
@@ -92,6 +99,7 @@
                             <table class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
+                                        <!--Display-->
                                         <th scope="row"><b>Display</b></th>
                                         <th scope="col">
                                             <%
@@ -99,10 +107,7 @@
                                                 DisplayDAO disDisplayDAO = new DisplayDAO();
                                                 Display display = disDisplayDAO.getPhoneById(displayId);
                                             %>
-
                                         </th>
-                                        <!--                                        <th scope="col">Last</th>
-                                                                                <th scope="col">Handle</th>-->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -113,22 +118,20 @@
                                     <tr>
                                         <th scope="row">Size display</th>
                                         <td><%=display.getDisplaySize()%></td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row">Resolution display</th>
                                         <td><%=display.getDisplayResolution()%></td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row">Protection display</th>
                                         <td><%=display.getDisplayProtection()%></td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row"></th>
                                         <td></td>
                                     </tr>
+                                    <!--Body phone-->
                                     <tr>
                                         <th scope="row"><b>Body phone</b></th>
                                         <td><%
@@ -136,123 +139,219 @@
                                             int bodyId = phoneDetail.getBodyId();
                                             Body body = bodyDAO.getPhoneById(bodyId);
                                             %></td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row">Body build</th>
                                         <td><%=body.getBodyBuild()%></td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row">Body Dimensions</th>
                                         <td><%=body.getBodyDimensions()%></td>
-
                                     </tr>
-                                     <tr>
-                                        <th scope="row">Body Weight</th>
-                                        <td><%=body.getBodyWeight() %></td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-
-                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                            <%
-                                int idMainCamera = phoneDetail.getMainCameraId();
-                                MainCameraDAO mainCameraDAO = new MainCameraDAO();
-                                MainCamera mainCamera = mainCameraDAO.getPhoneById(idMainCamera);
-
-
-                            %>
-                            <h4 style="font-family: inherit">
-                                <b>Main camera</b>
-                            </h4>
-                            <br>
-                            <table class="table table-bordered table-striped mb-0">
-                                <thead>
                                     <tr>
-                                        <th scope="col">  </th>
-                                        <th scope="col">Technical data</th>
-                                        <!--                                        <th scope="col">Last</th>
-                                                                                <th scope="col">Handle</th>-->
+                                        <th scope="row">Body Weight</th>
+                                        <td><%=body.getBodyWeight()%></td>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                    <!--Connection-->
+                                    <tr>
+                                        <th scope="row"><b>Connection</b></th>
+                                        <td><%
+                                            ConnectionDAO connectionDAO = new ConnectionDAO();
+                                            int connectionId = phoneDetail.getConnectionId();
+                                            Models.Entites.Connection connection = connectionDAO.getPhoneById(connectionId);
+                                            %></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Sim</th>
+                                        <td><%=connection.getConnectionSIM()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Mobile network</th>
+                                        <td><%=connection.getConnectionMobileNetwork()%></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">WLAN</th>
+                                        <td><%=connection.getConnectionWLAN()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">GPS</th>
+                                        <td><%=connection.getConnectionGPS()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Bluetooth</th>
+                                        <td><%=connection.getConnectionBluetooth()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">USB</th>
+                                        <td><%=connection.getConnectionUSB()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Jack</th>
+                                        <td><%
+                                            String status = "";
+
+                                            int jack = connection.getConnectionJack();
+                                            if (jack == 1) {
+                                                status = "Yes";
+                                            } else {
+                                                status = "No";
+                                            }
+
+                                            %>
+                                            <%=status%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">NFC</th>
+                                        <td><%
+                                            status = "";
+
+                                            int NFC = connection.getConnectionNFC();
+                                            if (NFC == 1) {
+                                                status = "Yes";
+                                            } else {
+                                                status = "No";
+                                            }
+                                            %>
+                                            <%=status%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Radio</th>
+                                        <td><%
+                                            status = "";
+
+                                            int radio = connection.getConnectionRadio();
+                                            if (radio == 1) {
+                                                status = "Yes";
+                                            } else {
+                                                status = "No";
+                                            }
+                                            %>
+                                            <%=status%></td>
+                                    </tr>
+                                    <!--Main Camera-->
+                                    <tr>
+                                        <th scope="row"><b>Main camera</b></th>
+                                        <td><%
+                                            int idMainCamera = phoneDetail.getMainCameraId();
+                                            MainCameraDAO mainCameraDAO = new MainCameraDAO();
+                                            MainCamera mainCamera = mainCameraDAO.getPhoneById(idMainCamera);
+                                            %></td>
+                                    </tr>
                                     <tr>
                                         <th scope="row">Resolution Camera</th>
                                         <td><%=mainCamera.getMainCameraResolution()%></td>
-                                        <!--                                        <td>Otto</td>
-                                                                                <td>@mdo</td>-->
                                     </tr>
                                     <tr>
                                         <th scope="row">Features Camera</th>
                                         <td><%=mainCamera.getMainCameraFeatures()%></td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row">Video Camera </th>
                                         <td><%=mainCamera.getMainCameraVideo()%></td>
-
                                     </tr>
-
-                                </tbody>
-                            </table>
-
-                        </div>
-                        <br>
-                        <%
-                            SelfieCameraDAO selfieCameraDAO = new SelfieCameraDAO();
-                            int selfieCameraId = phoneDetail.getSelfieCameraId();
-                            SelfieCamera selfieCamera = selfieCameraDAO.getPhoneById(selfieCameraId);
-
-
-                        %>
-                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                            <h4 style="font-family: inherit">
-                                <b>Selfie camera</b>
-                            </h4>
-                            <br>
-                            <table class="table table-bordered table-striped mb-0">
-                                <thead>
+                                    <!--Selfie Camera-->
                                     <tr>
-                                        <th scope="col">  </th>
-                                        <th scope="col">Technical data</th>
-                                        <!--                                        <th scope="col">Last</th>
-                                                                                <th scope="col">Handle</th>-->
+                                        <th scope="row"><b>Selfie camera</b></th>
+                                        <td><%
+                                            SelfieCameraDAO selfieCameraDAO = new SelfieCameraDAO();
+                                            int selfieCameraId = phoneDetail.getSelfieCameraId();
+                                            SelfieCamera selfieCamera = selfieCameraDAO.getPhoneById(selfieCameraId);
+                                            %></td>
                                     </tr>
-                                </thead>
-                                <tbody>
                                     <tr>
                                         <th scope="row">Resolution Camera</th>
                                         <td><%=selfieCamera.getSelfieCameraResolution()%></td>
-                                        <!--                                        <td>Otto</td>
-                                                                                <td>@mdo</td>-->
                                     </tr>
                                     <tr>
                                         <th scope="row">Features Camera</th>
                                         <td><%=selfieCamera.getSelfieCameraFeatures()%></td>
-
                                     </tr>
                                     <tr>
                                         <th scope="row">Video Camera </th>
                                         <td><%=selfieCamera.getSelfieCameraVideo()%></td>
+                                    </tr>
+                                    <!--Storage-->
+                                    <tr>
+                                        <th scope="row"><b>Storage</b></th>
+                                        <td><%
+                                            StorageDAO storageDAO = new StorageDAO();
+                                            int storageId = phoneDetail.getStorageId();
+                                            Storage storage = storageDAO.getPhoneById(storageId);
 
+                                            %></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Storage External</th>
+                                        <td><%=storage.getStorageExternal()%>GB</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Storage Internal</th>
+                                        <td><%=storage.getStorageInternal()%>GB</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Storage RAM </th>
+                                        <td><%=storage.getStorageRAM()%>GB</td>
                                     </tr>
 
+                                    <!--Platform -->
+                                    <tr>
+                                        <th scope="row"><b>Platform</b></th>
+                                        <td><%
+                                            PlatformDAO platformDAO = new PlatformDAO();
+                                            int platformId = phoneDetail.getPlatformId();
+
+                                            Platform platform = platformDAO.getPhoneById(platformId);
+
+                                            %></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">OS</th>
+                                        <td><%=platform.getPlatformOS()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Chipset</th>
+                                        <td><%=platform.getPlatformChipset()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CPU </th>
+                                        <td><%=platform.getPlatformCPU()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">GPU</th>
+                                        <td><%=platform.getPlatformGPU()%></td>
+                                    </tr>
+                                    <!--Battery-->
+                                    <tr>
+                                        <th scope="row"><b>Battery</b></th>
+                                        <td><%
+                                            BatteryDAO batteryDAO = new BatteryDAO();
+                                            int batteryId = phoneDetail.getBatteryId();
+                                            Battery battery = batteryDAO.getPhoneById(batteryId);
+
+                                            %></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Battery Technology</th>
+                                        <td><%=battery.getBatteryTechnology()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Battery Type</th>
+                                        <td><%=battery.getBatteryType()%></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Battery Capacity</th>
+                                        <td><%=battery.getBatteryCapacity()%>mAh</td>
+                                    </tr>
                                 </tbody>
                             </table>
-
                         </div>
                         <br>
-
-
-
                     </div>
                     <!-- Button trigger modal-->
-
-
+               
                     <!--Modal: modalVM-->
                     <div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                          aria-hidden="true">
@@ -312,7 +411,7 @@
                 }%>
         </div>
     </div>
-
+        
     <%@include file="components/footer.jsp" %>
 </body>
 </html>

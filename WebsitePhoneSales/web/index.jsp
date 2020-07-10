@@ -36,7 +36,7 @@
     
     
 
-    <div class="container">
+    <div class="container" style="padding-bottom: 100px">
         <h3 class="text-center font-weight-bold mb-5">Best sellers</h3>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
             <%
@@ -92,7 +92,7 @@
     </div>
 
 
-        <div class="container mt-5">
+        <div class="container mt-5" style="padding-bottom: 200px">
         <!--Section: Content-->
         <section class="">
             <!-- Section heading -->
