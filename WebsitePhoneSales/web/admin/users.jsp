@@ -73,7 +73,7 @@
                                                     <c:forEach items="${employees}" var="e">
                                                         <c:if test="${u.userId == e.userId && u.userRole == 'staff'}">
                                                             <tr>
-                                                                <td>${e.employeeFullname}
+                                                                <td>${e.employeeFullname}</td>
                                                                 <td>${e.employeeAddress}</td>
                                                                 <td>${e.employeePhone}</td>
                                                                 <td>${e.employeeEmail}</td>
@@ -96,7 +96,7 @@
                                                     <c:forEach items="${customers}" var="c">
                                                         <c:if test="${u.userId == c.userId && u.userRole == 'customer'}">
                                                             <tr>
-                                                                <td>${c.customerFullname}
+                                                                <td>${c.customerFullname}</td>
                                                                 <td>${c.customerAddress}</td>
                                                                 <td>${c.customerPhone}</td>
                                                                 <td>${c.customerEmail}</td>

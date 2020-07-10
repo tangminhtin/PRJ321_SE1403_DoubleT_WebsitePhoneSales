@@ -29,13 +29,19 @@ public class PhoneDAO {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
         phone = new ArrayList<>();
+        load();
     }
 
     public ArrayList<Phone> getAllPhone() {
+        return phone;
+    }
+    
+    public void load() {
         try {
             String sql = "SELECT * FROM `phone`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
+            phone.clear();
             while (rs.next()) {
                 int phoneId = rs.getInt("phoneId");
                 String phoneImage = rs.getString("phoneImage");
@@ -46,13 +52,10 @@ public class PhoneDAO {
                 int brandId = rs.getInt("brandId");
                 int phoneDetailId = rs.getInt("phoneDetailId");
                 phone.add(new Phone(phoneId, phoneImage, phoneName, phoneDiscount, phonePrice, phoneShortDescription, brandId, phoneDetailId));
-
             }
-            return phone;
         } catch (SQLException ex) {
             Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
 
 }
