@@ -41,7 +41,7 @@
 
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <button type="button" class="btn btn-success px-3"><a href="add_phone.jsp"><i class="fas fa-plus"></i> Add phone</a></button>
+                                            <a class="text-white" href="add_phone.jsp"><button type="button" class="btn btn-success px-3"><i class="fas fa-plus"></i> Add phone</button></a>
                                             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
@@ -54,7 +54,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <%
-                                                        int limit = 3;
+                                                        int limit = 5;
                                                         PhoneDAO pdao = new PhoneDAO();
                                                         int totalRows = pdao.getNumberOfPhone();
                                                         int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
@@ -78,7 +78,7 @@
                                                         </td>
                                                         <td><%= p.getPhonePrice()%></td>
                                                         <td><%= p.getPhoneShortDescription()%></td>
-                                                        <td><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></td>
+                                                        <td><a class="text-white" href="./edit_phone.jsp?phoneId=<%= p.getPhoneId()%>"><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button></a></td>
                                                         <td>
                                                             <form action="../PhoneController" method="GET">
                                                                 <button name="deletePhoneId" value="<%= p.getPhoneId()%>" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>

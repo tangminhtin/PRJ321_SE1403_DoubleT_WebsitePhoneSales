@@ -1,6 +1,6 @@
 <%-- 
-    Document   : add_phone
-    Created on : Jul 13, 2020, 2:21:17 PM
+    Document   : edit_phone
+    Created on : Jul 13, 2020, 5:43:04 PM
     Author     : tangminhtin
 --%>
 
@@ -23,7 +23,7 @@
                         <h1 class="mt-4">Management Phones</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="./index.jsp">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Add New Phone</li>
+                            <li class="breadcrumb-item active">Edit Phone</li>
                         </ol>
 
                         <div class="card mb-4">
@@ -32,7 +32,7 @@
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-table mr-1"></i>
-                                            Add New Phone
+                                            Edit Phone
                                         </div>
                                         <div class="card-body">
 
@@ -404,7 +404,7 @@
                                                 <!--Button Add-->
                                                 <div class="form-group row">
                                                     <div class="col-sm-10">
-                                                      <button type="submit" class="btn btn-primary btn-md">Add</button>
+                                                      <button type="submit" class="btn btn-primary btn-md">Update</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -426,3 +426,4 @@
         <%@include file="components/footer.jsp" %>
     </body>
 </html>
+
