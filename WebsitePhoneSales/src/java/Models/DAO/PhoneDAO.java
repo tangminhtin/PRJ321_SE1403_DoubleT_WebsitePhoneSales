@@ -72,19 +72,28 @@ public class PhoneDAO {
             rs = pst.executeQuery();
             while (rs.next()) {
                 phonesLimit.add(new Phone(
-                rs.getInt("phoneId"),
-                rs.getString("phoneImage"),
-                rs.getString("phoneName"),
-                rs.getDouble("phoneDiscount"),
-                rs.getDouble("phonePrice"),
-                rs.getString("phoneShortDescription"),
-                rs.getInt("brandId"),
-                rs.getInt("phoneDetailId")
+                        rs.getInt("phoneId"),
+                        rs.getString("phoneImage"),
+                        rs.getString("phoneName"),
+                        rs.getDouble("phoneDiscount"),
+                        rs.getDouble("phonePrice"),
+                        rs.getString("phoneShortDescription"),
+                        rs.getInt("brandId"),
+                        rs.getInt("phoneDetailId")
                 ));
             }
             return phonesLimit;
         } catch (SQLException ex) {
             Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Phone getPhoneById(int phoneId) {
+        for (Phone item : phone) {
+            if (item.getPhoneId() == phoneId) {
+                return item;
+            }
         }
         return null;
     }

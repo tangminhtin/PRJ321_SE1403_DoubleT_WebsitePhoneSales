@@ -4,6 +4,10 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.Entites.Comment"%>
+<%@page import="Models.DAO.CommentDAO"%>
+<%@page import="Models.Entites.Customer"%>
+<%@page import="Models.DAO.CustomerDAO"%>
 <%@page import="Models.Entites.Battery"%>
 <%@page import="Models.DAO.BatteryDAO"%>
 <%@page import="Models.Entites.Platform"%>
@@ -54,12 +58,9 @@
                     PhoneDetail phoneDetail = pDetailDAO.getPhoneById(Id);
                     for (Phone p : phones) {
                         if (p.getPhoneId() == Id) {
-
-
             %>
 
-
-            <div class="container">
+            <div class="container" style="padding-bottom: 75px" >
                 <div class="card h-100">
                     <!--Card image-->
                     <div class="view overlay">
@@ -77,9 +78,9 @@
                         <!--Title-->
                         <h2 class="card-title"><%=p.getPhoneName()%></h2>
                         <h5 class="card-title" style="text-align: right"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
-                        <p style="text-align: right"><button class="btn btn-primary">Add to cart
+                        <p style="text-align: right"><a href="PaymentControler?phoneId=<%=p.getPhoneId()%>"><button class="btn btn-primary">Add to cart
                                 <i class="fas fa-cart-plus ml-2" aria-hidden="true"></i>
-                            </button>
+                            </button></a>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVM">Video Review</button>
                         </p>
                         <h4 style="font-family: inherit">
@@ -88,8 +89,6 @@
                         <br>
                         <p class="card-text"><%=phoneDetail.getPhoneDetailDescription()%></p>
                         <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-
-
 
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
                             <h4 style="font-family: inherit">
@@ -349,9 +348,55 @@
                             </table>
                         </div>
                         <br>
+
+                        <!--Commentttttttttttttttttttttttttttttt-->
+                        <!--Section: Author Box-->
+                        <section class="my-5">
+
+                            <!-- Card header -->
+                            <div class="card-header border-0 font-weight-bold d-flex justify-content-between">
+                                <p class="mr-4 mb-0">Comment</p>
+                            </div>
+                            <%
+                                CustomerDAO customerDAO = new CustomerDAO();
+                                CommentDAO commentDAO = new CommentDAO();
+
+                                ArrayList<Customer> customer = new ArrayList<Customer>();
+                                customer = customerDAO.getCustomers();
+
+                                for (Customer customers : customer) {
+                                    Comment comment = commentDAO.getPhoneById(customers.getCustomerId());
+
+                            %>
+                            <div class="media mt-4 px-1">
+                                <img class="card-img-100 d-flex z-depth-1 mr-3" src="<%=customers.getCustomerImage()%>"
+                                     alt="Generic placeholder image">
+                                <div class="media-body">
+                                    <h5 class="font-weight-bold mt-0">
+                                        <a href=""><%=customers.getCustomerFullname()%></a>
+                                    </h5>
+                                    <%=comment.getCommentContent()%>
+                                </div>
+                            </div>
+                            <%}%>
+                            <!-- Quick Reply -->
+                            <div class="form-group mt-4">
+                                <label for="quickReplyFormComment">Your comment</label>
+                                <textarea class="form-control" id="quickReplyFormComment" rows="5"></textarea>
+
+                                <div class="text-center my-4">
+                                    <button class="btn btn-primary btn-sm" type="submit">Post</button>
+                                </div>
+                            </div>
+                        </section>
+                        <!--Section: Author Box-->
+
+
+
                     </div>
+
                     <!-- Button trigger modal-->
-               
+
                     <!--Modal: modalVM-->
                     <div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                          aria-hidden="true">
@@ -411,7 +456,7 @@
                 }%>
         </div>
     </div>
-        
+
     <%@include file="components/footer.jsp" %>
 </body>
 </html>

@@ -5,12 +5,18 @@
  */
 package Controllers;
 
+import Models.DAO.PhoneDAO;
+import Models.Entites.AddCart;
+import Models.Entites.Order;
+import Models.Entites.Phone;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,16 +37,60 @@ public class PaymentControler extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PaymentControler</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PaymentControler at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            int phoneId = Integer.parseInt(request.getParameter("phoneId"));
+
+            if (phoneId != -1) {
+                PhoneDAO phoneDAO = new PhoneDAO();
+                HttpSession session = request.getSession();
+                ArrayList<Phone> cart = new ArrayList<>();
+
+                Phone phone = phoneDAO.getPhoneById(phoneId);
+
+                if (session.getAttribute("Cart") == null) {
+                    ArrayList<AddCart> addCart = new ArrayList<>();
+                    AddCart addCarts = new AddCart();
+                    int id = phone.getPhoneId();
+                    String name = phone.getPhoneName();
+                    double phonePrice = phone.getPhonePrice();
+                    int quantity = 1;
+                    addCarts.setPhoneId(id);
+                    addCarts.setPhoneName(name);
+                    addCarts.setPhoneQuantity(quantity);
+                    addCarts.setPhonePrice(phonePrice);
+
+                    addCart.add(addCarts);
+                    session.setAttribute("Cart", addCart);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                } else {
+                    ArrayList<AddCart> addCart = new ArrayList<>();
+                    addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
+
+                    for (AddCart items : addCart) {
+                        if (items.getPhoneId() == phoneId) {
+                            items.setPhoneQuantity(items.getPhoneQuantity() + 1);
+                            addCart.add(items);
+                            session.setAttribute("Cart", addCart);
+                             response.sendRedirect("index.jsp");
+                        } else {
+                            AddCart addCarts = new AddCart();
+                            int id = phone.getPhoneId();
+                            String name = phone.getPhoneName();
+                            double phonePrice = phone.getPhonePrice();
+                            int quantity = 1;
+                            addCarts.setPhoneId(id);
+                            addCarts.setPhoneName(name);
+                            addCarts.setPhoneQuantity(quantity);
+                            addCarts.setPhonePrice(phonePrice);
+
+                            addCart.add(addCarts);
+                            session.setAttribute("Cart", addCart);
+                             response.sendRedirect("index.jsp");
+                        }
+                    }
+                     
+                }
+
+            }
         }
     }
 
@@ -56,6 +106,7 @@ public class PaymentControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
     }
 

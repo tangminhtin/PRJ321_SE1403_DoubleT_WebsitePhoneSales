@@ -92,7 +92,7 @@
     </div>
 
 
-        <div class="container mt-5" style="padding-bottom: 200px">
+        <div class="container mt-5" style="padding-bottom: 75px">
         <!--Section: Content-->
         <section class="">
             <!-- Section heading -->
@@ -137,8 +137,6 @@
         </section>
         <!--Section: Content-->
     </div>
-
-
 
     <%@include file="components/footer.jsp" %>
 </body>
