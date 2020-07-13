@@ -5,10 +5,6 @@
  */
 package Models.DAO;
 
-import Models.Entites.Body;
-import Models.Entites.Display;
-import Models.Entites.Phone;
-import Models.Entites.PhoneDetail;
 import Models.Entites.Storage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,6 +37,7 @@ public class StorageDAO {
             String sql = "SELECT * FROM `storage`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
+            storage.clear();
             while (rs.next()) {
                 int storageId = rs.getInt("storageId");
                 int storageRAM = rs.getInt("storageRAM");
@@ -50,7 +47,7 @@ public class StorageDAO {
                 storage.add(new Storage(storageId, storageRAM, storageInternal, storageExternal));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StorageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -65,5 +62,55 @@ public class StorageDAO {
             }
         }
         return null;
+    }
+
+    public int insert(int RAM, int internal, int external) {
+        try {
+            String sql = "INSERT INTO `storage`(`storageRAM`, `storageInternal`, `storageExternal`) VALUES (?, ?, ?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, RAM);
+            pst.setInt(2, internal);
+            pst.setInt(3, external);
+            pst.execute();
+            load();
+            rs = pst.executeQuery("SELECT * FROM `storage`");
+            if (rs.last()) {
+                return rs.getInt("storageId");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StorageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public boolean update(int RAM, int internal, int external, int storageId) {
+        try {
+            String sql = "UPDATE `storage` SET `storageRAM`=?,`storageInternal`=?,`storageExternal`=? WHERE `storageId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, RAM);
+            pst.setInt(2, internal);
+            pst.setInt(3, external);
+            pst.setInt(4, storageId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(StorageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean delete(int storageId) {
+        try {
+            String sql = "DELETE FROM `storage` WHERE storageId=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, storageId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(StorageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

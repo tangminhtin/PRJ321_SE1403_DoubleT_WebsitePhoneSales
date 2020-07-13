@@ -5,8 +5,6 @@
  */
 package Models.DAO;
 
-import Models.Entites.Phone;
-import Models.Entites.PhoneDetail;
 import Models.Entites.SelfieCamera;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,6 +37,7 @@ public class SelfieCameraDAO {
             String sql = "SELECT * FROM `selfiecamera`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
+            selfieCamera.clear();
             while (rs.next()) {
                 int selfieCameraId = rs.getInt("selfieCameraId");
                 String selfieCameraResolution = rs.getString("selfieCameraResolution");
@@ -48,7 +47,7 @@ public class SelfieCameraDAO {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SelfieCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -63,6 +62,56 @@ public class SelfieCameraDAO {
             }
         }
         return null;
+    }
+
+    public int insert(String resolution, String features, String video) {
+        try {
+            String sql = "INSERT INTO `selfiecamera`( `selfieCameraResolution`, `selfieCameraFeatures`, `selfieCameraVideo`) VALUES (?, ?, ?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, resolution);
+            pst.setString(2, features);
+            pst.setString(3, video);
+            pst.execute();
+            load();
+            rs = pst.executeQuery("SELECT * FROM `selfiecamera`");
+            if (rs.last()) {
+                return rs.getInt("selfieCameraId");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SelfieCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public boolean update(String resolution, String features, String video, int selfieCameraId) {
+        try {
+            String sql = "UPDATE `selfiecamera` SET `selfieCameraResolution`=?,`selfieCameraFeatures`=?,`selfieCameraVideo`=? WHERE  `selfieCameraId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, resolution);
+            pst.setString(2, features);
+            pst.setString(3, video);
+            pst.setInt(4, selfieCameraId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SelfieCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean delete(int selfieCameraId) {
+        try {
+            String sql = "DELETE FROM `selfiecamera` WHERE selfieCameraId=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, selfieCameraId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(SelfieCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }

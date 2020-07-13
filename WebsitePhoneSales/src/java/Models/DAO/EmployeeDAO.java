@@ -53,18 +53,6 @@ public class EmployeeDAO {
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
-    
-//    public ArrayList<Employee> getEmployeeUser(ArrayList<User> users) {
-//        ArrayList<Employee> matchUser = new ArrayList<>();
-//        for(Employee e: employees) {
-//            for(User u: users) {
-//                if(e.getUserId() == u.getUserId()) {
-//                    matchUser.add(e);
-//                }
-//            }
-//        }
-//        return matchUser;
-//    }
 
     public boolean insert(String employeeFullname, String employeeAddress, String employeePhone, String employeeEmail, String employeeImage, int userId) {
         try {
@@ -81,7 +69,28 @@ public class EmployeeDAO {
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    
+    public boolean update(String employeeFullname, String employeeAddress, String employeePhone, String employeeEmail, String employeeImage, int employeeId) {
+        try {
+            String sql = "UPDATE `employee` SET `employeeFullname`=?,`employeeAddress`=?,`employeePhone`=?,`employeeEmail`=?,`employeeImage`=? WHERE `employeeId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, employeeFullname);
+            pst.setString(2, employeeAddress);
+            pst.setString(3, employeePhone);
+            pst.setString(4, employeeEmail);
+            pst.setString(5, employeeImage);
+            pst.setInt(6, employeeId);
+            pst.execute();
+            load();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -94,7 +103,7 @@ public class EmployeeDAO {
             pst.execute();
             load();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

@@ -5,10 +5,12 @@
  */
 package Models.DAO;
 
+import Models.Entites.Brand;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,26 +20,43 @@ import java.util.logging.Logger;
  */
 public class BrandDAO {
 
-    private Connection connection;
-    private String sql;
-    private PreparedStatement preparedStatement;
-    private ResultSet resultSet;
+    private Connection connection = null;
+    private String sql = "";
+    private PreparedStatement preparedStatement = null;
+    private ResultSet rs = null;
+    private ArrayList<Brand> brands;
 
     public BrandDAO() {
         DBConnection dbc = new DBConnection();
         connection = dbc.getConnection();
-        preparedStatement = null;
-        resultSet = null;
-        sql = "";
+        brands = new ArrayList<>();
     }
 
-    public ResultSet getBrands() {
+    public ArrayList<Brand> getBrands() {
+        return brands;
+    }
+
+    public void load() {
         try {
-            String sql = "SELECT * FROM `brand`";
+            sql = "SELECT * FROM `brand`";
             preparedStatement = connection.prepareStatement(sql);
-            return preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
+            brands.clear();
+            while (rs.next()) {
+                brands.add(new Brand(rs.getInt("brandId"),
+                        rs.getString("brandName"),
+                        rs.getString("brandImage")));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(BrandDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Brand getBrandById(int brandId) {
+        for (Brand b : brands) {
+            if (b.getBrandId() == brandId) {
+                return b;
+            }
         }
         return null;
     }

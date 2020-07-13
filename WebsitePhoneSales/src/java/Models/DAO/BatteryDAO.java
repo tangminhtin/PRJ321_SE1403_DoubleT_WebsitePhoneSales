@@ -6,10 +6,6 @@
 package Models.DAO;
 
 import Models.Entites.Battery;
-import Models.Entites.Body;
-import Models.Entites.Display;
-import Models.Entites.Phone;
-import Models.Entites.PhoneDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +37,7 @@ public class BatteryDAO {
             String sql = "SELECT * FROM `battery`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
+            battery.clear();
             while (rs.next()) {
                 int batteryId = rs.getInt("batteryId");
                 int batteryCapacity = rs.getInt("batteryCapacity");
@@ -50,7 +47,7 @@ public class BatteryDAO {
                 battery.add(new Battery(batteryId, batteryCapacity, batteryType, batteryTechnology));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BatteryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -67,4 +64,53 @@ public class BatteryDAO {
         return null;
     }
 
+    public int insert(int capacity, String type, String technology) {
+        try {
+            String sql = "INSERT INTO `battery`(`batteryCapacity`, `batteryType`, `batteryTechnology`) VALUES (?, ?, ?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, capacity);
+            pst.setString(2, type);
+            pst.setString(3, technology);
+            pst.execute();
+            load();
+            rs = pst.executeQuery("SELECT * FROM `battery`");
+            if (rs.last()) {
+                return rs.getInt("batteryId");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BatteryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public boolean update(int capacity, String type, String technology, int batteryId) {
+        try {
+            String sql = "UPDATE `battery` SET `batteryCapacity`=?,`batteryType`=?,`batteryTechnology`=? WHERE `batteryId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, capacity);
+            pst.setString(2, type);
+            pst.setString(3, technology);
+            pst.setInt(4, batteryId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(BatteryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean delete(int batteryId) {
+        try {
+            String sql = "DELETE FROM `battery` WHERE batteryId=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, batteryId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(BatteryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

@@ -5,9 +5,6 @@
  */
 package Models.DAO;
 
-import Models.Entites.Display;
-import Models.Entites.Phone;
-import Models.Entites.PhoneDetail;
 import Models.Entites.Platform;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,6 +37,7 @@ public class PlatformDAO {
             String sql = "SELECT * FROM `platform`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
+            platform.clear();
             while (rs.next()) {
                 int platformId = rs.getInt("platformId");
                 String platformOS = rs.getString("platformOS");
@@ -50,7 +48,7 @@ public class PlatformDAO {
                 platform.add(new Platform(platformId, platformOS, platformChipset, platformCPU, platformGPU));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlatformDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -65,6 +63,58 @@ public class PlatformDAO {
             }
         }
         return null;
+    }
+
+    public int insert(String OS, String chipset, String CPU, String GPU) {
+        try {
+            String sql = "INSERT INTO `platform`(`platformOS`, `platformChipset`, `platformCPU`, `platformGPU`) VALUES (?, ?, ?, ?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, OS);
+            pst.setString(2, chipset);
+            pst.setString(3, CPU);
+            pst.setString(4, GPU);
+            pst.execute();
+            load();
+            rs = pst.executeQuery("SELECT * FROM `platform`");
+            if (rs.last()) {
+                return rs.getInt("platformId");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PlatformDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public boolean update(String OS, String chipset, String CPU, String GPU, int platformId) {
+        try {
+            String sql = "UPDATE `platform` SET `platformOS`=?,`platformChipset`=?,`platformCPU`=?,`platformGPU`=? WHERE `platformId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, OS);
+            pst.setString(2, chipset);
+            pst.setString(3, CPU);
+            pst.setString(4, GPU);
+            pst.setInt(5, platformId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PlatformDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean delete(int platformId) {
+        try {
+            String sql = "DELETE FROM `platform` WHERE platformId=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, platformId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PlatformDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }

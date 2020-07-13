@@ -23,7 +23,7 @@ public class CustomerDAO {
     private ResultSet rs = null;
     private PreparedStatement ps = null;
     private ArrayList<Customer> customers;
-    String sql = "";
+    private String sql = "";
 
     public CustomerDAO() {
         DBConnection dbc = new DBConnection();
@@ -45,7 +45,7 @@ public class CustomerDAO {
                         rs.getString("customerImage"), rs.getInt("userId")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -69,7 +69,26 @@ public class CustomerDAO {
             return true;
 
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean update(String customerFullname, String customerAddress, String customerPhone, String customerEmail, String customerImage, int customerId) {
+        try {
+            String sql = "UPDATE `customer` SET `customerFullname`=?,`customerAddress`=,`customerPhone`=?,`customerEmail`=?,`customerImage`=? WHERE `customerId`";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, customerFullname);
+            pst.setString(2, customerAddress);
+            pst.setString(3, customerPhone);
+            pst.setString(4, customerEmail);
+            pst.setString(5, customerImage);
+            pst.setInt(6, customerId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
@@ -82,8 +101,10 @@ public class CustomerDAO {
             pst.execute();
             load();
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
+    
+    
 }

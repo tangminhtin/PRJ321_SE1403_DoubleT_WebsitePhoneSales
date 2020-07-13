@@ -6,7 +6,6 @@
 package Models.DAO;
 
 import Models.Entites.User;
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.processing.SupportedSourceVersion;
 
 /**
  *
@@ -22,10 +20,10 @@ import javax.annotation.processing.SupportedSourceVersion;
  */
 public class UserDAO {
 
-    private Connection connection;
-    DBConnection dBConnection;
-    PreparedStatement pst;
-    ResultSet rs;
+    private Connection connection = null;
+    DBConnection dBConnection = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
     ArrayList<User> users;
 
     public UserDAO() {
@@ -35,19 +33,22 @@ public class UserDAO {
         load();
     }
 
-//    public boolean insert(String userName, String userPassword) {
-//        try {
-//            String sql = "INSERT INTO `user`(`userName`, `userPassword`) VALUES (?, MD5(?))";
-//            PreparedStatement pst = connection.prepareStatement(sql);
-//            pst.setString(1, userName);
-//            pst.setString(2, userPassword);
-//            return pst.execute();
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return false;
-//    }
+    public void load() {
+        try {
+            String sql = "SELECT * FROM `user`";
+            pst = connection.prepareStatement(sql);
+            rs = pst.executeQuery();
+            users.clear();
+            while (rs.next()) {
+                users.add(new User(rs.getInt("userId"),
+                        rs.getString("userName"),
+                        rs.getString("userPassword"),
+                        rs.getString("userRole")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public int insert(String userName, String userPassword, String userRole) {
         try {
@@ -59,10 +60,9 @@ public class UserDAO {
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `user`");
-            if(rs.last()) {
+            if (rs.last()) {
                 return rs.getInt("userId");
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,8 +77,8 @@ public class UserDAO {
             pst.setString(2, userPassword);
             pst.setString(3, userRole);
             pst.setInt(4, userId);
-
             pst.execute();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -92,6 +92,7 @@ public class UserDAO {
             pst.setInt(1, userId);
             pst.execute();
             load();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,76 +115,20 @@ public class UserDAO {
         return null;
     }
 
-//    public ArrayList<User> login(String Username, String Password) {
-//        try {
-//            ResultSet rs;
-//            String sql = "SELECT * FROM `user` WHERE `userName`=? AND `userPassword`=?";
-//            pst = connection.prepareStatement(sql);
-//            pst.setString(1, Username);
-//            pst.setString(2, Password);
-//            rs = pst.executeQuery();
-//
-//            int check = 0;
-//            String db_aUser;
-//            String db_aPass;
-//            if (rs.next()) {
-//
-//                db_aUser = rs.getString("userName");
-//                db_aPass = rs.getString("userPassword");
-//
-//                if (Username.equals(db_aUser)) {
-//
-//                    return searchUserByUserName(db_aUser);
-//                }
-//            }
-//        } catch (SQLException ex) {
-//        }
-//        return null;
-//    }
-    public ArrayList<User> searchUserByUserName(String username) {
-        try {
-            ArrayList<User> user = new ArrayList<User>();
-
-            String sql = "SELECT * FROM `user` WHERE `userName`=?";
-            PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, username);
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                int userId = rs.getInt("userId");
-                String userName = rs.getString("userName");
-                String userPassword = rs.getString("userPassword");
-                String userRole = rs.getString("userRole");
-                user.add(new User(userId, userName, userPassword, userRole));
-
-                return user;
+    public User searchUserByUserName(String username) {
+        for (User u : users) {
+            if (u.getUserName().equals(username)) {
+                return u;
             }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public ArrayList<User> searchUserByUserId(int userId) {
-        try {
-            ArrayList<User> user = new ArrayList<User>();
-            ResultSet rs;
-            String sql = "SELECT * FROM `user` WHERE `userId`=?";
-            PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, userId);
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                userId = rs.getInt("userId");
-                String userName = rs.getString("userName");
-                String userPassword = rs.getString("userPassword");
-                String userRole = rs.getString("userRole");
-                user.add(new User(userId, userName, userPassword, userRole));
-
-                return user;
+    public User searchUserByUserId(int userId) {
+        for (User u : users) {
+            if (u.getUserId() == userId) {
+                return u;
             }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -191,33 +136,16 @@ public class UserDAO {
     public ArrayList<User> getUsers() {
         return users;
     }
-    
-    public void load() {
-        try {
-            String sql = "SELECT * FROM `user`";
-            pst = connection.prepareStatement(sql);
-            rs = pst.executeQuery();
-            users.clear();
-            while (rs.next()) {
-                users.add(new User(rs.getInt("userId"), rs.getString("userName"),
-                        rs.getString("userPassword"), rs.getString("userRole")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-    }
-    
     public String getRoleByUserId(int userId) {
-       for(User u: users) {
-           if(u.getUserId() == userId) {
-               return u.getUserRole();
-           }
-       }
-       return null;
+        for (User u : users) {
+            if (u.getUserId() == userId) {
+                return u.getUserRole();
+            }
+        }
+        return null;
     }
-    
-    
+
     public ArrayList<User> getUsersInRange(int start, int limit) {
         try {
             ArrayList<User> userLimit = new ArrayList<>();

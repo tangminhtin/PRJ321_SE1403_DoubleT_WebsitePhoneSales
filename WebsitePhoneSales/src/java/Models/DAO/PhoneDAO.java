@@ -98,4 +98,62 @@ public class PhoneDAO {
         return null;
     }
 
+    public int insert(String image, String name, double discount, double price, String shortDescription, int brandId, int phoneDetailId) {
+        try {
+            String sql = "INSERT INTO `phone`(`phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `brandId`, `phoneDetailId`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, image);
+            pst.setString(2, name);
+            pst.setDouble(3, discount);
+            pst.setDouble(4, price);
+            pst.setString(5, shortDescription);
+            pst.setInt(6, brandId);
+            pst.setInt(7, phoneDetailId);
+            pst.execute();
+            load();
+            rs = pst.executeQuery("SELECT * FROM `phone`");
+            if (rs.last()) {
+                return rs.getInt("phoneId");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public boolean update(String image, String name, double discount, double price, String shortDescription, int brandId, int phoneDetailId, int phoneId) {
+        try {
+            String sql = "UPDATE `phone` SET `phoneImage`=?, `phoneName`=?,`phoneDiscount`=?,`phonePrice`=?,`phoneShortDescription`=?,`brandId`=?,`phoneDetailId`=? WHERE `phoneId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, image);
+            pst.setString(2, name);
+            pst.setDouble(3, discount);
+            pst.setDouble(4, price);
+            pst.setString(5, shortDescription);
+            pst.setInt(6, brandId);
+            pst.setInt(7, phoneDetailId);
+            pst.setInt(8, phoneId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean delete(int phoneId) {
+        try {
+            String sql = "DELETE FROM `phone` WHERE phoneId=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, phoneId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

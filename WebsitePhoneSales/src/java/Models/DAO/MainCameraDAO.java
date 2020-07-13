@@ -5,11 +5,7 @@
  */
 package Models.DAO;
 
-import Models.Entites.Display;
 import Models.Entites.MainCamera;
-import Models.Entites.Phone;
-import Models.Entites.PhoneDetail;
-import Models.Entites.Platform;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,6 +37,7 @@ public class MainCameraDAO {
             String sql = "SELECT * FROM `maincamera`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
+            mainCamera.clear();
             while (rs.next()) {
                 int mainCameraId = rs.getInt("mainCameraId");
                 String mainCameraResolution = rs.getString("mainCameraResolution");
@@ -50,7 +47,7 @@ public class MainCameraDAO {
                 mainCamera.add(new MainCamera(mainCameraId, mainCameraResolution, mainCameraFeatures, mainCameraVideo));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -66,4 +63,55 @@ public class MainCameraDAO {
         }
         return null;
     }
+
+    public int insert(String resolution, String features, String video) {
+        try {
+            String sql = "INSERT INTO `maincamera`(`mainCameraResolution`, `mainCameraFeatures`, `mainCameraVideo`) VALUES (?, ?, ?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, resolution);
+            pst.setString(2, features);
+            pst.setString(3, video);
+            pst.execute();
+            load();
+            rs = pst.executeQuery("SELECT * FROM `maincamera`");
+            if (rs.last()) {
+                return rs.getInt("mainCameraId");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public boolean update(String resolution, String features, String video, int mainCameraId) {
+        try {
+            String sql = "UPDATE `maincamera` SET `mainCameraResolution`=?,`mainCameraFeatures`=?,`mainCameraVideo`=? WHERE `mainCameraId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, resolution);
+            pst.setString(2, features);
+            pst.setString(3, video);
+            pst.setInt(4, mainCameraId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MainCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean delete(int mainCameraId) {
+        try {
+            String sql = "DELETE FROM `maincamera` WHERE mainCameraId=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, mainCameraId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MainCameraDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

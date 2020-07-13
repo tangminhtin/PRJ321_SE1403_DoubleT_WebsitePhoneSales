@@ -6,9 +6,6 @@
 package Models.DAO;
 
 import Models.Entites.Body;
-import Models.Entites.Display;
-import Models.Entites.Phone;
-import Models.Entites.PhoneDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,12 +23,12 @@ public class BodyDAO {
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
-    ArrayList<Body> body;
+    ArrayList<Body> bodies;
 
     public BodyDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
-        body = new ArrayList<>();
+        bodies = new ArrayList<>();
         load();
     }
 
@@ -40,31 +37,82 @@ public class BodyDAO {
             String sql = "SELECT * FROM `body`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
+            bodies.clear();
             while (rs.next()) {
                 int bodyId = rs.getInt("bodyId");
                 String bodyDimensions = rs.getString("bodyDimensions");
                 String bodyWeight = rs.getString("bodyWeight");
                 String bodyBuild = rs.getString("bodyBuild");
 
-                body.add(new Body(bodyId, bodyDimensions, bodyWeight, bodyBuild));
+                bodies.add(new Body(bodyId, bodyDimensions, bodyWeight, bodyBuild));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PhoneDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BodyDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public ArrayList<Body> getAllPhone() {
-        return body;
+        return bodies;
     }
 
     public Body getPhoneById(int bodyId) {
-        for (Body bd : body) {
+        for (Body bd : bodies) {
             if (bd.getBodyId() == bodyId) {
                 return bd;
             }
         }
 
         return null;
+    }
+    
+    public int insert(String dimensions, String weight, String build) {
+        try {
+            String sql = "INSERT INTO `body`(`bodyDimensions`, `bodyWeight`, `bodyBuild`) VALUES (?, ?, ?)";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, dimensions);
+            pst.setString(2, weight);
+            pst.setString(3, build);
+            pst.execute();
+            load();
+            rs = pst.executeQuery("SELECT * FROM `body`");
+            if(rs.last()) {
+                return rs.getInt("bodyId");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BodyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+    
+    public boolean update(String dimensions, String weight, String build, int bodyId) {
+        try {
+            String sql = "UPDATE `body` SET `bodyDimensions`=?,`bodyWeight`=?,`bodyBuild`=? WHERE `bodyId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, dimensions);
+            pst.setString(2, weight);
+            pst.setString(3, build);
+            pst.setInt(4, bodyId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(BodyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean delete(int bodyId) {
+        try {
+            String sql = "DELETE FROM `body` WHERE bodyId=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, bodyId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(BodyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }
