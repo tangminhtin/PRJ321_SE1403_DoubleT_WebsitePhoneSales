@@ -35,7 +35,7 @@ public class PhoneDAO {
     public ArrayList<Phone> getAllPhone() {
         return phone;
     }
-    
+
     public void load() {
         try {
             String sql = "SELECT * FROM `phone`";
@@ -56,6 +56,37 @@ public class PhoneDAO {
         } catch (SQLException ex) {
             Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public int getNumberOfPhone() {
+        return phone.size();
+    }
+
+    public ArrayList<Phone> getPhonesInRange(int start, int limit) {
+        try {
+            ArrayList<Phone> phonesLimit = new ArrayList<>();
+            String sql = "SELECT * FROM `phone` LIMIT ?, ?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, start);
+            pst.setInt(2, limit);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                phonesLimit.add(new Phone(
+                rs.getInt("phoneId"),
+                rs.getString("phoneImage"),
+                rs.getString("phoneName"),
+                rs.getDouble("phoneDiscount"),
+                rs.getDouble("phonePrice"),
+                rs.getString("phoneShortDescription"),
+                rs.getInt("brandId"),
+                rs.getInt("phoneDetailId")
+                ));
+            }
+            return phonesLimit;
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }
