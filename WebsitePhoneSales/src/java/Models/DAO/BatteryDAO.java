@@ -64,13 +64,14 @@ public class BatteryDAO {
         return null;
     }
 
-    public int insert(int capacity, String type, String technology) {
+    public int insert(int batteryId, int capacity, String type, String technology) {
         try {
-            String sql = "INSERT INTO `battery`(`batteryCapacity`, `batteryType`, `batteryTechnology`) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO `battery`(`batteryId`, `batteryCapacity`, `batteryType`, `batteryTechnology`) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, capacity);
-            pst.setString(2, type);
-            pst.setString(3, technology);
+            pst.setInt(1, batteryId);
+            pst.setInt(2, capacity);
+            pst.setString(3, type);
+            pst.setString(4, technology);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `battery`");

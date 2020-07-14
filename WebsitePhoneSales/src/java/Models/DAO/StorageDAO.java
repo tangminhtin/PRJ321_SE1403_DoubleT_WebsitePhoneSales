@@ -64,13 +64,14 @@ public class StorageDAO {
         return null;
     }
 
-    public int insert(int RAM, int internal, int external) {
+    public int insert(int storageId, int RAM, int internal, int external) {
         try {
-            String sql = "INSERT INTO `storage`(`storageRAM`, `storageInternal`, `storageExternal`) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO `storage`(`storageId`, `storageRAM`, `storageInternal`, `storageExternal`) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, RAM);
-            pst.setInt(2, internal);
-            pst.setInt(3, external);
+            pst.setInt(1, storageId);
+            pst.setInt(2, RAM);
+            pst.setInt(3, internal);
+            pst.setInt(4, external);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `storage`");

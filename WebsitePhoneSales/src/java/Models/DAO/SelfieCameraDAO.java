@@ -64,13 +64,14 @@ public class SelfieCameraDAO {
         return null;
     }
 
-    public int insert(String resolution, String features, String video) {
+    public int insert(int selfieCameraId, String resolution, String features, String video) {
         try {
-            String sql = "INSERT INTO `selfiecamera`( `selfieCameraResolution`, `selfieCameraFeatures`, `selfieCameraVideo`) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO `selfiecamera`(`selfieCameraId`, `selfieCameraResolution`, `selfieCameraFeatures`, `selfieCameraVideo`) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, resolution);
-            pst.setString(2, features);
-            pst.setString(3, video);
+            pst.setInt(1, selfieCameraId);
+            pst.setString(2, resolution);
+            pst.setString(3, features);
+            pst.setString(4, video);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `selfiecamera`");

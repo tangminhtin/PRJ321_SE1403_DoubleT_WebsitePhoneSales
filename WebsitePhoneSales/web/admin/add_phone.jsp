@@ -38,7 +38,7 @@
 
                                             
                                             <!-- Default horizontal form -->
-                                            <form>
+                                            <form action="../PhoneController" method="post">
                                                 <div class="form-group row">
                                                     <label for="phoneName" class="col-sm-2 col-form-label">Name</label>
                                                     <div class="col-sm-10">
@@ -120,11 +120,14 @@
                                                     </div>
                                                 </div>
                                                 
+                                                
+                                                <!------------------DISPLAY------------------>
+                                                
                                                 <!--Display Type--> 
                                                 <div class="form-group row">
                                                     <label for="displayType" class="col-sm-2 col-form-label">Display Type</label>
                                                     <div class="col-sm-10">
-                                                        <input name="txtDisplayType" type="text" class="form-control" id="displayType" placeholder="Retina IPS LCD capacitive touchscreen, 16M colors">
+                                                        <input required name="txtDisplayType" type="text" class="form-control" id="displayType" placeholder="Retina IPS LCD capacitive touchscreen, 16M colors">
                                                     </div>
                                                 </div>
                                                 
@@ -132,7 +135,7 @@
                                                 <div class="form-group row">
                                                     <label for="displaySize" class="col-sm-2 col-form-label">Display Size</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtDisplaySize" type="text" class="form-control" id="displaySize" placeholder="6.5 inches, 60.9 cm2 (~65.4% screen-to-body ratio)">
+                                                    <input required  name="txtDisplaySize" type="text" class="form-control" id="displaySize" placeholder="6.5 inches, 60.9 cm2 (~65.4% screen-to-body ratio)">
                                                     </div>
                                                 </div>
                                                 
@@ -140,7 +143,7 @@
                                                 <div class="form-group row">
                                                     <label for="DisplayResolution" class="col-sm-2 col-form-label">Display Resolution</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtDisplayResolution" type="text" class="form-control" id="DisplayResolution" placeholder="2580 x 1334 pixels, 16:9 ratio (~326 ppi density)">
+                                                    <input required  name="txtDisplayResolution" type="text" class="form-control" id="DisplayResolution" placeholder="2580 x 1334 pixels, 16:9 ratio (~326 ppi density)">
                                                     </div>
                                                 </div>
                                                 
@@ -148,15 +151,18 @@
                                                 <div class="form-group row">
                                                     <label for="DisplayProtection" class="col-sm-2 col-form-label">Display Protection</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtDisplayProtection" type="text" class="form-control" id="DisplayProtection" placeholder="DisplayProtection...">
+                                                    <input required  name="txtDisplayProtection" type="text" class="form-control" id="DisplayProtection" placeholder="Corning Gorilla Glass 5">
                                                     </div>
                                                 </div>
+                                                
+                                                
+                                                <!------------------BODY------------------>
                                                 
                                                 <!--Body Dimension-->
                                                 <div class="form-group row">
                                                     <label for="BodyDimension" class="col-sm-2 col-form-label">Body Dimension</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtBodyDimension" type="text" class="form-control" id="BodyDimension" placeholder="138.4 x 67.3 x 7.3 mm (5.45 x 2.65 x 0.29 in)...">
+                                                    <input required name="txtBodyDimension" type="text" class="form-control" id="BodyDimension" placeholder="138.4 x 67.3 x 7.3 mm (5.45 x 2.65 x 0.29 in)...">
                                                     </div>
                                                 </div>
                                                 
@@ -164,7 +170,7 @@
                                                 <div class="form-group row">
                                                     <label for="BodyWeight" class="col-sm-2 col-form-label">Weight</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtBodyWeight" type="text" class="form-control" id="BodyWeight" placeholder="148g (5.22 oz)">
+                                                    <input required name="txtBodyWeight" type="text" class="form-control" id="BodyWeight" placeholder="148g (5.22 oz)">
                                                     </div>
                                                 </div>
                                                 
@@ -172,15 +178,18 @@
                                                 <div class="form-group row">
                                                     <label for="BodyBuild" class="col-sm-2 col-form-label">Body Build</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtBodyBuild" type="text" class="form-control" id="BodyBuild" placeholder="Glass front, glass back, aluminum frame...">
+                                                    <input required name="txtBodyBuild" type="text" class="form-control" id="BodyBuild" placeholder="Glass front, glass back, aluminum frame...">
                                                     </div>
                                                 </div>
+                                                
+                                                
+                                                <!------------------PLATFORM------------------>
                                                 
                                                 <!--OS-->
                                                 <div class="form-group row">
                                                     <label for="OS" class="col-sm-2 col-form-label">OS</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtOS" type="text" class="form-control" id="OS" placeholder="iOS 14">
+                                                    <input required name="txtOS" type="text" class="form-control" id="OS" placeholder="iOS 14">
                                                     </div>
                                                 </div>
                                                 
@@ -188,7 +197,7 @@
                                                 <div class="form-group row">
                                                     <label for="Chipset" class="col-sm-2 col-form-label">Chipset</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtChipset" type="text" class="form-control" id="Chipset" placeholder="Apple A14 Bionic (7 nm+)">
+                                                    <input required name="txtChipset" type="text" class="form-control" id="Chipset" placeholder="Apple A14 Bionic (7 nm+)">
                                                     </div>
                                                 </div>
                                                 
@@ -196,7 +205,7 @@
                                                 <div class="form-group row">
                                                     <label for="CPU" class="col-sm-2 col-form-label">CPU</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtCPU" type="text" class="form-control" id="CPU" placeholder="Hexa-core (2x2.65 GHz Lightning + 4x1.8 GHz Thunder)">
+                                                    <input required name="txtCPU" type="text" class="form-control" id="CPU" placeholder="Hexa-core (2x2.65 GHz Lightning + 4x1.8 GHz Thunder)">
                                                     </div>
                                                 </div>
                                                 
@@ -204,15 +213,18 @@
                                                 <div class="form-group row">
                                                     <label for="GPU" class="col-sm-2 col-form-label">GPU</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtGPU" type="text" class="form-control" id="GPU" placeholder="Apple GPU (4-core graphics)">
+                                                    <input required name="txtGPU" type="text" class="form-control" id="GPU" placeholder="Apple GPU (4-core graphics)">
                                                     </div>
                                                 </div>
+                                                
+                                                
+                                                <!------------------MAIN CAMERA------------------>
                                                 
                                                 <!--Main Camera Resolution-->
                                                 <div class="form-group row">
                                                     <label for="MainCameraResolution" class="col-sm-2 col-form-label">Main Camera Resolution</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtMainCameraResolution" type="text" class="form-control" id="MainCameraResolution" placeholder="12 MP, f/1.8 (wide), PDAF, OIS">
+                                                    <input required name="txtMainCameraResolution" type="text" class="form-control" id="MainCameraResolution" placeholder="12 MP, f/1.8 (wide), PDAF, OIS">
                                                     </div>
                                                 </div>
                                                 
@@ -220,7 +232,7 @@
                                                 <div class="form-group row">
                                                     <label for="MainCameraFeatures" class="col-sm-2 col-form-label">Main Camera Features</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtMainCameraFeatures" type="text" class="form-control" id="MainCameraFeatures" placeholder="Quad-LED dual-tone flash, HDR, panorama">
+                                                    <input required name="txtMainCameraFeatures" type="text" class="form-control" id="MainCameraFeatures" placeholder="Quad-LED dual-tone flash, HDR, panorama">
                                                     </div>
                                                 </div>
                                                 
@@ -228,15 +240,18 @@
                                                 <div class="form-group row">
                                                     <label for="MainCameraVideo" class="col-sm-2 col-form-label">Main Camera Video</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtMainCameraVideo" type="text" class="form-control" id="MainCameraVideo" placeholder="4K@24/30/60fps, 1080p@30/60/120/240fps, HDR, OIS, stereo sound rec">
+                                                    <input required name="txtMainCameraVideo" type="text" class="form-control" id="MainCameraVideo" placeholder="4K@24/30/60fps, 1080p@30/60/120/240fps, HDR, OIS, stereo sound rec">
                                                     </div>
                                                 </div>
+                                                
+                                                
+                                                <!------------------SELFIE CAMERA------------------>
                                                 
                                                 <!--Selfie Camera Resolution-->
                                                 <div class="form-group row">
                                                     <label for="SelfieCameraResolution" class="col-sm-2 col-form-label">Selfie Camera Resolution</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtSelfieCameraResolution" type="text" class="form-control" id="SelfieCameraResolution" placeholder="7 MP, f/2.2">
+                                                    <input required name="txtSelfieCameraResolution" type="text" class="form-control" id="SelfieCameraResolution" placeholder="7 MP, f/2.2">
                                                     </div>
                                                 </div>
                                                 
@@ -244,7 +259,7 @@
                                                 <div class="form-group row">
                                                     <label for="SelfieCameraFeatures" class="col-sm-2 col-form-label">Selfie Camera Features</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtSelfieCameraFeatures" type="text" class="form-control" id="SelfieCameraFeatures" placeholder="Face detection, HDR, panorama">
+                                                    <input required name="txtSelfieCameraFeatures" type="text" class="form-control" id="SelfieCameraFeatures" placeholder="Face detection, HDR, panorama">
                                                     </div>
                                                 </div>
                                                 
@@ -252,15 +267,18 @@
                                                 <div class="form-group row">
                                                     <label for="SelfieCameraVideo" class="col-sm-2 col-form-label">Selfie Camera Video</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtSelfieCameraVideo" type="text" class="form-control" id="SelfieCameraVideo" placeholder="1080p@30fps; gyro-EIS">
+                                                    <input required name="txtSelfieCameraVideo" type="text" class="form-control" id="SelfieCameraVideo" placeholder="1080p@30fps; gyro-EIS">
                                                     </div>
                                                 </div>
+                                                
+                                                
+                                                <!------------------STORAGE------------------>
                                                 
                                                 <!--RAM-->
                                                 <div class="form-group row">
                                                     <label for="RAM" class="col-sm-2 col-form-label">RAM</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtRAM" type="number" class="form-control" id="RAM" placeholder="8GB">
+                                                    <input required name="txtRAM" type="number" class="form-control" id="RAM" placeholder="8GB">
                                                     </div>
                                                 </div>
                                            
@@ -268,7 +286,7 @@
                                                 <div class="form-group row">
                                                     <label for="Internal" class="col-sm-2 col-form-label">Internal</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtInternal" type="number" class="form-control" id="Internal" placeholder="256GB">
+                                                    <input required name="txtInternal" type="number" class="form-control" id="Internal" placeholder="256GB">
                                                     </div>
                                                 </div>
                                            
@@ -276,15 +294,18 @@
                                                 <div class="form-group row">
                                                     <label for="External" class="col-sm-2 col-form-label">External</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtExternal" type="number" class="form-control" id="External" placeholder="0GB">
+                                                    <input required name="txtExternal" type="number" class="form-control" id="External" placeholder="0GB">
                                                     </div>
                                                 </div>
+                                                
+                                                
+                                                <!------------------BATTERY------------------>
                                            
                                                 <!--Battery Capacity-->
                                                 <div class="form-group row">
                                                     <label for="BatteryCapacity" class="col-sm-2 col-form-label">Battery Capacity</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtBatteryCapacity" type="number" class="form-control" id="BatteryCapacity" placeholder="1821mAh">
+                                                    <input required name="txtBatteryCapacity" type="number" class="form-control" id="BatteryCapacity" placeholder="1821mAh">
                                                     </div>
                                                 </div>
                                            
@@ -292,7 +313,7 @@
                                                 <div class="form-group row">
                                                     <label for="BatteryType" class="col-sm-2 col-form-label">Battery Type</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtBatteryType" type="text" class="form-control" id="BatteryType" placeholder="Non-removable Li-Ion">
+                                                    <input required name="txtBatteryType" type="text" class="form-control" id="BatteryType" placeholder="Non-removable Li-Ion">
                                                     </div>
                                                 </div>
                                            
@@ -300,9 +321,12 @@
                                                 <div class="form-group row">
                                                     <label for="BatteryTechnology" class="col-sm-2 col-form-label">Battery Technology</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtBatteryTechnology" type="text" class="form-control" id="BatteryTechnology" placeholder="Fast charging 18W, 50% in 30 min (advertised)">
+                                                    <input required name="txtBatteryTechnology" type="text" class="form-control" id="BatteryTechnology" placeholder="Fast charging 18W, 50% in 30 min (advertised)">
                                                     </div>
                                                 </div>
+                                                
+                                                
+                                                <!------------------CONNECTION------------------>
                                            
                                                 <!--SIM-->
                                                 <div class="form-group row">

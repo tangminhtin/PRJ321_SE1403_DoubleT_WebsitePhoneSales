@@ -5,12 +5,20 @@
  */
 package Controllers;
 
+import Models.DAO.BatteryDAO;
+import Models.DAO.BodyDAO;
 import Models.DAO.BrandDAO;
+import Models.DAO.CommentDAO;
+import Models.DAO.ConnectionDAO;
+import Models.DAO.DisplayDAO;
+import Models.DAO.MainCameraDAO;
 import Models.DAO.PhoneDAO;
 import Models.DAO.PhoneDetailDAO;
+import Models.DAO.PlatformDAO;
+import Models.DAO.SelfieCameraDAO;
+import Models.DAO.StorageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,14 +29,33 @@ import javax.servlet.http.HttpServletResponse;
  * @author tangminhtin
  */
 public class PhoneController extends HttpServlet {
-    private BrandDAO bdao = null;
-    private PhoneDetailDAO pddao  = null;
-    private PhoneDAO pdao= null;
+    private BrandDAO brandDAO = null;
+    private PhoneDetailDAO phoneDetailDAO  = null;
+    private PhoneDAO phoneDAO = null;
+    private DisplayDAO displayDAO = null;
+    private BodyDAO bodyDAO = null;
+    private PlatformDAO platformDAO = null;
+    private MainCameraDAO mainCameraDAO = null;
+    private SelfieCameraDAO selfieCameraDAO = null;
+    private StorageDAO storageDAO = null;
+    private BatteryDAO batteryDAO = null;
+    private ConnectionDAO connectionDAO = null;
+    private CommentDAO commentDAO = null;
+    
 
     public PhoneController() {
-        bdao = new BrandDAO();
-        pddao = new PhoneDetailDAO();
-        pdao = new PhoneDAO();
+        brandDAO = new BrandDAO();
+        phoneDetailDAO = new PhoneDetailDAO();
+        phoneDAO = new PhoneDAO();
+        displayDAO = new DisplayDAO();
+        bodyDAO = new BodyDAO();
+        platformDAO = new PlatformDAO();
+        mainCameraDAO = new MainCameraDAO();
+        storageDAO = new StorageDAO();
+        selfieCameraDAO = new SelfieCameraDAO();
+        batteryDAO = new BatteryDAO();
+        connectionDAO = new ConnectionDAO();
+        commentDAO = new CommentDAO();
     }
     
     
@@ -93,6 +120,88 @@ public class PhoneController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+
+        
+
+
+
+
+
+        int id=0;
+
+        //// DISPLAY 
+        String displayType = request.getParameter("txtDisplayType");
+        String displaySize = request.getParameter("txtDisplaySize");
+        String displayResolution = request.getParameter("txtDisplayResolution");
+        String displayProtection = request.getParameter("txtDisplayProtection");
+        if(displayType!=null && displaySize!=null && displayResolution!=null & displayProtection!=null) {
+            id = displayDAO.insert(displayType, displaySize, displayResolution, displayProtection);
+        }
+
+
+
+        //// BODY
+        String bodyDimension = request.getParameter("txtBodyDimension");
+        String bodyWeight = request.getParameter("txtBodyWeight");
+        String bodyBuild = request.getParameter("txtBodyBuild");
+        if(bodyDimension!=null && bodyBuild!=null && bodyWeight!=null) {
+            bodyDAO.insert(id, bodyDimension, bodyWeight, bodyBuild);
+        }
+
+
+
+        //// PLATFORM
+        String os = request.getParameter("txtOS");
+        String chipset = request.getParameter("txtChipset");
+        String cpu = request.getParameter("txtCPU");
+        String gpu = request.getParameter("txtGPU");
+        
+        if(os!=null && chipset!=null && cpu!=null && gpu!=null) {
+            platformDAO.insert(id, os, chipset, cpu, gpu);
+        }
+        
+        
+        
+        //// MAIN CAMERA
+        String mainCameraResolution = request.getParameter("txtMainCameraResolution");
+        String mainCameraFeatures = request.getParameter("txtMainCameraFeatures");
+        String mainCameraVideo = request.getParameter("txtMainCameraVideo");
+        if(mainCameraFeatures!=null && mainCameraResolution!=null && mainCameraVideo!=null) {
+            mainCameraDAO.insert(id, mainCameraResolution, mainCameraFeatures, mainCameraVideo);
+        }
+    
+    
+        
+        //// MAIN CAMERA
+        String selfieCameraResolution = request.getParameter("txtSelfieCameraResolution");
+        String selfieCameraFeatures = request.getParameter("txtSelfieCameraFeatures");
+        String selfieCameraVideo = request.getParameter("txtSelfieCameraVideo");
+        if(selfieCameraFeatures!=null && selfieCameraResolution!=null && selfieCameraVideo!=null) {
+            selfieCameraDAO.insert(id, selfieCameraResolution, selfieCameraFeatures, selfieCameraVideo);
+        }
+        
+        
+        
+        //// STORAGE
+        String ram = request.getParameter("txtRAM");
+        String internal = request.getParameter("txtInternal");
+        String external = request.getParameter("txtExternal");
+        if(ram!=null && internal!=null && external!=null) {
+            storageDAO.insert(id, Integer.parseInt(ram), Integer.parseInt(internal), Integer.parseInt(external));
+        }
+        
+        
+        
+        //// BATTERY
+        String batteryCapacity = request.getParameter("txtBatteryCapacity");
+        String batteryType = request.getParameter("txtBatteryType");
+        String batteryTechnology = request.getParameter("txtBatteryTechnology");
+        if(batteryCapacity!=null && batteryType!=null && batteryTechnology!=null) {
+            batteryDAO.insert(id, Integer.parseInt(batteryCapacity), batteryType, batteryTechnology);
+        }
+    
+    
+        response.sendRedirect("./admin/add_phone.jsp");
     }
 
     /**

@@ -65,13 +65,14 @@ public class BodyDAO {
         return null;
     }
     
-    public int insert(String dimensions, String weight, String build) {
+    public int insert(int bodyId, String dimensions, String weight, String build) {
         try {
-            String sql = "INSERT INTO `body`(`bodyDimensions`, `bodyWeight`, `bodyBuild`) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO `body`(`bodyId`, `bodyDimensions`, `bodyWeight`, `bodyBuild`) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, dimensions);
-            pst.setString(2, weight);
-            pst.setString(3, build);
+            pst.setInt(1, bodyId);
+            pst.setString(2, dimensions);
+            pst.setString(3, weight);
+            pst.setString(4, build);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `body`");

@@ -65,14 +65,15 @@ public class PlatformDAO {
         return null;
     }
 
-    public int insert(String OS, String chipset, String CPU, String GPU) {
+    public int insert(int platformId, String OS, String chipset, String CPU, String GPU) {
         try {
-            String sql = "INSERT INTO `platform`(`platformOS`, `platformChipset`, `platformCPU`, `platformGPU`) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO `platform`(`platformId` ,`platformOS`, `platformChipset`, `platformCPU`, `platformGPU`) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, OS);
-            pst.setString(2, chipset);
-            pst.setString(3, CPU);
-            pst.setString(4, GPU);
+            pst.setInt(1, platformId);
+            pst.setString(2, OS);
+            pst.setString(3, chipset);
+            pst.setString(4, CPU);
+            pst.setString(5, GPU);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `platform`");
