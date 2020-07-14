@@ -9,7 +9,10 @@ import Models.Entites.OrderDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +33,7 @@ public class OrderDetailDAO {
 
     public void load() {
         try {
-            String sql = "SELECT * FROM `selfiecamera`";
+            String sql = "SELECT * FROM `orderdetail`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             orderDetails.clear();
@@ -41,81 +44,74 @@ public class OrderDetailDAO {
                         rs.getInt("shipperId"), 
                         rs.getInt("employeeId"), 
                         rs.getDouble("orderDetailTotalPrice"), 
-                rs.getInt("")));
-                
-                
-
+                        rs.getInt("orderDetailQuantity")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ArrayList<Order> getAllPhone() {
-        return orders;
+    public ArrayList<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
-    public Order getPhoneById(int orderId) {
-        for (Order o : orders) {
-            if (o.getOrderId()== orderId) {
-                return o;
+    public OrderDetail getOrderDetailById(int orderId) {
+        for (OrderDetail od : orderDetails) {
+            if (od.getOrderId()== orderId) {
+                return od;
             }
         }
         return null;
     }
 
-    public int insert(String date, int quantity, double totalPrice, String note, int phoneId, int customerId) {
+    public int insert(int orderId, int phoneId, int shipperId, int employeeId, double totalPrice, int quantity) {
         try {
-            String sql = "INSERT INTO `order`(`orderDate`, `orderQuantity`, `orderTotalPrice`, `orderNote`, `phoneId`, `customerId`) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `orderdetail`(`orderId`, `phoneId`, `shipperId`, `employeeId`, `orderDetailTotalPrice`, `orderDetailQuantity`) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setDate(1, Date.valueOf(date));
-            pst.setInt(2, quantity);
-            pst.setDouble(3, totalPrice);
-            pst.setString(4, note);
-            pst.setInt(5, phoneId);
-            pst.setInt(6, customerId);
+            pst.setInt(1, orderId);
+            pst.setInt(2, phoneId);
+            pst.setInt(3, shipperId);
+            pst.setInt(4, employeeId);
+            pst.setDouble(5, totalPrice);
+            pst.setInt(6, quantity);
             pst.execute();
             load();
-            rs = pst.executeQuery("SELECT * FROM `order`");
+            rs = pst.executeQuery("SELECT * FROM `orderdetail`");
             if (rs.last()) {
                 return rs.getInt("orderId");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
     }
 
-    public boolean update(String date, int quantity, double totalPrice, String note, int phoneId, int customerId, int orderId) {
+    public boolean update(double totalPrice, int quantity, int orderId) {
         try {
-            String sql = "UPDATE `order` SET `orderDate`=?,`orderQuantity`=?,`orderTotalPrice`=?,`orderNote`=?,`phoneId`=?,`customerId`=? WHERE `orderId`=?";
+            String sql = "UPDATE `orderdetail` SET `orderDetailTotalPrice`=?,`orderDetailQuantity`=? WHERE `orderId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setDate(1, Date.valueOf(date));
+            pst.setDouble(1, totalPrice);
             pst.setInt(2, quantity);
-            pst.setDouble(3, totalPrice);
-            pst.setString(4, note);
-            pst.setInt(5, phoneId);
-            pst.setInt(6, customerId);
-            pst.setInt(7, orderId);
+            pst.setInt(3, orderId);
             pst.execute();
             load();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 
     public boolean delete(int orderId) {
         try {
-            String sql = "DELETE FROM `order` WHERE orderId=?";
+            String sql = "DELETE FROM `orderdetail` WHERE orderId=?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, orderId);
             pst.execute();
             load();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }

@@ -34,7 +34,7 @@ public class OrderDAO {
 
     public void load() {
         try {
-            String sql = "SELECT * FROM `selfiecamera`";
+            String sql = "SELECT * FROM `order`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             orders.clear();
@@ -53,11 +53,11 @@ public class OrderDAO {
         }
     }
 
-    public ArrayList<Order> getAllPhone() {
+    public ArrayList<Order> getOrders() {
         return orders;
     }
 
-    public Order getPhoneById(int orderId) {
+    public Order getOrderById(int orderId) {
         for (Order o : orders) {
             if (o.getOrderId()== orderId) {
                 return o;
@@ -88,17 +88,15 @@ public class OrderDAO {
         return -1;
     }
 
-    public boolean update(String date, int quantity, double totalPrice, String note, int phoneId, int customerId, int orderId) {
+    public boolean update(String date, int quantity, double totalPrice, String note, int orderId) {
         try {
-            String sql = "UPDATE `order` SET `orderDate`=?,`orderQuantity`=?,`orderTotalPrice`=?,`orderNote`=?,`phoneId`=?,`customerId`=? WHERE `orderId`=?";
+            String sql = "UPDATE `order` SET `orderDate`=?,`orderQuantity`=?,`orderTotalPrice`=?,`orderNote`=? WHERE `orderId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setDate(1, Date.valueOf(date));
             pst.setInt(2, quantity);
             pst.setDouble(3, totalPrice);
             pst.setString(4, note);
-            pst.setInt(5, phoneId);
-            pst.setInt(6, customerId);
-            pst.setInt(7, orderId);
+            pst.setInt(5, orderId);
             pst.execute();
             load();
             return true;
