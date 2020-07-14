@@ -75,22 +75,23 @@ public class PhoneDetailDAO {
         return null;
     }
 
-    public int insert(String image, String description, String video, String specialFeatures, int displayId, int bodyId, int platformId, int mainCameraId, int selfieCameraId, int storageId, int batteryId, int connectionId) {
+    public int insert(int phoneDetailId, String image, String description, String video, String specialFeatures, int displayId, int bodyId, int platformId, int mainCameraId, int selfieCameraId, int storageId, int batteryId, int connectionId) {
         try {
-            String sql = "INSERT INTO `phonedetail`(`phoneDetailImage`, `phoneDetailDescription`, `phoneDetailVideo`, `phoneDetailSpecialFeatures`, `displayId`, `bodyId`, `platformId`, `mainCameraId`, `selfieCameraId`, `storageId`, `batteryId`, `connectionId`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `phonedetail`(`phoneDetailId`, `phoneDetailImage`, `phoneDetailDescription`, `phoneDetailVideo`, `phoneDetailSpecialFeatures`, `displayId`, `bodyId`, `platformId`, `mainCameraId`, `selfieCameraId`, `storageId`, `batteryId`, `connectionId`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, image);
-            pst.setString(2, description);
-            pst.setString(3, video);
-            pst.setString(4, specialFeatures);
-            pst.setInt(5, displayId);
-            pst.setInt(6, bodyId);
-            pst.setInt(7, platformId);
-            pst.setInt(8, mainCameraId);
-            pst.setInt(9, selfieCameraId);
-            pst.setInt(10, storageId);
-            pst.setInt(11, batteryId);
-            pst.setInt(12, connectionId);
+            pst.setInt(1, phoneDetailId);
+            pst.setString(2, image);
+            pst.setString(3, description);
+            pst.setString(4, video);
+            pst.setString(5, specialFeatures);
+            pst.setInt(6, displayId);
+            pst.setInt(7, bodyId);
+            pst.setInt(8, platformId);
+            pst.setInt(9, mainCameraId);
+            pst.setInt(10, selfieCameraId);
+            pst.setInt(11, storageId);
+            pst.setInt(12, batteryId);
+            pst.setInt(13, connectionId);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `phonedetail`");

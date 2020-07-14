@@ -71,19 +71,20 @@ public class ConnectionDAO {
         }
     }
 
-    public int insert(String SIM, String mobileNetwork, String WLAN, String bluetooth, String GPS, int NFC, int radio, String USB, int jack) {
+    public int insert(int connectionId, String SIM, String mobileNetwork, String WLAN, String bluetooth, String GPS, int NFC, int radio, String USB, int jack) {
         try {
-            String sql = "INSERT INTO `connection`(`connectionSIM`, `connectionMobileNetwork`, `connectionWLAN`, `connectionBluetooth`, `connectionGPS`, `connectionNFC`, `connectionRadio`, `connectionUSB`, `connectionJack`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `connection`(`connectionId`, `connectionSIM`, `connectionMobileNetwork`, `connectionWLAN`, `connectionBluetooth`, `connectionGPS`, `connectionNFC`, `connectionRadio`, `connectionUSB`, `connectionJack`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, SIM);
-            pst.setString(2, mobileNetwork);
-            pst.setString(3, WLAN);
-            pst.setString(4, bluetooth);
-            pst.setString(5, GPS);
-            pst.setInt(6, NFC);
-            pst.setInt(7, radio);
-            pst.setString(8, USB);
-            pst.setInt(9, jack);
+            pst.setInt(1, connectionId);
+            pst.setString(2, SIM);
+            pst.setString(3, mobileNetwork);
+            pst.setString(4, WLAN);
+            pst.setString(5, bluetooth);
+            pst.setString(6, GPS);
+            pst.setInt(7, NFC);
+            pst.setInt(8, radio);
+            pst.setString(9, USB);
+            pst.setInt(10, jack);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `connection`");

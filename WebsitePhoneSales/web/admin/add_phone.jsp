@@ -38,7 +38,10 @@
 
                                             
                                             <!-- Default horizontal form -->
-                                            <form action="../PhoneController" method="post">
+                                            <form action="../PhoneController?query=add" method="post">
+                                                
+                                                <!------------------PHONE------------------>
+                                                
                                                 <div class="form-group row">
                                                     <label for="phoneName" class="col-sm-2 col-form-label">Name</label>
                                                     <div class="col-sm-10">
@@ -57,15 +60,15 @@
                                                     <label for="Brand" class="col-sm-2 col-form-label">Brand</label>
                                                     <div class="col-sm-10">
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="BrandApple" name="radBrand" checked>
+                                                            <input value="1" type="radio" class="custom-control-input" id="BrandApple" name="radBrand" checked>
                                                             <label class="custom-control-label" for="BrandApple">Apple</label>
                                                         </div>
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="BrandSamsung" name="radBrand">
+                                                            <input value="2" type="radio" class="custom-control-input" id="BrandSamsung" name="radBrand">
                                                             <label class="custom-control-label" for="BrandSamsung">Samsung</label>
                                                         </div>
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="BrandGoogle" name="radBrand">
+                                                            <input value="3" type="radio" class="custom-control-input" id="BrandGoogle" name="radBrand">
                                                             <label class="custom-control-label" for="BrandGoogle">Google</label>
                                                         </div>
                                                     </div>
@@ -95,11 +98,14 @@
                                                     </div>
                                                 </div>
                                                 
+                                                
+                                                <!------------------PHONE DETAIL------------------>
+                                                
                                                 <!--Description Detail-->
                                                 <div class="form-group row">
                                                     <label for="phoneDetailDescription" class="col-sm-2 col-form-label">Description Detail</label>
                                                     <div class="col-sm-10">
-                                                      <textarea name="txtPhoneDetailDescription" id="phoneDetailDescription" class="form-control z-depth-1" rows="6" placeholder="Description Detail"></textarea>
+                                                      <textarea required name="txtPhoneDetailDescription" id="phoneDetailDescription" class="form-control z-depth-1" rows="6" placeholder="Description Detail"></textarea>
                                                     </div>
                                                 </div>
                                                 
@@ -108,7 +114,7 @@
                                                 <div class="form-group row">
                                                     <label for="phoneDetailVideo" class="col-sm-2 col-form-label">Link Video</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtPhoneDetailVideo" type="text" class="form-control" id="phoneName" placeholder="https://youtu.be/CnSJYa3m9DM">
+                                                    <input required name="txtPhoneDetailVideo" type="text" class="form-control" id="phoneName" placeholder="https://youtu.be/CnSJYa3m9DM">
                                                     </div>
                                                 </div>
                                                 
@@ -116,7 +122,7 @@
                                                 <div class="form-group row">
                                                     <label for="phoneDetailSpecialFeatures" class="col-sm-2 col-form-label">Special Features</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtPhoneDetailSpecialFeatures" type="text" class="form-control" id="phoneDetailSpecialFeatures" placeholder="Fingerprint (front-mounted), accelerometer...">
+                                                    <input required name="txtPhoneDetailSpecialFeatures" type="text" class="form-control" id="phoneDetailSpecialFeatures" placeholder="Fingerprint (front-mounted), accelerometer...">
                                                     </div>
                                                 </div>
                                                 
@@ -135,7 +141,7 @@
                                                 <div class="form-group row">
                                                     <label for="displaySize" class="col-sm-2 col-form-label">Display Size</label>
                                                     <div class="col-sm-10">
-                                                    <input required  name="txtDisplaySize" type="text" class="form-control" id="displaySize" placeholder="6.5 inches, 60.9 cm2 (~65.4% screen-to-body ratio)">
+                                                    <input required name="txtDisplaySize" type="text" class="form-control" id="displaySize" placeholder="6.5 inches, 60.9 cm2 (~65.4% screen-to-body ratio)">
                                                     </div>
                                                 </div>
                                                 
@@ -143,7 +149,7 @@
                                                 <div class="form-group row">
                                                     <label for="DisplayResolution" class="col-sm-2 col-form-label">Display Resolution</label>
                                                     <div class="col-sm-10">
-                                                    <input required  name="txtDisplayResolution" type="text" class="form-control" id="DisplayResolution" placeholder="2580 x 1334 pixels, 16:9 ratio (~326 ppi density)">
+                                                    <input required name="txtDisplayResolution" type="text" class="form-control" id="DisplayResolution" placeholder="2580 x 1334 pixels, 16:9 ratio (~326 ppi density)">
                                                     </div>
                                                 </div>
                                                 
@@ -151,7 +157,7 @@
                                                 <div class="form-group row">
                                                     <label for="DisplayProtection" class="col-sm-2 col-form-label">Display Protection</label>
                                                     <div class="col-sm-10">
-                                                    <input required  name="txtDisplayProtection" type="text" class="form-control" id="DisplayProtection" placeholder="Corning Gorilla Glass 5">
+                                                    <input required name="txtDisplayProtection" type="text" class="form-control" id="DisplayProtection" placeholder="Corning Gorilla Glass 5">
                                                     </div>
                                                 </div>
                                                 
@@ -332,7 +338,7 @@
                                                 <div class="form-group row">
                                                     <label for="SIM" class="col-sm-2 col-form-label">SIM</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtSIM" type="text" class="form-control" id="SIM" placeholder="Nano-SIM and/or eSIM">
+                                                    <input required name="txtSIM" type="text" class="form-control" id="SIM" placeholder="Nano-SIM and/or eSIM">
                                                     </div>
                                                 </div>
                                            
@@ -340,7 +346,7 @@
                                                 <div class="form-group row">
                                                     <label for="MobileNetwork" class="col-sm-2 col-form-label">Mobile Network</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtMobileNetwork" type="text" class="form-control" id="MobileNetwork" placeholder="GSM/CDMA/HSPA/EVDO/LTE">
+                                                    <input required name="txtMobileNetwork" type="text" class="form-control" id="MobileNetwork" placeholder="GSM/CDMA/HSPA/EVDO/LTE">
                                                     </div>
                                                 </div>
                                            
@@ -348,7 +354,7 @@
                                                 <div class="form-group row">
                                                     <label for="WLAN" class="col-sm-2 col-form-label">WLAN</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtWLAN" type="text" class="form-control" id="WLAN" placeholder="Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot">
+                                                    <input required name="txtWLAN" type="text" class="form-control" id="WLAN" placeholder="Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot">
                                                     </div>
                                                 </div>
                                            
@@ -356,7 +362,7 @@
                                                 <div class="form-group row">
                                                     <label for="Bluetooth" class="col-sm-2 col-form-label">Bluetooth</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtBluetooth" type="text" class="form-control" id="Bluetooth" placeholder="5.0, A2DP, LE">
+                                                    <input required name="txtBluetooth" type="text" class="form-control" id="Bluetooth" placeholder="5.0, A2DP, LE">
                                                     </div>
                                                 </div>
                                            
@@ -364,7 +370,7 @@
                                                 <div class="form-group row">
                                                     <label for="GPS" class="col-sm-2 col-form-label">GPS</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtGPS" type="text" class="form-control" id="GPS" placeholder="Yes, with A-GPS, GLONASS">
+                                                    <input required name="txtGPS" type="text" class="form-control" id="GPS" placeholder="Yes, with A-GPS, GLONASS">
                                                     </div>
                                                 </div>
                                                 
@@ -372,7 +378,7 @@
                                                 <div class="form-group row">
                                                     <label for="USB" class="col-sm-2 col-form-label">USB</label>
                                                     <div class="col-sm-10">
-                                                    <input name="txtUSB" type="text" class="form-control" id="USB" placeholder="2.0, proprietary reversible connector">
+                                                    <input required name="txtUSB" type="text" class="form-control" id="USB" placeholder="2.0, proprietary reversible connector">
                                                     </div>
                                                 </div>
                                                 
@@ -382,11 +388,11 @@
                                                     <label for="NFC" class="col-sm-2 col-form-label">NFC</label>
                                                     <div class="col-sm-10">
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="NFCYes" name="radNFC" checked>
+                                                            <input name="radNFC" value="1" type="radio" class="custom-control-input" id="NFCYes" checked>
                                                             <label class="custom-control-label" for="NFCYes">Yes</label>
                                                         </div>
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="NFCNo" name="radNFC">
+                                                            <input name="radNFC" value="0" type="radio" class="custom-control-input" id="NFCNo">
                                                             <label class="custom-control-label" for="NFCNo">No</label>
                                                         </div>
                                                     </div>
@@ -397,11 +403,11 @@
                                                     <label for="Radio" class="col-sm-2 col-form-label">Radio</label>
                                                     <div class="col-sm-10">
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="RadioYes" name="radRadio">
+                                                            <input name="radRadio" value="1" type="radio" class="custom-control-input" id="RadioYes">
                                                             <label class="custom-control-label" for="RadioYes">Yes</label>
                                                         </div>
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="RadioNo" name="radRadio" checked>
+                                                            <input name="radRadio" value="0" type="radio" class="custom-control-input" id="RadioNo" checked>
                                                             <label class="custom-control-label" for="RadioNo">No</label>
                                                         </div>
                                                     </div>
@@ -413,11 +419,11 @@
                                                     <label for="Jack" class="col-sm-2 col-form-label">Jack</label>
                                                     <div class="col-sm-10">
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="JackYes" name="radJack">
+                                                            <input name="radJack" value="1" type="radio" class="custom-control-input" id="JackYes">
                                                             <label class="custom-control-label" for="JackYes">Yes</label>
                                                         </div>
                                                         <div class="custom-control custom-radio custom-control-inline">
-                                                            <input type="radio" class="custom-control-input" id="JackNo" name="radJack" checked>
+                                                            <input name="radJack" value="0" type="radio" class="custom-control-input" id="JackNo" checked>
                                                             <label class="custom-control-label" for="JackNo">No</label>
                                                         </div>
                                                     </div>

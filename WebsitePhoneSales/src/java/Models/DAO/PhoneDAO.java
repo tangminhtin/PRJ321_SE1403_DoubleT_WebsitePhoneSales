@@ -98,17 +98,18 @@ public class PhoneDAO {
         return null;
     }
 
-    public int insert(String image, String name, double discount, double price, String shortDescription, int brandId, int phoneDetailId) {
+    public int insert(int phoneId, String image, String name, double discount, double price, String shortDescription, int brandId, int phoneDetailId) {
         try {
-            String sql = "INSERT INTO `phone`(`phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `brandId`, `phoneDetailId`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `phone`(`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `brandId`, `phoneDetailId`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, image);
-            pst.setString(2, name);
-            pst.setDouble(3, discount);
-            pst.setDouble(4, price);
-            pst.setString(5, shortDescription);
-            pst.setInt(6, brandId);
-            pst.setInt(7, phoneDetailId);
+            pst.setInt(1, phoneId);
+            pst.setString(2, image);
+            pst.setString(3, name);
+            pst.setDouble(4, discount);
+            pst.setDouble(5, price);
+            pst.setString(6, shortDescription);
+            pst.setInt(7, brandId);
+            pst.setInt(8, phoneDetailId);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `phone`");

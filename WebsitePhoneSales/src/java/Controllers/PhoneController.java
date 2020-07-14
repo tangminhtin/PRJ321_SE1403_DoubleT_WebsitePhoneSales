@@ -127,81 +127,137 @@ public class PhoneController extends HttpServlet {
 
 
 
-        int id=0;
+        if(request.getParameter("query").equals("add")) {
+            int id=0;
 
-        //// DISPLAY 
-        String displayType = request.getParameter("txtDisplayType");
-        String displaySize = request.getParameter("txtDisplaySize");
-        String displayResolution = request.getParameter("txtDisplayResolution");
-        String displayProtection = request.getParameter("txtDisplayProtection");
-        if(displayType!=null && displaySize!=null && displayResolution!=null & displayProtection!=null) {
-            id = displayDAO.insert(displayType, displaySize, displayResolution, displayProtection);
+            //// DISPLAY 
+            String displayType = request.getParameter("txtDisplayType");
+            String displaySize = request.getParameter("txtDisplaySize");
+            String displayResolution = request.getParameter("txtDisplayResolution");
+            String displayProtection = request.getParameter("txtDisplayProtection");
+            if(displayType!=null && displaySize!=null && displayResolution!=null & displayProtection!=null) {
+                id = displayDAO.insert(displayType, displaySize, displayResolution, displayProtection);
+            }
+
+
+
+            //// BODY
+            String bodyDimension = request.getParameter("txtBodyDimension");
+            String bodyWeight = request.getParameter("txtBodyWeight");
+            String bodyBuild = request.getParameter("txtBodyBuild");
+            if(bodyDimension!=null && bodyBuild!=null && bodyWeight!=null) {
+                bodyDAO.insert(id, bodyDimension, bodyWeight, bodyBuild);
+            }
+
+
+
+            //// PLATFORM
+            String os = request.getParameter("txtOS");
+            String chipset = request.getParameter("txtChipset");
+            String cpu = request.getParameter("txtCPU");
+            String gpu = request.getParameter("txtGPU");
+
+            if(os!=null && chipset!=null && cpu!=null && gpu!=null) {
+                platformDAO.insert(id, os, chipset, cpu, gpu);
+            }
+
+
+
+            //// MAIN CAMERA
+            String mainCameraResolution = request.getParameter("txtMainCameraResolution");
+            String mainCameraFeatures = request.getParameter("txtMainCameraFeatures");
+            String mainCameraVideo = request.getParameter("txtMainCameraVideo");
+            if(mainCameraFeatures!=null && mainCameraResolution!=null && mainCameraVideo!=null) {
+                mainCameraDAO.insert(id, mainCameraResolution, mainCameraFeatures, mainCameraVideo);
+            }
+
+
+
+            //// MAIN CAMERA
+            String selfieCameraResolution = request.getParameter("txtSelfieCameraResolution");
+            String selfieCameraFeatures = request.getParameter("txtSelfieCameraFeatures");
+            String selfieCameraVideo = request.getParameter("txtSelfieCameraVideo");
+            if(selfieCameraFeatures!=null && selfieCameraResolution!=null && selfieCameraVideo!=null) {
+                selfieCameraDAO.insert(id, selfieCameraResolution, selfieCameraFeatures, selfieCameraVideo);
+            }
+
+
+
+            //// STORAGE
+            String ram = request.getParameter("txtRAM");
+            String internal = request.getParameter("txtInternal");
+            String external = request.getParameter("txtExternal");
+            if(ram!=null && internal!=null && external!=null) {
+                storageDAO.insert(id, Integer.parseInt(ram), Integer.parseInt(internal), Integer.parseInt(external));
+            }
+
+
+
+            //// BATTERY
+            String batteryCapacity = request.getParameter("txtBatteryCapacity");
+            String batteryType = request.getParameter("txtBatteryType");
+            String batteryTechnology = request.getParameter("txtBatteryTechnology");
+            if(batteryCapacity!=null && batteryType!=null && batteryTechnology!=null) {
+                batteryDAO.insert(id, Integer.parseInt(batteryCapacity), batteryType, batteryTechnology);
+            }
+
+
+
+            //// CONNECTION
+            String sim = request.getParameter("txtSIM");
+            String mobileNetwork = request.getParameter("txtMobileNetwork");
+            String wlan = request.getParameter("txtWLAN");
+            String bluetooth = request.getParameter("txtBluetooth");
+            String gps = request.getParameter("txtGPS");
+            String usb = request.getParameter("txtUSB");
+            String nfc = request.getParameter("radNFC");
+            String radio = request.getParameter("radRadio");
+            String jack = request.getParameter("radJack");
+            if(sim!=null && mobileNetwork!=null && wlan!=null && bluetooth!=null && 
+                    gps!=null && usb!=null && nfc!=null && radio!=null && jack!=null) {
+                connectionDAO.insert(id, sim, mobileNetwork, wlan, bluetooth, gps, 
+                        Integer.parseInt(nfc), Integer.parseInt(radio), usb, Integer.parseInt(jack));
+            }
+
+
+
+            //// PHONE DETAILS
+            String detailDescription = request.getParameter("txtPhoneDetailDescription");
+            String detailVideo = request.getParameter("txtPhoneDetailVideo");
+            String detailSpecialFeatures = request.getParameter("txtPhoneDetailSpecialFeatures");
+    //        String sim = request.getParameter("txtSIM");
+            if(detailDescription!=null && detailVideo!=null && detailSpecialFeatures!=null) {
+                phoneDetailDAO.insert(id, "image.png", detailDescription, detailVideo, detailSpecialFeatures, id, id, id, id, id, id, id, id);
+            }
+
+
+
+            //// PHONE 
+            String phoneName = request.getParameter("txtPhoneName");
+            String phoneImage = request.getParameter("txtPhoneImage");
+            String phoneDiscount = request.getParameter("txtPhoneDiscount");
+            String phonePrice = request.getParameter("txtPhonePrice");
+            String phoneDescription = request.getParameter("txtPhoneDescription");
+            String radBrand = request.getParameter("radBrand");
+
+            if(phoneName!=null && phoneImage!=null && 
+                    phoneDiscount!=null && phonePrice!=null &&
+                    phoneDescription!=null && radBrand!=null) {
+                phoneDAO.insert(id, phoneImage, phoneName, Double.parseDouble(phoneDiscount), 
+                        Double.parseDouble(phonePrice), phoneDescription, 
+                        Integer.parseInt(radBrand), id);
+            }
+        } else if(request.getParameter("query").equals("edit")) {
+            
+        } else if(request.getParameter("query").equals("delete")) {
+            
         }
-
-
-
-        //// BODY
-        String bodyDimension = request.getParameter("txtBodyDimension");
-        String bodyWeight = request.getParameter("txtBodyWeight");
-        String bodyBuild = request.getParameter("txtBodyBuild");
-        if(bodyDimension!=null && bodyBuild!=null && bodyWeight!=null) {
-            bodyDAO.insert(id, bodyDimension, bodyWeight, bodyBuild);
-        }
-
-
-
-        //// PLATFORM
-        String os = request.getParameter("txtOS");
-        String chipset = request.getParameter("txtChipset");
-        String cpu = request.getParameter("txtCPU");
-        String gpu = request.getParameter("txtGPU");
-        
-        if(os!=null && chipset!=null && cpu!=null && gpu!=null) {
-            platformDAO.insert(id, os, chipset, cpu, gpu);
-        }
+            
+            
         
         
-        
-        //// MAIN CAMERA
-        String mainCameraResolution = request.getParameter("txtMainCameraResolution");
-        String mainCameraFeatures = request.getParameter("txtMainCameraFeatures");
-        String mainCameraVideo = request.getParameter("txtMainCameraVideo");
-        if(mainCameraFeatures!=null && mainCameraResolution!=null && mainCameraVideo!=null) {
-            mainCameraDAO.insert(id, mainCameraResolution, mainCameraFeatures, mainCameraVideo);
-        }
     
-    
-        
-        //// MAIN CAMERA
-        String selfieCameraResolution = request.getParameter("txtSelfieCameraResolution");
-        String selfieCameraFeatures = request.getParameter("txtSelfieCameraFeatures");
-        String selfieCameraVideo = request.getParameter("txtSelfieCameraVideo");
-        if(selfieCameraFeatures!=null && selfieCameraResolution!=null && selfieCameraVideo!=null) {
-            selfieCameraDAO.insert(id, selfieCameraResolution, selfieCameraFeatures, selfieCameraVideo);
-        }
-        
-        
-        
-        //// STORAGE
-        String ram = request.getParameter("txtRAM");
-        String internal = request.getParameter("txtInternal");
-        String external = request.getParameter("txtExternal");
-        if(ram!=null && internal!=null && external!=null) {
-            storageDAO.insert(id, Integer.parseInt(ram), Integer.parseInt(internal), Integer.parseInt(external));
-        }
-        
-        
-        
-        //// BATTERY
-        String batteryCapacity = request.getParameter("txtBatteryCapacity");
-        String batteryType = request.getParameter("txtBatteryType");
-        String batteryTechnology = request.getParameter("txtBatteryTechnology");
-        if(batteryCapacity!=null && batteryType!=null && batteryTechnology!=null) {
-            batteryDAO.insert(id, Integer.parseInt(batteryCapacity), batteryType, batteryTechnology);
-        }
-    
-    
-        response.sendRedirect("./admin/add_phone.jsp");
+        response.sendRedirect("./admin/phones.jsp");
     }
 
     /**

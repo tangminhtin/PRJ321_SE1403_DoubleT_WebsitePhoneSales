@@ -21,7 +21,7 @@
     </head>
     <body>
         <%@include file="components/header.jsp" %>
-        <div   >
+        <div>
                 <img style="width: 95%; padding-left: 200px;padding-right: 100px;padding-top:20px  " alt="" src="./img/background_header.png"/>
 
             
