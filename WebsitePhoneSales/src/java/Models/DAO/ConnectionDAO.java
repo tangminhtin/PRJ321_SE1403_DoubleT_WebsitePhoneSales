@@ -35,7 +35,7 @@ public class ConnectionDAO {
         return connArray;
     }
 
-    public Models.Entites.Connection getPhoneById(int connectionId) {
+    public Models.Entites.Connection getConnection(int connectionId) {
         for (Models.Entites.Connection connection : connArray) {
             if (connection.getConnectionId() == connectionId) {
                 return connection;

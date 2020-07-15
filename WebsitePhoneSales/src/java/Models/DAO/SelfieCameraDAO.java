@@ -55,7 +55,7 @@ public class SelfieCameraDAO {
         return selfieCamera;
     }
 
-    public SelfieCamera getPhoneById(int selfieCameraId) {
+    public SelfieCamera getSelfieCamera(int selfieCameraId) {
         for (SelfieCamera sc : selfieCamera) {
             if (sc.getSelfieCameraId() == selfieCameraId) {
                 return sc;

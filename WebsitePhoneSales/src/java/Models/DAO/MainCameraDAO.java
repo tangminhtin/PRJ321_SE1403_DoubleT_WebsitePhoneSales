@@ -55,7 +55,7 @@ public class MainCameraDAO {
         return mainCamera;
     }
 
-    public MainCamera getPhoneById(int maincameraId) {
+    public MainCamera getMainCamera(int maincameraId) {
         for (MainCamera mc : mainCamera) {
             if (mc.getMainCameraId() == maincameraId) {
                 return mc;

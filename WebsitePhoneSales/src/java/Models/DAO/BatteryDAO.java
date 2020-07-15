@@ -55,7 +55,7 @@ public class BatteryDAO {
         return battery;
     }
 
-    public Battery getPhoneById(int batteryId) {
+    public Battery getBattery(int batteryId) {
         for (Battery batterys : battery) {
             if (batterys.getBatteryId() == batteryId) {
                 return batterys;

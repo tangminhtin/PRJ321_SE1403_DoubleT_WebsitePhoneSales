@@ -52,7 +52,7 @@ public class BrandDAO {
         }
     }
 
-    public Brand getBrandById(int brandId) {
+    public Brand getBrand(int brandId) {
         for (Brand b : brands) {
             if (b.getBrandId() == brandId) {
                 return b;

@@ -55,7 +55,7 @@ public class StorageDAO {
         return storage;
     }
 
-    public Storage getPhoneById(int storageId) {
+    public Storage getStorage(int storageId) {
         for (Storage s : storage) {
             if (s.getStorageId() == storageId) {
                 return s;

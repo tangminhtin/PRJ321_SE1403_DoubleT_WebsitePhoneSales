@@ -55,7 +55,7 @@ public class BodyDAO {
         return bodies;
     }
 
-    public Body getPhoneById(int bodyId) {
+    public Body getBody(int bodyId) {
         for (Body bd : bodies) {
             if (bd.getBodyId() == bodyId) {
                 return bd;

@@ -56,7 +56,7 @@ public class DisplayDAO {
         return displays;
     }
 
-    public Display getPhoneById(int displayId) {
+    public Display getDisplay(int displayId) {
         for (Display display : displays) {
             if (display.getDisplayId() == displayId) {
                 return display;

@@ -44,7 +44,7 @@ public class PaymentControler extends HttpServlet {
                 HttpSession session = request.getSession();
                 ArrayList<Phone> cart = new ArrayList<>();
                 ArrayList<AddCart> addCart = new ArrayList<>();
-                Phone phone = phoneDAO.getPhoneById(phoneId);
+                Phone phone = phoneDAO.getPhone(phoneId);
 
                 if (session.getAttribute("Cart") == null) {
 

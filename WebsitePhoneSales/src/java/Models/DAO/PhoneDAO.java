@@ -89,7 +89,7 @@ public class PhoneDAO {
         return null;
     }
 
-    public Phone getPhoneById(int phoneId) {
+    public Phone getPhone(int phoneId) {
         for (Phone item : phone) {
             if (item.getPhoneId() == phoneId) {
                 return item;
@@ -122,9 +122,9 @@ public class PhoneDAO {
         return -1;
     }
 
-    public boolean update(String image, String name, double discount, double price, String shortDescription, int brandId, int phoneDetailId, int phoneId) {
+    public boolean update(String image, String name, double discount, double price, String shortDescription, int brandId, int phoneId) {
         try {
-            String sql = "UPDATE `phone` SET `phoneImage`=?, `phoneName`=?,`phoneDiscount`=?,`phonePrice`=?,`phoneShortDescription`=?,`brandId`=?,`phoneDetailId`=? WHERE `phoneId`=?";
+            String sql = "UPDATE `phone` SET `phoneImage`=?, `phoneName`=?,`phoneDiscount`=?,`phonePrice`=?,`phoneShortDescription`=?,`brandId`=? WHERE `phoneId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, image);
             pst.setString(2, name);
@@ -132,8 +132,7 @@ public class PhoneDAO {
             pst.setDouble(4, price);
             pst.setString(5, shortDescription);
             pst.setInt(6, brandId);
-            pst.setInt(7, phoneDetailId);
-            pst.setInt(8, phoneId);
+            pst.setInt(7, phoneId);
             pst.execute();
             load();
             return true;

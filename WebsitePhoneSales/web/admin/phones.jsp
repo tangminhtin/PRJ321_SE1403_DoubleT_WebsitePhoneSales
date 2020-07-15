@@ -74,14 +74,14 @@
                                                     <tr>
                                                         <td><%= p.getPhoneName()%></td>
                                                         <td>
-                                                            <img src="<%= p.getPhoneImage()%>" width="50px" height="50px" class="rounded float-left" alt="Avatar">
+                                                            <img src="../<%= p.getPhoneImage()%>" width="50px" height="50px" class="rounded float-left" alt="Avatar">
                                                         </td>
                                                         <td><%= p.getPhonePrice()%></td>
                                                         <td><%= p.getPhoneShortDescription()%></td>
                                                         <td><a class="text-white" href="./edit_phone.jsp?phoneId=<%= p.getPhoneId()%>"><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button></a></td>
                                                         <td>
-                                                            <form action="../PhoneController" method="GET">
-                                                                <button name="deletePhoneId" value="<%= p.getPhoneId()%>" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
+                                                            <form action="../PhoneController?query=delete&phoneId=<%= p.getPhoneId()%>" method="POST">
+                                                                <button name="phoneId" value="<%= p.getPhoneId()%>" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
                                                             </form>          
                                                         </td>
                                                     </tr>

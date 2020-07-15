@@ -56,7 +56,7 @@ public class PlatformDAO {
         return platform;
     }
 
-    public Platform getPhoneById(int platformId) {
+    public Platform getPlatform(int platformId) {
         for (Platform platforms : platform) {
             if (platforms.getPlatformId() == platformId) {
                 return platforms;

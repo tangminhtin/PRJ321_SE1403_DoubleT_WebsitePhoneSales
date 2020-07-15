@@ -38,7 +38,7 @@
 
                                             
                                             <!-- Default horizontal form -->
-                                            <form action="../PhoneController?query=add" method="post">
+                                            <form action="../PhoneController?query=add" method="post" enctype="multipart/form-data">
                                                 
                                                 <!------------------PHONE------------------>
                                                 
@@ -51,7 +51,7 @@
                                                 <div class="form-group row">
                                                     <label for="phoneImage" class="col-sm-2 col-form-label">Image</label>
                                                     <div class="col-sm-10">
-                                                      <input name="txtPhoneImage" type="file" id="phoneImage">
+                                                      <input name="image_file" type="file" id="phoneImage">
                                                     </div>
                                                 </div>
                                                 
@@ -78,7 +78,7 @@
                                                 <div class="form-group row">
                                                     <label for="phonePrice" class="col-sm-2 col-form-label">Price</label>
                                                     <div class="col-sm-10">
-                                                        <input name="txtPhonePrice" type="number" class="form-control" id="phonePrice" placeholder="$998">
+                                                        <input name="txtPhonePrice" type="number" min="0" class="form-control" id="phonePrice" placeholder="$998">
                                                     </div>
                                                 </div>
                                                 
@@ -86,7 +86,7 @@
                                                 <div class="form-group row">
                                                     <label for="phoneDiscount" class="col-sm-2 col-form-label">Discount</label>
                                                     <div class="col-sm-10">
-                                                        <input name="txtPhoneDiscount" type="number" class="form-control" id="phoneDiscount" placeholder="$30">
+                                                        <input name="txtPhoneDiscount" type="number" min="0" class="form-control" id="phoneDiscount" placeholder="$30">
                                                     </div>
                                                 </div>
                                                 
@@ -284,7 +284,7 @@
                                                 <div class="form-group row">
                                                     <label for="RAM" class="col-sm-2 col-form-label">RAM</label>
                                                     <div class="col-sm-10">
-                                                    <input required name="txtRAM" type="number" class="form-control" id="RAM" placeholder="8GB">
+                                                    <input required name="txtRAM" type="number" min="0" class="form-control" id="RAM" placeholder="8GB">
                                                     </div>
                                                 </div>
                                            
@@ -292,7 +292,7 @@
                                                 <div class="form-group row">
                                                     <label for="Internal" class="col-sm-2 col-form-label">Internal</label>
                                                     <div class="col-sm-10">
-                                                    <input required name="txtInternal" type="number" class="form-control" id="Internal" placeholder="256GB">
+                                                        <input required name="txtInternal" type="number" min="0" class="form-control" id="Internal" placeholder="256GB">
                                                     </div>
                                                 </div>
                                            
@@ -300,7 +300,7 @@
                                                 <div class="form-group row">
                                                     <label for="External" class="col-sm-2 col-form-label">External</label>
                                                     <div class="col-sm-10">
-                                                    <input required name="txtExternal" type="number" class="form-control" id="External" placeholder="0GB">
+                                                        <input required name="txtExternal" type="number" min="0" class="form-control" id="External" placeholder="0GB">
                                                     </div>
                                                 </div>
                                                 
@@ -311,7 +311,7 @@
                                                 <div class="form-group row">
                                                     <label for="BatteryCapacity" class="col-sm-2 col-form-label">Battery Capacity</label>
                                                     <div class="col-sm-10">
-                                                    <input required name="txtBatteryCapacity" type="number" class="form-control" id="BatteryCapacity" placeholder="1821mAh">
+                                                        <input required name="txtBatteryCapacity" type="number" min="0" class="form-control" id="BatteryCapacity" placeholder="1821mAh">
                                                     </div>
                                                 </div>
                                            

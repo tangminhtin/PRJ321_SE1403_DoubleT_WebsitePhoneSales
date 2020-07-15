@@ -66,7 +66,7 @@ public class PhoneDetailDAO {
         return phoneDetail;
     }
 
-    public PhoneDetail getPhoneById(int phoneDetailId) {
+    public PhoneDetail getPhoneDetail(int phoneDetailId) {
         for (PhoneDetail pd : phoneDetail) {
             if (pd.getPhoneDetailId() == phoneDetailId) {
                 return pd;
