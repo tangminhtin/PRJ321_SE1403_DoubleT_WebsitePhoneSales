@@ -5,26 +5,21 @@
  */
 package Controllers;
 
-import Models.DAO.UserDAO;
-import Models.Entites.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpCookie;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author phuct
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "LogoutController", urlPatterns = {"/LogoutController"})
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,18 +34,19 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if (request.getParameter("txtUsername")!=null && request.getParameter("txtPassword")!= null) {
-            Cookie username = new Cookie("username", request.getParameter("txtUsername"));
-            Cookie password = new Cookie("password", request.getParameter("txtPassword"));
+            Cookie[] list = request.getCookies();
             
-            username.setMaxAge(60*60*24);
-            password.setMaxAge(60*60*24);
-            
-            response.addCookie(username);
-            response.addCookie(password);
-            
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            for (Cookie items : list) {
+                if (items.getName().equals("username")) {
+                    items.setMaxAge(0);
+                    response.addCookie(items);
+                }
+                if (items.getName().equals("password")) {
+                    items.setMaxAge(0);
+                    response.addCookie(items);
+                }
             }
+        request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 
@@ -66,7 +62,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+        processRequest(request, response);
     }
 
     /**

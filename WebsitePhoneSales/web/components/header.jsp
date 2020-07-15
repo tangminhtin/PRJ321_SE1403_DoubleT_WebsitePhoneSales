@@ -28,7 +28,53 @@
                 </div>
             </div>
             <div class="ht-right">
+                <%
+                    Cookie[] list = request.getCookies();
+
+                    if (list.length >= 2) {
+                        for (Cookie items : list) {
+                            if (items.getName().equals("username")) {
+
+                %>
+                     <!-- Button trigger modal-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmDelete">Hello <%=items.getValue()%></button>
+
+                <!--Modal: modalConfirmDelete-->
+                <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                        <!--Content-->
+                        <div class="modal-content text-center">
+                            <!--Header-->
+                            <div class="modal-header d-flex justify-content-center">
+                                <p class="heading">Are you sure you want to log out?</p>
+                            </div>
+
+                            <!--Body-->
+                            <div class="modal-body">
+
+                                <i class="fas fa-times fa-4x animated rotateIn"></i>
+
+                            </div>
+
+                            <!--Footer-->
+                            <div class="modal-footer flex-center">
+                                <a href="LogoutController" class="btn  btn-outline-danger">Yes</a>
+                                <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+                            </div>
+                        </div>
+                        <!--/.Content-->
+                    </div>
+                </div>
+                <!--Modal: modalConfirmDelete-->
+                <%    }
+                    }
+                } else {
+                %>
                 <a href="./login.jsp" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                <%
+                    }
+                %>
                 <div class="top-social">
                     <a href="https://www.facebook.com/Double-T-Shop-109008594181602/"><i class="ti-facebook">Double T Shop</i></a>
                 </div>
@@ -47,8 +93,8 @@
                     <li><a href="./google.jsp">Google</a></li>
                 </ul>
 
-                <form class="form-inline mr-auto">
-                    <input class="form-control" type="text" placeholder="What do you need?" aria-label="Search">
+                <form class="form-inline mr-auto" action="search.jsp">
+                    <input class="form-control" type="text" name="txtSearch" placeholder="What do you need?" aria-label="Search">
                     <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit"><i class="fas fa-search"></i></button>
                 </form>
 
@@ -83,15 +129,16 @@
                                     </thead>
                                     <tbody>
                                         <%
-
                                             ArrayList<AddCart> addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
                                             double total = 0;
+                                            int numberRow = 0;
                                             if (session.getAttribute("Cart") != null) {
                                                 for (AddCart items : addCart) {
+                                                    numberRow++;
 
                                         %>
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th scope="row"><%=numberRow%></th>
                                             <td><%=items.getPhoneName()%></td>
                                             <td>$<%=items.getPhonePrice()%></td>
 
@@ -101,8 +148,7 @@
                                         <tr class="total">
 
                                             <%
-                                                      
-                                                        total += items.getPhonePrice();
+                                                        total += items.getPhonePrice() * items.getPhoneQuantity();
                                                     }
                                                 }
                                             %>

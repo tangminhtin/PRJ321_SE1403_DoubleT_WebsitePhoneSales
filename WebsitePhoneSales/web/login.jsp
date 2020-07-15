@@ -25,7 +25,7 @@
                     <div class="col-lg-6 offset-lg-3">
                         <div class="login-form">
                             <h2>Login</h2>
-                            <form method="POST">
+                            <form method="POST" >
                                 <div class="group-input">
                                     <label for="username">Username or email address *</label>
                                     <input type="text" id="username" name="txtUsername">
@@ -66,7 +66,7 @@
                 if (userLogin != null) {
                     session = request.getSession();
                     session.setAttribute("user", userLogin);
-                    response.sendRedirect("test_data.jsp");
+                    request.getRequestDispatcher("LoginController").forward(request, response);
                 } else {
         %>
         

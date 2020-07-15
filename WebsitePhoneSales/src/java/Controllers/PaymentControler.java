@@ -43,11 +43,11 @@ public class PaymentControler extends HttpServlet {
                 PhoneDAO phoneDAO = new PhoneDAO();
                 HttpSession session = request.getSession();
                 ArrayList<Phone> cart = new ArrayList<>();
-
+                ArrayList<AddCart> addCart = new ArrayList<>();
                 Phone phone = phoneDAO.getPhoneById(phoneId);
 
                 if (session.getAttribute("Cart") == null) {
-                    ArrayList<AddCart> addCart = new ArrayList<>();
+
                     AddCart addCarts = new AddCart();
                     int id = phone.getPhoneId();
                     String name = phone.getPhoneName();
@@ -62,32 +62,33 @@ public class PaymentControler extends HttpServlet {
                     session.setAttribute("Cart", addCart);
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 } else {
-                    ArrayList<AddCart> addCart = new ArrayList<>();
                     addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
-
+                    boolean check = false;
                     for (AddCart items : addCart) {
-                        if (items.getPhoneId() == phoneId) {
-                            items.setPhoneQuantity(items.getPhoneQuantity() + 1);
-                            addCart.add(items);
-                            session.setAttribute("Cart", addCart);
-                             response.sendRedirect("index.jsp");
-                        } else {
-                            AddCart addCarts = new AddCart();
-                            int id = phone.getPhoneId();
-                            String name = phone.getPhoneName();
-                            double phonePrice = phone.getPhonePrice();
-                            int quantity = 1;
-                            addCarts.setPhoneId(id);
-                            addCarts.setPhoneName(name);
-                            addCarts.setPhoneQuantity(quantity);
-                            addCarts.setPhonePrice(phonePrice);
+                        if (items.getPhoneId() == phone.getPhoneId()) {
 
-                            addCart.add(addCarts);
+                            items.setPhoneQuantity(items.getPhoneQuantity() + 1);
                             session.setAttribute("Cart", addCart);
-                             response.sendRedirect("index.jsp");
+                            check = true;
+                            break;
                         }
                     }
-                     
+                    if (check != true) {
+                        AddCart addCarts = new AddCart();
+                        int id = phone.getPhoneId();
+                        String name = phone.getPhoneName();
+                        double phonePrice = phone.getPhonePrice();
+                        int quantity = 1;
+                        addCarts.setPhoneId(id);
+                        addCarts.setPhoneName(name);
+                        addCarts.setPhoneQuantity(quantity);
+                        addCarts.setPhonePrice(phonePrice);
+
+                        addCart.add(addCarts);
+                        session.setAttribute("Cart", addCart);
+                    }
+
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
 
             }
