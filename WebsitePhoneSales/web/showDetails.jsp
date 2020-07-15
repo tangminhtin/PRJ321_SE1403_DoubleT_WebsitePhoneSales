@@ -349,7 +349,7 @@
                         </div>
                         <br>
 
-                        <!--Commentttttttttttttttttttttttttttttt-->
+                      <!--Commentttttttttttttttttttttttttttttt-->
                         <!--Section: Author Box-->
                         <section class="my-5">
 
@@ -363,10 +363,10 @@
 
                                 ArrayList<Customer> customer = new ArrayList<Customer>();
                                 customer = customerDAO.getCustomers();
-
-                                for (Customer customers : customer) {
-                                    Comment comment = commentDAO.getPhoneById(customers.getCustomerId());
-
+                                Comment comment = commentDAO.getPhoneById(phoneDetail.getCommentId());
+                                if (comment != null) {
+                                    for (Customer customers : customer) {
+                                        if (customers.getCustomerId() == comment.getCustomerId()) {
                             %>
                             <div class="media mt-4 px-1">
                                 <img class="card-img-100 d-flex z-depth-1 mr-3" src="<%=customers.getCustomerImage()%>"
@@ -378,7 +378,9 @@
                                     <%=comment.getCommentContent()%>
                                 </div>
                             </div>
-                            <%}%>
+                            <%}
+                                    }
+                                }%>
                             <!-- Quick Reply -->
                             <div class="form-group mt-4">
                                 <label for="quickReplyFormComment">Your comment</label>

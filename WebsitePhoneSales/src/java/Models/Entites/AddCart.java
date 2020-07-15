@@ -11,21 +11,31 @@ import java.io.Serializable;
  *
  * @author phuct
  */
-public class AddCart implements Serializable{
+public class AddCart implements Serializable {
+
     private int phoneId;
     private String phoneName;
     private double phonePrice;
     private int phoneQuantity;
+    private int userId;
 
     public AddCart() {
     }
 
-    
-    public AddCart(int phoneId, String phoneName, double phonePrice, int phoneQuantity) {
+    public AddCart(int phoneId, String phoneName, double phonePrice, int phoneQuantity, int userId) {
         this.phoneId = phoneId;
         this.phoneName = phoneName;
         this.phonePrice = phonePrice;
         this.phoneQuantity = phoneQuantity;
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public double getPhonePrice() {
@@ -59,7 +69,5 @@ public class AddCart implements Serializable{
     public void setPhoneQuantity(int phoneQuantity) {
         this.phoneQuantity = phoneQuantity;
     }
-    
-    
-    
+
 }
