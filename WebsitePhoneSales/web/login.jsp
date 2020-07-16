@@ -15,7 +15,7 @@
     </head>
     <body>
         <%@include file="components/header.jsp" %>
-        
+          
         <h1 style="font-family: fantasy">Login Page</h1>
 
         <!-- Register Section Begin -->

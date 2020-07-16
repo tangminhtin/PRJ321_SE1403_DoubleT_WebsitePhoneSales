@@ -18,8 +18,9 @@
     <body>
         <%@include file="components/header.jsp" %>
 
-
-        <h1>Apple Page</h1>
+ 
+        <img style="width: 30%; padding-left: 185px;padding-right: 100px;padding-top:20px;padding-bottom: 20px  " alt="" src="./img/logoApple.jpg"/>
+        
         <div class="container" style="padding-bottom: 75px">
             <!--<h3 class="text-center font-weight-bold mb-5">Best sellers</h3>-->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">

@@ -49,7 +49,8 @@ public class LoginController extends HttpServlet {
             response.addCookie(username);
             response.addCookie(password);
             
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+//            request.getRequestDispatcher("index.jsp").forward(request, response);
+response.sendRedirect("index.jsp");
             }
         }
     }

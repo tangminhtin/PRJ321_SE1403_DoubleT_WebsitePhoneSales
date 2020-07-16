@@ -134,7 +134,7 @@
                                         <td><%
                                             ConnectionDAO connectionDAO = new ConnectionDAO();
                                             int connectionId = phoneDetail.getConnectionId();
-                                            Models.Entites.Connection connection = connectionDAO.getPhoneById(connectionId);
+                                            Models.Entites.Connection connection = connectionDAO.getConnection(connectionId);
                                             %></td>
                                     </tr>
                                     <tr>
@@ -213,7 +213,7 @@
                                         <td><%
                                             int idMainCamera = phoneDetail.getMainCameraId();
                                             MainCameraDAO mainCameraDAO = new MainCameraDAO();
-                                            MainCamera mainCamera = mainCameraDAO.getPhoneById(idMainCamera);
+                                            MainCamera mainCamera = mainCameraDAO.getMainCamera(idMainCamera);
                                             %></td>
                                     </tr>
                                     <tr>
@@ -234,7 +234,7 @@
                                         <td><%
                                             SelfieCameraDAO selfieCameraDAO = new SelfieCameraDAO();
                                             int selfieCameraId = phoneDetail.getSelfieCameraId();
-                                            SelfieCamera selfieCamera = selfieCameraDAO.getPhoneById(selfieCameraId);
+                                            SelfieCamera selfieCamera = selfieCameraDAO.getSelfieCamera(selfieCameraId);
                                             %></td>
                                     </tr>
                                     <tr>
@@ -255,7 +255,7 @@
                                         <td><%
                                             StorageDAO storageDAO = new StorageDAO();
                                             int storageId = phoneDetail.getStorageId();
-                                            Storage storage = storageDAO.getPhoneById(storageId);
+                                            Storage storage = storageDAO.getStorage(storageId);
 
                                             %></td>
                                     </tr>
@@ -279,7 +279,7 @@
                                             PlatformDAO platformDAO = new PlatformDAO();
                                             int platformId = phoneDetail.getPlatformId();
 
-                                            Platform platform = platformDAO.getPhoneById(platformId);
+                                            Platform platform = platformDAO.getPlatform(platformId);
 
                                             %></td>
                                     </tr>
@@ -305,7 +305,7 @@
                                         <td><%
                                             BatteryDAO batteryDAO = new BatteryDAO();
                                             int batteryId = phoneDetail.getBatteryId();
-                                            Battery battery = batteryDAO.getPhoneById(batteryId);
+                                            Battery battery = batteryDAO.getBattery(batteryId);
 
                                             %></td>
                                     </tr>

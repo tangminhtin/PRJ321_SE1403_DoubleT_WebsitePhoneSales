@@ -42,7 +42,7 @@
                 <!--Modal: modalConfirmDelete-->
                 <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
-                    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                    <div class="modal-dialog modal-sm modal-notify modal-warning" role="document">
                         <!--Content-->
                         <div class="modal-content text-center">
                             <!--Header-->
@@ -59,8 +59,8 @@
 
                             <!--Footer-->
                             <div class="modal-footer flex-center">
-                                <a href="LogoutController" class="btn  btn-outline-danger">Yes</a>
-                                <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+                                <a href="LogoutController" class="btn  btn-outline-warning">Yes</a>
+                                <a type="button" class="btn  btn-warning waves-effect" data-dismiss="modal">No</a>
                             </div>
                         </div>
                         <!--/.Content-->
