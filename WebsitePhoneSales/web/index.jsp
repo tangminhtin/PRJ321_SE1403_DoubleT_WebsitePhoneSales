@@ -26,8 +26,8 @@
 
             
         </div>
-        <div style="padding-left: 260px "> 
-    <marquee width="86%" scrolldelay="10"><font size="5" face="Verdana"><b>Welcome to us, have a nice day</b></font></marquee>
+        <div style="padding-left: 200px "> 
+    <marquee width="86.5%" scrolldelay="10"><font size="5" face="Verdana"><b>Welcome to us, have a nice day</b></font></marquee>
             
         </div>  
     

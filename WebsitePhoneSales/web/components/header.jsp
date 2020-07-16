@@ -47,7 +47,7 @@
                         <div class="modal-content text-center">
                             <!--Header-->
                             <div class="modal-header d-flex justify-content-center">
-                                <p class="heading">Are you sure you want to log out?</p>
+                                <p class="heading">Are you sure you want to logout?</p>
                             </div>
 
                             <!--Body-->
