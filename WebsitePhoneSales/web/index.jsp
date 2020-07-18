@@ -40,7 +40,7 @@
                         <video class="video-fluid" autoplay loop muted>
                             <source src="./img/TheNewIPhoneSEApple.mp4" type="video/mp4" />
                         </video>
-                        <div class="mask rgba-indigo-light"></div>
+                        <div class="mask rgba-purple-slight"></div>
                     </div>
 
                     <!--Caption-->
@@ -84,7 +84,7 @@
                         <video class="video-fluid" autoplay loop muted>
                             <source src="./img/TrailerSamsungS20.mp4" type="video/mp4" />
                         </video>
-                        <div class="mask rgba-black-strong"></div>
+                        <div class="mask rgba-purple-slight"></div>
                     </div>
 
                     <!--Caption-->

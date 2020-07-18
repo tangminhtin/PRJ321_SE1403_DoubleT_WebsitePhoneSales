@@ -344,7 +344,7 @@
 
                                 ArrayList<Customer> customer = new ArrayList<Customer>();
                                 customer = customerDAO.getCustomers();
-                                Comment comment = commentDAO.getPhoneById(phoneDetail.getCommentId());
+                                Comment comment = commentDAO.getComment(phoneDetail.getCommentId());
                                 if (comment != null) {
                                     for (Customer customers : customer) {
                                         if (customers.getCustomerId() == comment.getCustomerId()) {
