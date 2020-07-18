@@ -23,14 +23,14 @@
     <div class="container" style="padding-bottom: 200px">
         <!--<h3 class="text-center font-weight-bold mb-5">Best sellers</h3>-->
         <div class="">
-            <%                ArrayList<Phone> phones = new ArrayList<>();
+            <%  ArrayList<Phone> phones = new ArrayList<>();
                 PhoneDAO phonedao = new PhoneDAO();
                 PhoneDetailDAO pDetailDAO = new PhoneDetailDAO();
 
                 phones = phonedao.getAllPhone();
                 if (request.getParameter("phoneId") != null) {
-                    String phoneId = (String) request.getParameter("phoneId");
-                    int Id = (Integer.parseInt(phoneId));
+
+                    int Id = (Integer.parseInt(request.getParameter("phoneId")));
 
                     PhoneDetail phoneDetail = pDetailDAO.getPhoneDetail(Id);
                     for (Phone p : phones) {
@@ -55,11 +55,15 @@
                         <!--Title-->
                         <h2 class="card-title"><%=p.getPhoneName()%></h2>
                         <h5 class="card-title" style="text-align: right"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
-                        <p style="text-align: right"><a href="PaymentControler?phoneId=<%=p.getPhoneId()%>"><button class="btn btn-primary">Add to cart
+                        <p style="text-align: right"><a href="PaymentControler?phoneId=<%=p.getPhoneId()%>" ><button class="btn btn-warning" >Add to cart
                                     <i class="fas fa-cart-plus ml-2" aria-hidden="true"></i>
                                 </button></a>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVM">Video Review</button>
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalVM">Video Review</button>
                         </p>
+                       
+                            </div>
+                        </div>
+                        <!-- Modal: modalAbandonedCart-->
                         <h4 style="font-family: inherit">
                             <b>Description</b>
                         </h4>

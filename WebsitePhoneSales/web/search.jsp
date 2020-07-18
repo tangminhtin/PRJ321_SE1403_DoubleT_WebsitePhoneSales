@@ -23,10 +23,9 @@
         <div class="container" style="padding-bottom: 75px">
             <!--<h3 class="text-center font-weight-bold mb-5">Best sellers</h3>-->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                 
                 <%                    String search = (String) request.getParameter("txtSearch");
-                %>
-                <h5><b>Keyword search results " <%=search%> " are</b></h5><br>
-                <%
+
                     ArrayList<Phone> phones = new ArrayList<>();
                     PhoneDAO phonedao = new PhoneDAO();
                     phones = phonedao.getAllPhone();

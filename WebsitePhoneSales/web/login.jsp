@@ -16,8 +16,6 @@
     <body>
         <%@include file="components/header.jsp" %>
           
-        <h1 style="font-family: fantasy">Login Page</h1>
-
         <!-- Register Section Begin -->
         <div class="register-login-section spad">
             <div class="container">
@@ -32,7 +30,7 @@
                                 </div>
                                 <div class="group-input">
                                     <label for="pass">Password *</label>
-                                    <input type="text" id="pass" name="txtPassword">
+                                    <input type="password" id="pass" name="txtPassword">
                                 </div>
                                 <div class="group-input gi-check">
                                     <div class="gi-more">

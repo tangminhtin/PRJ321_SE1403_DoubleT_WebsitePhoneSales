@@ -36,8 +36,18 @@
                             if (items.getName().equals("username")) {
 
                 %>
-                     <!-- Button trigger modal-->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmDelete">Hello <%=items.getValue()%></button>
+
+
+                <div class="dropdown ht-right">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu6" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        Hello <%=items.getValue()%>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu6">
+                        <button type="button" class="btn  btn-outline-warning" data-toggle="modal" data-target="#modalConfirmDelete">Logout</button>
+                    </div>
+                </div>
+                <!-- Button trigger modal-->
 
                 <!--Modal: modalConfirmDelete-->
                 <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -81,7 +91,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="nav-item">
         <div class="container">
@@ -163,8 +172,18 @@
                             </div>
                             <!--Footer-->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
-                                <button class="btn btn-primary">Checkout</button>
+                                <button type="button" class="btn  btn-outline-warning" data-dismiss="modal">Close</button>
+
+                                <%
+                                    addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
+
+                                    if (session.getAttribute("Cart") != null) {
+                                        if (list.length >= 2) {
+                                %>
+                                <a href="OrdersController?"><button class="btn  btn-outline-warning">Checkout</button></a>
+                                <%}
+                                    }
+                                %>
                             </div>
 
                         </div>

@@ -19,7 +19,7 @@
         <%@include file="components/header.jsp" %>
 
 
-        <h1>Samsung Page</h1>
+        <img style="width: 73%; padding-left: 540px;padding-right: 100px;padding-top:20px;padding-bottom: 20px  " alt="" src="./img/logoSamsung.jpg"/>
         <div class="container" style="padding-bottom: 75px">
             <!--<h3 class="text-center font-weight-bold mb-5">Best sellers</h3>-->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
