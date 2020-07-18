@@ -6,8 +6,11 @@
 package Controllers;
 
 import Models.DAO.*;
+import Models.Entites.Order;
+import Models.Entites.OrderDetail;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -26,12 +29,18 @@ public class UserController extends HttpServlet {
     private UserDAO udao = null;
     private EmployeeDAO edao = null;
     private CustomerDAO cdao;
+    private OrderDAO orderDAO = null;
+    private CommentDAO commentDAO = null;
+    private OrderDetailDAO orderDetailDAO = null;
 
     public UserController() {
         // call udao method to get the list of users
         udao = new UserDAO();
         edao = new EmployeeDAO();
         cdao = new CustomerDAO();
+        orderDAO = new OrderDAO();
+        commentDAO = new CommentDAO();
+        orderDetailDAO = new OrderDetailDAO();
     }
 
     /**
@@ -107,6 +116,11 @@ public class UserController extends HttpServlet {
 
         }
 
+        //// FOR UPDATE
+        String roleU = request.getParameter("txtUserRole");
+        String userIdU = request.getParameter("txtUserId");
+        String idU = request.getParameter("txtId");
+
         if (request.getParameter("query").equals("add")) {
             if (user != null && pass != null && confirm != null && fullname != null
                     && address != null && phone != null && yourImage != null) {
@@ -123,28 +137,37 @@ public class UserController extends HttpServlet {
                 if (role.equals("staff")) {
                     edao.delete(userId);
                 } else if (role.equals("customer")) {
-                    cdao.delete(userId);
+                    int customerId = cdao.getCustomer(userId).getCustomerId();
+
+                    if (commentDAO.getComments(customerId) != null) {
+                        commentDAO.delete(customerId);
+                    }
+                    
+                    ArrayList<Order> orders = orderDAO.getOrders(customerId);
+                    if (orders != null) {
+                        for(Order o: orders) {
+                            orderDetailDAO.delete(o.getOrderId());
+                            orderDAO.delete(o.getOrderId());
+                        }
+//                        orderDAO.deleteByCusId(customerId);
+                    }
+                    cdao.delete(customerId);
                 }
                 udao.delete(userId);
             }
         } else if (request.getParameter("query").equals("edit")) {
             if (pass != null && confirm != null) {
-                String role = request.getParameter("txtUserRole");
-                String userId = request.getParameter("txtUserId");
-                String id = request.getParameter("txtId");
-
-                if (role != null && userId != null && id != null) {
+                if (roleU != null && userIdU != null && idU != null) {
                     if (pass.equals(confirm)) {
-                        udao.update(pass, role, Integer.parseInt(userId));
-                        if (role.equals("staff")) {
-                            edao.update(fullname, address, phone, email, yourImage, Integer.parseInt(id));
-                        } else if (role.equals("customer")) {
-                            cdao.update(fullname, address, phone, email, yourImage, Integer.parseInt(id));
+                        udao.update(pass, roleU, Integer.parseInt(userIdU));
+                        if (roleU.equals("staff")) {
+                            edao.update(fullname, address, phone, email, yourImage, Integer.parseInt(idU));
+                        } else if (roleU.equals("customer")) {
+                            cdao.update(fullname, address, phone, email, yourImage, Integer.parseInt(idU));
                         }
                     }
                 }
             }
-
         }
 
         response.sendRedirect("./admin/users.jsp");

@@ -93,11 +93,11 @@ public class CustomerDAO {
         return false;
     }
     
-    public boolean delete(int userId) {
+    public boolean delete(int customerId) {
         try {
-            String sql = "DELETE FROM `customer` WHERE `userId`=?";
+            String sql = "DELETE FROM `customer` WHERE `customerId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, userId);
+            pst.setInt(1, customerId);
             pst.execute();
             load();
         } catch (SQLException ex) {
@@ -106,9 +106,9 @@ public class CustomerDAO {
         return false;
     }
     
-    public Customer getCustomer(int id) {
+    public Customer getCustomer(int userId) {
         for(Customer c: customers) {
-            if(c.getUserId()==id) {
+            if(c.getUserId()==userId) {
                 return c;
             }
         }

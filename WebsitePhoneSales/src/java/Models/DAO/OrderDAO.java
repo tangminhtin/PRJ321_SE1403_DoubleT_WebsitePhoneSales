@@ -119,5 +119,28 @@ public class OrderDAO {
         }
         return false;
     }
+    
+    public boolean deleteByCusId(int customerId) {
+        try {
+            String sql = "DELETE FROM `order` WHERE customerId=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, customerId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
+     public ArrayList<Order> getOrders(int customerId) {
+        ArrayList<Order> ors = new ArrayList<>();
+        for(Order o: ors) {
+            if(o.getCustomerId() == customerId) {
+                ors.add(o);
+            }
+        } 
+        return ors;
+    }
 }

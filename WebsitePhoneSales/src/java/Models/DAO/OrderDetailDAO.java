@@ -55,7 +55,7 @@ public class OrderDetailDAO {
         return orderDetails;
     }
 
-    public OrderDetail getOrderDetailById(int orderId) {
+    public OrderDetail getOrderDetail(int orderId) {
         for (OrderDetail od : orderDetails) {
             if (od.getOrderId()== orderId) {
                 return od;
@@ -116,4 +116,14 @@ public class OrderDetailDAO {
         return false;
     }
 
+    public ArrayList<OrderDetail> getOrderDetails(int orderId) {
+        ArrayList<OrderDetail> orders = new ArrayList<>();
+        for(OrderDetail od : orders) {
+            if(od.getOrderId()==orderId) {
+                orders.add(od);
+            }
+        }
+        
+        return orders;
+    }
 }

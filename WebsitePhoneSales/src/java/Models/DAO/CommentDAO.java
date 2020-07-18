@@ -24,12 +24,12 @@ public class CommentDAO {
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
-    ArrayList<Comment> comment;
+    ArrayList<Comment> comments;
 
     public CommentDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
-        comment = new ArrayList<>();
+        comments = new ArrayList<>();
         load();
     }
 
@@ -38,34 +38,34 @@ public class CommentDAO {
             String sql = "SELECT * FROM `comment`";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
-            comment.clear();
+            comments.clear();
             while (rs.next()) {
                 int commentId = rs.getInt("commentId");
                 String commentContent = rs.getString("commentContent");
                 Date commentDate = rs.getDate("commentDate");
                 int customerId = rs.getInt("customerId");
 
-                comment.add(new Comment(commentId, commentContent, commentDate, customerId));
+                comments.add(new Comment(commentId, commentContent, commentDate, customerId));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CommentDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public ArrayList<Comment> getAllPhone() {
-        return comment;
+    public ArrayList<Comment> getComments() {
+        return comments;
     }
 
-    public Comment getPhoneById(int commentId) {
-        for (Comment cmt : comment) {
+    public Comment getComment(int commentId) {
+        for (Comment cmt : comments) {
             if (cmt.getCommentId() == commentId) {
                 return cmt;
             }
         }
         return null;
     }
-    
-      public int insert(String content, Date date, int customerId) {
+
+    public int insert(String content, Date date, int customerId) {
         try {
             String sql = "INSERT INTO `comment`(`commentContent`, `commentDate`, `customerId`) VALUES (?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
@@ -101,11 +101,11 @@ public class CommentDAO {
         return false;
     }
 
-    public boolean delete(int commentId) {
+    public boolean delete(int customerId) {
         try {
-            String sql = "DELETE FROM `comment` WHERE commentId=?";
+            String sql = "SELECT * FROM `comment` WHERE customerId=?";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setInt(1, commentId);
+            pst.setInt(1, customerId);
             pst.execute();
             load();
             return true;
@@ -115,5 +115,14 @@ public class CommentDAO {
         return false;
     }
 
+    public ArrayList<Comment> getComments(int customerId) {
+        ArrayList<Comment> cmts = new ArrayList<>();
+        for (Comment cmt : comments) {
+            if (cmt.getCustomerId() == customerId) {
+                cmts.add(cmt);
+            }
+        }
+        return cmts;
+    }
 
 }

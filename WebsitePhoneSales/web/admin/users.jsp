@@ -63,7 +63,7 @@
                                                 <tbody>
 
                                                     <%
-                                                        int limit = 3;
+                                                        int limit = 5;
                                                         UserDAO userDAO = new UserDAO();
                                                         EmployeeDAO employeeDAO = new EmployeeDAO();
                                                         CustomerDAO customerDAO = new CustomerDAO();
@@ -99,7 +99,7 @@
                                                                         </td>
                                                                         <td><%= u.getUserRole() %></td>
                                                                         <td>
-                                                                            <a href="./edit_user.jsp?userId=<%=e.getEmployeeId()%>&uName=<%=u.getUserName()%>&uRole=<%=u.getUserRole()%>&id=<%=e.getEmployeeId()%>&name=<%=e.getEmployeeFullname()%>&address=<%=e.getEmployeeAddress()%>&email=<%=e.getEmployeeEmail()%>&phone=<%=e.getEmployeePhone()%>&image=<%=e.getEmployeeImage()%>" <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></a>
+                                                                            <a href="./edit_user.jsp?userId=<%=u.getUserId()%>&uName=<%=u.getUserName()%>&uRole=<%=u.getUserRole()%>&id=<%=e.getEmployeeId()%>&name=<%=e.getEmployeeFullname()%>&address=<%=e.getEmployeeAddress()%>&email=<%=e.getEmployeeEmail()%>&phone=<%=e.getEmployeePhone()%>&image=<%=e.getEmployeeImage()%>" <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></a>
                                                                         </td>
                                                                         <td>
                                                                             <form action="../UserController?query=delete" method="POST">
@@ -122,7 +122,7 @@
                                                                         </td>
                                                                         <td><%= u.getUserRole() %></td>
                                                                         <td>
-                                                                            <a href="./edit_user.jsp?userId=<%=c.getUserId()%>&uName=<%=u.getUserName()%>&uRole=<%=u.getUserRole()%>&id=<%=c.getCustomerId()%>&name=<%=c.getCustomerFullname()%>&address=<%=c.getCustomerAddress()%>&email=<%=c.getCustomerEmail()%>&phone=<%=c.getCustomerPhone()%>&image=<%=c.getCustomerImage()%>" <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></a>
+                                                                            <a href="./edit_user.jsp?userId=<%=u.getUserId()%>&uName=<%=u.getUserName()%>&uRole=<%=u.getUserRole()%>&id=<%=c.getCustomerId()%>&name=<%=c.getCustomerFullname()%>&address=<%=c.getCustomerAddress()%>&email=<%=c.getCustomerEmail()%>&phone=<%=c.getCustomerPhone()%>&image=<%=c.getCustomerImage()%>" <button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></i></button></a>
                                                                         </td>
                                                                         <td>
                                                                             <form action="../UserController?query=delete" method="POST">

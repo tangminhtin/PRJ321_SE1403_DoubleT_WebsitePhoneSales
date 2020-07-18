@@ -29,7 +29,7 @@
                         </ol>
 
                         <!--Edit User-->
-                        <form action="../UserController?query=edit&txtUserId=${param.userId}" method="POST" enctype="multipart/form-data">
+                        <form action="../UserController?query=edit" method="POST" enctype="multipart/form-data">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
@@ -74,10 +74,10 @@
                                             <input type="hidden" name="txtId" value="${param.id}" class="form-control validate">
                                             <!--<label data-error="wrong" data-success="right" for="defaultForm-pass">Avatar</label>-->
                                         </div>
-<!--                                        <div class="md-form mb-4">
+                                        <div class="md-form mb-4">
                                             <input type="hidden" name="txtUserId" value="${param.userId}" class="form-control validate">
-                                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Avatar</label>
-                                        </div>-->
+                                            <!--<label data-error="wrong" data-success="right" for="defaultForm-pass">Avatar</label>-->
+                                        </div>
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center">
                                         <button class="btn btn-default">Update</button>
