@@ -73,8 +73,7 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
-    
+
     public boolean update(String employeeFullname, String employeeAddress, String employeePhone, String employeeEmail, String employeeImage, int employeeId) {
         try {
             String sql = "UPDATE `employee` SET `employeeFullname`=?,`employeeAddress`=?,`employeePhone`=?,`employeeEmail`=?,`employeeImage`=? WHERE `employeeId`=?";
@@ -94,7 +93,7 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
+
     public boolean delete(int userId) {
         try {
             String sql = "DELETE FROM `employee` WHERE `userId`=?";
@@ -107,5 +106,13 @@ public class EmployeeDAO {
         }
         return false;
     }
-   
+
+    public Employee getEmployee(int id) {
+        for (Employee e : employees) {
+            if (e.getUserId() == id) {
+                return e;
+            }
+        }
+        return null;
+    }
 }

@@ -12,7 +12,7 @@
 <html>
     <head>
         <%@include file="components/head.jsp" %>
-        <title>Add Phones | Double T Shop</title>
+        <title>Edit Phones | Double T Shop</title>
     </head>
     <body>
         <%@include file="components/navbar.jsp" %>
@@ -26,7 +26,7 @@
                         <h1 class="mt-4">Management Phones</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="./index.jsp">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Add New Phone</li>
+                            <li class="breadcrumb-item active">Edit Phone</li>
                         </ol>
 
                         <div class="card mb-4">
@@ -35,7 +35,7 @@
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-table mr-1"></i>
-                                        Add New Phone
+                                        Edit Phone
                                     </div>
                                     <div class="card-body">
                                         <%
@@ -107,7 +107,7 @@
                                             <div class="form-group row">
                                                 <label for="phonePrice" class="col-sm-2 col-form-label">Price</label>
                                                 <div class="col-sm-10">
-                                                    <input value="<%= phone.getPhonePrice()%>" required name="txtPhonePrice" type="number" min="0" class="form-control" id="phonePrice" placeholder="$998">
+                                                    <input value="<%= phone.getPhonePrice()%>" required name="txtPhonePrice" type="number" step="0.1" min="0" class="form-control" id="phonePrice" placeholder="$998">
                                                 </div>
                                             </div>
 
@@ -115,7 +115,7 @@
                                             <div class="form-group row">
                                                 <label for="phoneDiscount" class="col-sm-2 col-form-label">Discount</label>
                                                 <div class="col-sm-10">
-                                                    <input value="<%= phone.getPhoneDiscount()%>" required name="txtPhoneDiscount" type="number" min="0" class="form-control" id="phoneDiscount" placeholder="$30">
+                                                    <input value="<%= phone.getPhoneDiscount()%>" required name="txtPhoneDiscount" type="number" step="0.1" min="0" class="form-control" id="phoneDiscount" placeholder="$30">
                                                 </div>
                                             </div>
 

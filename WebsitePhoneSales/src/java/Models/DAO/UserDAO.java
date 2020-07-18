@@ -69,14 +69,13 @@ public class UserDAO {
         return -1;
     }
 
-    public boolean update(String userName, String userPassword, String userRole, int userId) {
+    public boolean update(String userPassword, String userRole, int userId) {
         try {
-            String sql = "UPDATE `user` SET `userName`=?,`userPassword`=MD5(?),`userRole`=? WHERE `userId`=?";
+            String sql = "UPDATE `user` SET `userPassword`=MD5(?),`userRole`=? WHERE `userId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setString(1, userName);
-            pst.setString(2, userPassword);
-            pst.setString(3, userRole);
-            pst.setInt(4, userId);
+            pst.setString(1, userPassword);
+            pst.setString(2, userRole);
+            pst.setInt(3, userId);
             pst.execute();
             return true;
         } catch (SQLException ex) {
@@ -167,5 +166,14 @@ public class UserDAO {
 
     public int getNumberOfUser() {
         return users.size();
+    }
+    
+    public User getUser(int id) {
+        for(User u: users) {
+            if(u.getUserId() == id) {
+                return u;
+            }
+        }
+        return null;
     }
 }

@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Page Title - SB Admin</title>
+        <title>Loginn| Admin | Double T Shop</title>
         <link href="../admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -44,7 +44,7 @@
                                             </div>-->
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <!--<a class="small" href="password.html">Forgot Password?</a>-->
-                                                <a class="btn btn-primary" href="index.html">Login</a>
+                                                <a class="btn btn-primary" href="index.jsp">Login</a>
                                             </div>
                                         </form>
                                     </div>

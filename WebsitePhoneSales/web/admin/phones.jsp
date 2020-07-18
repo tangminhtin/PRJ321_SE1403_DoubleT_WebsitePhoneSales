@@ -71,21 +71,21 @@
                                                         ArrayList<Phone> phones = pdao.getPhonesInRange(start, limit);
 
                                                         for (Phone p : phones) {%>
-                                                    <tr>
-                                                        <td><%= p.getPhoneName()%></td>
-                                                        <td>
-                                                            <img src="../<%= p.getPhoneImage()%>" width="50px" height="50px" class="rounded float-left" alt="Avatar">
-                                                        </td>
-                                                        <td><%= p.getPhonePrice()%></td>
-                                                        <td><%= p.getPhoneShortDescription()%></td>
-                                                        <td><a class="text-white" href="./edit_phone.jsp?phoneId=<%= p.getPhoneId()%>"><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button></a></td>
-                                                        <td>
-                                                            <form action="../PhoneController?query=delete&phoneId=<%= p.getPhoneId()%>" method="POST">
-                                                                <button name="phoneId" value="<%= p.getPhoneId()%>" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
-                                                            </form>          
-                                                        </td>
-                                                    </tr>
-                                                    <%} %>
+                                                            <tr>
+                                                                <td><%= p.getPhoneName()%></td>
+                                                                <td>
+                                                                    <img src="../<%= p.getPhoneImage()%>" width="50px" height="50px" class="rounded float-left" alt="Avatar">
+                                                                </td>
+                                                                <td><%= p.getPhonePrice()%></td>
+                                                                <td><%= p.getPhoneShortDescription()%></td>
+                                                                <td><a class="text-white" href="./edit_phone.jsp?phoneId=<%= p.getPhoneId()%>"><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button></a></td>
+                                                                <td>
+                                                                    <form action="../PhoneController?query=delete&phoneId=<%= p.getPhoneId()%>" method="POST">
+                                                                        <button name="phoneId" value="<%= p.getPhoneId()%>" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
+                                                                    </form>          
+                                                                </td>
+                                                            </tr>
+                                                        <%} %>
 
 
 
@@ -111,20 +111,20 @@
                                             <% } %>
 
                                             <% for (int i = 1; i <= totalPage; i++) { %>
-                                            <% if (i == currentPage) {%>
-                                            <li class="page-item active"><a class="page-link"><%=i%></a></li>
+                                                <% if (i == currentPage) {%>
+                                                    <li class="page-item active"><a class="page-link"><%=i%></a></li>
                                                 <% } else {%>
-                                            <li class="page-item"><a class="page-link" href="?page=<%=i%>"><%=i%></a></li>
+                                                    <li class="page-item"><a class="page-link" href="?page=<%=i%>"><%=i%></a></li>
                                                 <% } %>
-                                                <% } %>
+                                            <% } %>
 
                                             <% if (currentPage < totalPage && totalPage > 1) {%>
-                                            <li class="page-item">
-                                                <a href="?page=<%=currentPage + 1%>" class="page-link" aria-label="Next">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
+                                                <li class="page-item">
+                                                    <a href="?page=<%=currentPage + 1%>" class="page-link" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </li>
                                             <% }%>
                                             <!--<li class="page-item"><a class="page-link">Last</a></li>-->
                                         </ul>

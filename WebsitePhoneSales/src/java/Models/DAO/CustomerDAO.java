@@ -76,7 +76,7 @@ public class CustomerDAO {
     
     public boolean update(String customerFullname, String customerAddress, String customerPhone, String customerEmail, String customerImage, int customerId) {
         try {
-            String sql = "UPDATE `customer` SET `customerFullname`=?,`customerAddress`=,`customerPhone`=?,`customerEmail`=?,`customerImage`=? WHERE `customerId`";
+            String sql = "UPDATE `customer` SET `customerFullname`=?,`customerAddress`=?,`customerPhone`=?,`customerEmail`=?,`customerImage`=? WHERE `customerId`=?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, customerFullname);
             pst.setString(2, customerAddress);
@@ -106,5 +106,13 @@ public class CustomerDAO {
         return false;
     }
     
+    public Customer getCustomer(int id) {
+        for(Customer c: customers) {
+            if(c.getUserId()==id) {
+                return c;
+            }
+        }
+        return null;
+    }
     
 }

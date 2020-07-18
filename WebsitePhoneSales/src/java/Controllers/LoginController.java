@@ -5,19 +5,14 @@
  */
 package Controllers;
 
-import Models.DAO.UserDAO;
-import Models.Entites.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpCookie;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,18 +34,18 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if (request.getParameter("txtUsername")!=null && request.getParameter("txtPassword")!= null) {
-            Cookie username = new Cookie("username", request.getParameter("txtUsername"));
-            Cookie password = new Cookie("password", request.getParameter("txtPassword"));
-            
-            username.setMaxAge(60*60*24);
-            password.setMaxAge(60*60*24);
-            
-            response.addCookie(username);
-            response.addCookie(password);
-            
+            if (request.getParameter("txtUsername") != null && request.getParameter("txtPassword") != null) {
+                Cookie username = new Cookie("username", request.getParameter("txtUsername"));
+                Cookie password = new Cookie("password", request.getParameter("txtPassword"));
+
+                username.setMaxAge(60 * 60 * 24);
+                password.setMaxAge(60 * 60 * 24);
+
+                response.addCookie(username);
+                response.addCookie(password);
+
 //            request.getRequestDispatcher("index.jsp").forward(request, response);
-response.sendRedirect("index.jsp");
+                response.sendRedirect("index.jsp");
             }
         }
     }
@@ -67,7 +62,7 @@ response.sendRedirect("index.jsp");
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+
     }
 
     /**

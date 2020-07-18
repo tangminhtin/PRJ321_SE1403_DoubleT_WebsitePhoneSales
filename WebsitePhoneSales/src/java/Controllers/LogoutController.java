@@ -35,7 +35,7 @@ public class LogoutController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Cookie[] list = request.getCookies();
-            
+
             for (Cookie items : list) {
                 if (items.getName().equals("username")) {
                     items.setMaxAge(0);
@@ -47,7 +47,7 @@ public class LogoutController extends HttpServlet {
                 }
             }
 //        request.getRequestDispatcher("index.jsp").forward(request, response);
-response.sendRedirect("index.jsp");
+            response.sendRedirect("index.jsp");
 
         }
     }

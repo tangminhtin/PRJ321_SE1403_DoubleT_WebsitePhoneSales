@@ -5,28 +5,24 @@
  */
 package Controllers;
 
-import Models.DAO.CustomerDAO;
-import Models.DAO.EmployeeDAO;
-import Models.DAO.UserDAO;
-import Models.Entites.Customer;
-import Models.Entites.Employee;
-import Models.Entites.User;
+import Models.DAO.*;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author tangminhtin
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 25, maxRequestSize = 1024 * 1024 * 50)
 public class UserController extends HttpServlet {
 
+    final String UPLOAD_DIRECTORY = "img/users";
     private UserDAO udao = null;
     private EmployeeDAO edao = null;
     private CustomerDAO cdao;
@@ -50,26 +46,8 @@ public class UserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession session = request.getSession();
 
-        ArrayList<User> users = udao.getUsers();
-        ArrayList<Employee> employees = edao.getEmployees();
-        ArrayList<Customer> customers = cdao.getCustomers();
-        
-//        ArrayList<User> users;
-
-
-        
-        // add users to request object
-            session.setAttribute("users", users);
-            session.setAttribute("employees", employees);
-            session.setAttribute("customers", customers);
-
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("./admin/users.jsp");
-//        dispatcher.forward(request, response);
-        response.sendRedirect("./admin/users.jsp");
-
+//        response.sendRedirect("./admin/users.jsp");
 //        response.sendRedirect(request.getContextPath() + "/admin/users.jsp");
     }
 
@@ -85,18 +63,8 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String deleteUserId = request.getParameter("deleteUserId");
-        if (deleteUserId != null) {
-            int userId = Integer.parseInt(deleteUserId);
-            String role = udao.getRoleByUserId(userId);
-            if (role.equals("staff")) {
-                edao.delete(userId);
-            } else if (role.equals("customer")) {
-                cdao.delete(userId);
-            }
-            udao.delete(userId);
-        }
-        processRequest(request, response);
+
+        response.sendRedirect("./admin/users.jsp");
     }
 
     /**
@@ -110,25 +78,76 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String yourImage = "";
+
+        //// USER
         String user = request.getParameter("txtUsername");
         String pass = request.getParameter("txtPassword");
         String confirm = request.getParameter("txtConfirmPassword");
+
+        //// EMPLOYEE
         String fullname = request.getParameter("txtFullname");
         String address = request.getParameter("txtAddress");
         String phone = request.getParameter("txtPhone");
         String email = request.getParameter("txtEmail");
-        String image = request.getParameter("txtImage");
 
-        if (user != null && pass != null && confirm != null
-                && fullname != null && address != null
-                && phone != null && image != null) {
-            if (pass.equals(confirm)) {
-                int userId = udao.insert(user, pass, "staff");
-                edao.insert(fullname, address, phone, email, image, userId);
+        //// IMAGE HANDLER
+        try {
+            String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
             }
+
+            Part part = request.getPart("image_file");
+            String filename = part.getSubmittedFileName();
+            part.write(uploadPath + File.separator + filename);
+            yourImage = UPLOAD_DIRECTORY + File.separator + filename;
+        } catch (IOException | ServletException e) {
+
         }
 
-        processRequest(request, response);
+        if (request.getParameter("query").equals("add")) {
+            if (user != null && pass != null && confirm != null && fullname != null
+                    && address != null && phone != null && yourImage != null) {
+                if (pass.equals(confirm)) {
+                    int userId = udao.insert(user, pass, "staff");
+                    edao.insert(fullname, address, phone, email, yourImage, userId);
+                }
+            }
+        } else if (request.getParameter("query").equals("delete")) {
+            String deleteUserId = request.getParameter("deleteUserId");
+            if (deleteUserId != null) {
+                int userId = Integer.parseInt(deleteUserId);
+                String role = udao.getRoleByUserId(userId);
+                if (role.equals("staff")) {
+                    edao.delete(userId);
+                } else if (role.equals("customer")) {
+                    cdao.delete(userId);
+                }
+                udao.delete(userId);
+            }
+        } else if (request.getParameter("query").equals("edit")) {
+            if (pass != null && confirm != null) {
+                String role = request.getParameter("txtUserRole");
+                String userId = request.getParameter("txtUserId");
+                String id = request.getParameter("txtId");
+
+                if (role != null && userId != null && id != null) {
+                    if (pass.equals(confirm)) {
+                        udao.update(pass, role, Integer.parseInt(userId));
+                        if (role.equals("staff")) {
+                            edao.update(fullname, address, phone, email, yourImage, Integer.parseInt(id));
+                        } else if (role.equals("customer")) {
+                            cdao.update(fullname, address, phone, email, yourImage, Integer.parseInt(id));
+                        }
+                    }
+                }
+            }
+
+        }
+
+        response.sendRedirect("./admin/users.jsp");
     }
 
     /**
