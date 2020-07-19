@@ -35,7 +35,7 @@ public class UserDAO {
 
     public void load() {
         try {
-            String sql = "SELECT * FROM `user` WHERE userRole!='admin'";
+            String sql = "SELECT * FROM `user` WHERE userRole!='admin' ORDER BY userId DESC";
             pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             users.clear();
@@ -148,7 +148,7 @@ public class UserDAO {
     public ArrayList<User> getUsersInRange(int start, int limit) {
         try {
             ArrayList<User> userLimit = new ArrayList<>();
-            String sql = "SELECT * FROM `user` WHERE userRole!='admin' LIMIT ?, ?";
+            String sql = "SELECT * FROM `user` WHERE userRole!='admin' ORDER BY userId DESC LIMIT ?, ?";
             pst = connection.prepareStatement(sql);
             pst.setInt(1, start);
             pst.setInt(2, limit);

@@ -38,7 +38,7 @@ public class PhoneDAO {
 
     public void load() {
         try {
-            String sql = "SELECT * FROM `phone`";
+            String sql = "SELECT * FROM `phone` ORDER BY phoneId DESC";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             phone.clear();
@@ -65,7 +65,7 @@ public class PhoneDAO {
     public ArrayList<Phone> getPhonesInRange(int start, int limit) {
         try {
             ArrayList<Phone> phonesLimit = new ArrayList<>();
-            String sql = "SELECT * FROM `phone` LIMIT ?, ?";
+            String sql = "SELECT * FROM `phone` ORDER BY phoneId DESC LIMIT ?, ?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, start);
             pst.setInt(2, limit);
