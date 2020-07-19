@@ -37,3 +37,22 @@
 <script type="text/javascript" src="../js/mdb.min.js"></script>
 <!-- Your custom scripts (optional) -->
 <script type="text/javascript"></script>
+
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="../admin/js/jquery.min.js"></script>
+<script src="../admin/js/bootstrap.bundle.min.js"></script>
+
+<!--Core plugin JavaScript-->
+<script src="../admin/js/jquery.easing.min.js"></script>
+
+<!--Page level plugin JavaScript-->
+<script src="../admin/js/jquery.dataTables.js"></script>
+<script src="../admin/js/dataTables.bootstrap4.js"></script>
+
+<!--Custom scripts for all pages-->
+<script src="../admin/js/sb-admin.min.js"></script>
+
+<!--Demo scripts for this page-->
+<script src="../admin/js/datatables-demo.js"></script>

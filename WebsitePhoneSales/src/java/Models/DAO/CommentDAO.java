@@ -35,7 +35,7 @@ public class CommentDAO {
 
     public void load() {
         try {
-            String sql = "SELECT * FROM `comment`";
+            String sql = "SELECT * FROM `comment` ORDER BY commentDate DESC";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             comments.clear();
@@ -124,9 +124,32 @@ public class CommentDAO {
         }
         return cmts;
     }
-    
+
     public int getNumberOfComment() {
         return comments.size();
+    }
+
+    public ArrayList<Comment> getCommentsInRange(int start, int limit) {
+        try {
+            ArrayList<Comment> cmts = new ArrayList<>();
+            String sql = "SELECT * FROM `comment` ORDER BY commentId DESC LIMIT ?, ?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, start);
+            pst.setInt(2, limit);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                cmts.add(new Comment(
+                        rs.getInt("commentId"),
+                        rs.getString("commentContent"),
+                        rs.getDate("commentDate"),
+                        rs.getInt("customerId"))
+                );
+            }
+            return cmts;
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

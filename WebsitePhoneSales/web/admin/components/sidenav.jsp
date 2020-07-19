@@ -23,7 +23,11 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-mobile-alt"></i></div>
                     Phones
                 </a>
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                <a class="nav-link" href="../admin/comments.jsp">
+                    <div class="sb-nav-link-icon"><i class="far fa-comment-dots"></i></div>
+                    Comments
+                </a>
+<!--                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Layouts
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -75,7 +79,7 @@
                     Tables
                 </a>
             </div>
-        </div>
+        </div>-->
 <!--        <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
             Start Bootstrap

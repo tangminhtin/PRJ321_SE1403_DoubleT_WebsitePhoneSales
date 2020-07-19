@@ -1,9 +1,12 @@
 <%-- 
-    Document   : phones
+    Document   : comments
     Created on : Jul 10, 2020, 9:19:35 AM
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.DAO.CustomerDAO"%>
+<%@page import="Models.Entites.Comment"%>
+<%@page import="Models.DAO.CommentDAO"%>
 <%@page import="Models.DAO.PhoneDAO"%>
 <%@page import="Models.Entites.Phone"%>
 <%@page import="java.util.ArrayList"%>
@@ -29,10 +32,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Management Phones</h1>
+                        <h1 class="mt-4">Management Comments</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="./index.jsp">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Phones</li>
+                            <li class="breadcrumb-item active">Comments</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
@@ -40,49 +43,39 @@
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-table mr-1"></i>
-                                            List of Phones
+                                            List of Comments
                                         </div>
 
                                         <div class="card-body">
                                             <div class="table-responsive">
-                                                <a class="text-white" href="add_phone.jsp"><button type="button" class="btn btn-success px-3"><i class="fas fa-plus"></i> Add phone</button></a>
                                                 <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th>
-                                                            <th>Image</th>
-                                                            <th>Price</th>
-                                                            <th>Description</th>
-                                                            <th>Edit</th>
-                                                            <th>Delete</th>
+                                                            <th>Avatar</th>
+                                                            <th>Comment</th>
+                                                            <th>Date</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <%
-                                                            PhoneDAO pdao = new PhoneDAO();
-                                                            ArrayList<Phone> phones = pdao.getAllPhone();
-
-                                                            for (Phone p : phones) {%>
+                                                            CommentDAO cdao = new CommentDAO();
+                                                            ArrayList<Comment> comments = cdao.getComments();
+                                                            CustomerDAO customerDAO = new CustomerDAO();
+                                                            for (Comment c : comments) {%>
                                                         <tr>
-                                                            <td><%= p.getPhoneName()%></td>
+                                                            <td><%= customerDAO.getCustomerCusId(c.getCustomerId()).getCustomerFullname()%></td>
                                                             <td>
-                                                                <img src="../<%= p.getPhoneImage()%>" width="50px" height="50px" class="rounded float-left" alt="Avatar">
+                                                                <img src="../<%= customerDAO.getCustomerCusId(c.getCustomerId()).getCustomerImage()%>" width="50px" height="50px" class="rounded float-left" alt="Avatar">
                                                             </td>
-                                                            <td><%= p.getPhonePrice()%></td>
-                                                            <td><%= p.getPhoneShortDescription()%></td>
-                                                            <td><a class="text-white" href="./edit_phone.jsp?phoneId=<%= p.getPhoneId()%>"><button type="button" class="btn btn-warning px-3"><i class="fas fa-edit"></i></button></a></td>
-                                                            <td>
-                                                                <form action="../PhoneController?query=delete&phoneId=<%= p.getPhoneId()%>" method="POST">
-                                                                    <button name="phoneId" value="<%= p.getPhoneId()%>" type="submit" class="btn btn-danger px-3"><i class="far fa-trash-alt"></i></button>
-                                                                </form>          
-                                                            </td>
+                                                            <td><%= c.getCommentContent()%></td>
+                                                            <td><%= c.getCommentDate()%></td>
                                                         </tr>
                                                         <%}%>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                                    
                                     </div>
                                 </p>
                             </div>
@@ -91,6 +84,7 @@
                 </main>
             </div>
         </div>
+
         <%@include file="components/footer.jsp" %>
     </body>
 </html>
