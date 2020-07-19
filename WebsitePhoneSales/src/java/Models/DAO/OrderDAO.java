@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  * @author tangminhtin
  */
 public class OrderDAO {
+
     private Connection connection;
     DBConnection dBConnection;
     ResultSet rs;
@@ -34,17 +35,17 @@ public class OrderDAO {
 
     public void load() {
         try {
-            String sql = "SELECT * FROM `order`";
+            String sql = "SELECT * FROM `order` ORDER BY orderDate DESC";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             orders.clear();
             while (rs.next()) {
-                orders.add(new Order(rs.getInt("orderId"), 
-                        rs.getDate("orderDate"), 
-                        rs.getInt("orderQuantity"), 
-                        rs.getDouble("orderTotalPrice"), 
-                        rs.getString("orderNote"), 
-                        rs.getInt("phoneId"), 
+                orders.add(new Order(rs.getInt("orderId"),
+                        rs.getDate("orderDate"),
+                        rs.getInt("orderQuantity"),
+                        rs.getDouble("orderTotalPrice"),
+                        rs.getString("orderNote"),
+                        rs.getInt("phoneId"),
                         rs.getInt("customerId")));
 
             }
@@ -59,7 +60,7 @@ public class OrderDAO {
 
     public Order getOrderById(int orderId) {
         for (Order o : orders) {
-            if (o.getOrderId()== orderId) {
+            if (o.getOrderId() == orderId) {
                 return o;
             }
         }
@@ -119,7 +120,7 @@ public class OrderDAO {
         }
         return false;
     }
-    
+
     public boolean deleteByCusId(int customerId) {
         try {
             String sql = "DELETE FROM `order` WHERE customerId=?";
@@ -134,13 +135,18 @@ public class OrderDAO {
         return false;
     }
 
-     public ArrayList<Order> getOrders(int customerId) {
+    public ArrayList<Order> getOrders(int customerId) {
         ArrayList<Order> ors = new ArrayList<>();
-        for(Order o: ors) {
-            if(o.getCustomerId() == customerId) {
+        for (Order o : ors) {
+            if (o.getCustomerId() == customerId) {
                 ors.add(o);
             }
-        } 
+        }
         return ors;
     }
+    
+    public int getNumberOfOrder() {
+        return orders.size();
+    }
+
 }

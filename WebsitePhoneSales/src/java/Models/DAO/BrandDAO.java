@@ -30,6 +30,7 @@ public class BrandDAO {
         DBConnection dbc = new DBConnection();
         connection = dbc.getConnection();
         brands = new ArrayList<>();
+        load();
     }
 
     public ArrayList<Brand> getBrands() {
@@ -59,5 +60,9 @@ public class BrandDAO {
             }
         }
         return null;
+    }
+    
+    public int getNumberOfBrand() {
+        return brands.size();
     }
 }

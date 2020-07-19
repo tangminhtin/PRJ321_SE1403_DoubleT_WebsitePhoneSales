@@ -4,11 +4,17 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.Entites.Order"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Models.DAO.CustomerDAO"%>
+<%@page import="Models.Entites.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <%@include file="components/head.jsp" %>
+        <%@include file="components/chartOrder.jsp" %>
         <title>Dashboard | Double T Shop</title>
     </head>
     <body class="sb-nav-fixed">
@@ -24,7 +30,7 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                        <div class="row">
+<!--                        <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Primary Card</div>
@@ -61,9 +67,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
+
                         <div class="row">
-                            <div class="col-xl-6">
+<!--                            <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area mr-1"></i>
@@ -71,7 +78,17 @@
                                     </div>
                                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                                 </div>
-                            </div>
+                            </div>-->
+
+
+                            <div class="col-md-10" id="columnchart_material" style="width: 800px; height: 500px;"></div>
+                            <!--<div id="chart_div" style="width: 100%; height: 500px;"></div>-->
+
+
+                            <!--<div id="chart_div" style="width: 900px; height: 500px;"></div>-->
+
+
+<!--
                             <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
@@ -80,45 +97,40 @@
                                     </div>
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                DataTable Example
+                                Last Orders
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <%
+                                            CustomerDAO customerDAO = new CustomerDAO();
+                                            OrderDAO orderDAO1 = new OrderDAO();
+                                            
+                                            ArrayList<Order> orders = orderDAO1.getOrders();
+                                        %>
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>Customer</th>
+                                                <th>Phone</th>
+                                                <th>Quantity</th>
+                                                <th>Total Price</th>
+                                                <th>Date</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot>
                                         <tbody>
-                                            <% for(int i=0; i<50; i++) { %>
+                                            <% for(Order o: orders) { %>
                                             <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
+                                                <td><%=customerDAO.getCustomerCusId(o.getCustomerId())%></td>
+                                                <td><%=%></td>
+                                                <td><%=o.getPhoneName()%></td>
+                                                <td><%=%></td>
+                                                <td><%=%></td>
+                                                <td><%=%></td>
                                             </tr>
                                             <% } %>
                                             

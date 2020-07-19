@@ -124,5 +124,9 @@ public class CommentDAO {
         }
         return cmts;
     }
+    
+    public int getNumberOfComment() {
+        return comments.size();
+    }
 
 }
