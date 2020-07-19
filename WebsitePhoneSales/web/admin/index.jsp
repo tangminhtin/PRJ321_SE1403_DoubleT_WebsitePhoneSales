@@ -18,7 +18,13 @@
         <title>Dashboard | Double T Shop</title>
     </head>
     <body class="sb-nav-fixed">
-       <%@include file="components/navbar.jsp" %>
+        <% 
+            if(request.getSession().getAttribute("aUser")==null) {
+                response.sendRedirect("./login.jsp");
+            }
+        %>
+        
+        <%@include file="components/navbar.jsp" %>
        
         <div id="layoutSidenav">
             <%@include file="components/sidenav.jsp" %>
@@ -110,6 +116,7 @@
                                         <%
                                             CustomerDAO customerDAO = new CustomerDAO();
                                             OrderDAO orderDAO1 = new OrderDAO();
+                                            PhoneDAO phoneDAO1 = new PhoneDAO();
                                             
                                             ArrayList<Order> orders = orderDAO1.getOrders();
                                         %>
@@ -123,14 +130,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% for(Order o: orders) { %>
+                                            <% 
+                                                int i=0;
+                                                for(Order o: orders) { 
+                                                    if(i==5) break;
+                                                    i++;
+                                            %>
                                             <tr>
-                                                <td><%=customerDAO.getCustomerCusId(o.getCustomerId())%></td>
-                                                <td><%=%></td>
-                                                <td><%=o.getPhoneName()%></td>
-                                                <td><%=%></td>
-                                                <td><%=%></td>
-                                                <td><%=%></td>
+                                                <td><%=customerDAO.getCustomerCusId(o.getCustomerId()).getCustomerFullname()%></td>
+                                                <td><%=phoneDAO1.getPhone(o.getPhoneId()).getPhoneName()%></td>
+                                                <td><%=o.getOrderQuantity()%></td>
+                                                <td><%=o.getOrderTotalPrice()%></td>
+                                                <td><%=o.getOrderDate()%></td>
                                             </tr>
                                             <% } %>
                                             
@@ -155,7 +166,6 @@
                 </footer>-->
             </div>
         </div>
-                                            
                                             
         <%@include file="components/footer.jsp" %>
     </body>

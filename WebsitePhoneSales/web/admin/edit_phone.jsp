@@ -15,6 +15,11 @@
         <title>Edit Phones | Double T Shop</title>
     </head>
     <body>
+        <% 
+            if(request.getSession().getAttribute("aUser")==null) {
+                response.sendRedirect("./login.jsp");
+            }
+        %>
         <%@include file="components/navbar.jsp" %>
 
         <div id="layoutSidenav">
@@ -143,7 +148,7 @@
                                             <div class="form-group row">
                                                 <label for="phoneDetailVideo" class="col-sm-2 col-form-label">Link Video</label>
                                                 <div class="col-sm-10">
-                                                    <input value="<%= phoneDetail.getPhoneDetailVideo()%>" required name="txtPhoneDetailVideo" type="text" class="form-control" id="phoneName" placeholder="https://youtu.be/CnSJYa3m9DM">
+                                                    <input value="" required name="txtPhoneDetailVideo" type="text" class="form-control" id="phoneName" placeholder="https://youtu.be/CnSJYa3m9DM">
                                                 </div>
                                             </div>
 

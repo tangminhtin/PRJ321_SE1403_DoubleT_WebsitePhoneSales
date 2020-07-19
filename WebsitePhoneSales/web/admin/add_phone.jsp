@@ -12,6 +12,12 @@
         <title>Add Phones | Double T Shop</title>
     </head>
     <body>
+        <% 
+            if(request.getSession().getAttribute("aUser")==null) {
+                response.sendRedirect("./login.jsp");
+            }
+        %>
+        
         <%@include file="components/navbar.jsp" %>
 
         <div id="layoutSidenav">

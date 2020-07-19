@@ -17,19 +17,43 @@
 
 
 
-<div class="custom-control custom-radio custom-control-inline">
-  <input type="radio" class="custom-control-input" id="defaultInline1" name="radBrand">
-  <label class="custom-control-label" for="defaultInline1">Apple</label>
-</div>
-<div class="custom-control custom-radio custom-control-inline">
-  <input type="radio" class="custom-control-input" id="defaultInline2" name="radBrand">
-  <label class="custom-control-label" for="defaultInline2">Samsung</label>
-</div>
-<div class="custom-control custom-radio custom-control-inline">
-  <input type="radio" class="custom-control-input" id="defaultInline3" name="radBrand">
-  <label class="custom-control-label" for="defaultInline3">Google</label>
-</div>
 
+        
+        
+        
+        
+        
+        
+        
+   <!-- Basic dropdown -->
+<button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
+
+<div class="dropdown-menu">
+  <a class="dropdown-item" href="#">Action</a>
+  <a class="dropdown-item" href="#">Another action</a>
+  <a class="dropdown-item" href="#">Something else here</a>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="#">Separated link</a>
+</div>
+<!-- Basic dropdown -->     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
 
         <%@include file="components/footer.jsp" %>

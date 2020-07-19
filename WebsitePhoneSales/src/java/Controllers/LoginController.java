@@ -5,6 +5,8 @@
  */
 package Controllers;
 
+import Models.DAO.UserDAO;
+import Models.Entites.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -34,9 +36,22 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if (request.getParameter("txtUsername") != null && request.getParameter("txtPassword") != null) {
-                Cookie username = new Cookie("username", request.getParameter("txtUsername"));
-                Cookie password = new Cookie("password", request.getParameter("txtPassword"));
+            String user = request.getParameter("txtUsername");
+            String pass = request.getParameter("txtPassword");
+            UserDAO userDAO = new UserDAO();
+               
+            //// LOGIN
+            if(user!= null && pass!= null && request.getParameter("query").equals("admin")) {
+                User admin = userDAO.login(user, pass);
+                if(admin!=null && admin.getUserRole().equals("admin")) {
+                    request.getSession().setAttribute("aUser", user);
+                    response.sendRedirect("./admin/index.jsp");
+                } else {
+                    response.sendRedirect("./admin/login.jsp");
+                }
+            } else if (user!= null && pass!= null) {
+                Cookie username = new Cookie("username", user);
+                Cookie password = new Cookie("password", pass);
 
                 username.setMaxAge(60 * 60 * 24);
                 password.setMaxAge(60 * 60 * 24);
@@ -46,6 +61,14 @@ public class LoginController extends HttpServlet {
 
 //            request.getRequestDispatcher("index.jsp").forward(request, response);
                 response.sendRedirect("index.jsp");
+            }
+            
+            
+            
+            //// LOGOUT
+            else if(request.getParameter("query").equals("logout")) {
+                request.getSession().removeAttribute("aUser");
+                response.sendRedirect("./admin/login.jsp");
             }
         }
     }
@@ -62,7 +85,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
