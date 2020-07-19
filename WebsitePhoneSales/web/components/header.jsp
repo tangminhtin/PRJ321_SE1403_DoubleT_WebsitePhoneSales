@@ -106,9 +106,21 @@
                     <input class="form-control" type="text" name="txtSearch" placeholder="What do you need?" aria-label="Search">
                     <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit"><i class="fas fa-search"></i></button>
                 </form>
+                <%
+                    ArrayList<AddCart> addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
+                    int quantity = 0;
+                    if (addCart != null) {
 
+                        for (AddCart item : addCart) {
+                            quantity += item.getPhoneQuantity();
+
+                        }
+                    }
+                %>
                 <!-- Button trigger modal-->
-                <button type="button" class="btn btn-success px-3" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-success px-3" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="counter"><%=quantity%></span>
+                </button>
 
                 <!-- Modal: modalCart -->
                 <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -133,12 +145,12 @@
                                             <th>Product name</th>
                                             <th>Price</th>
                                             <th>Quantity</th>
-                                            <th>Remove</th>
+                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                            ArrayList<AddCart> addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
+
                                             double total = 0;
                                             int numberRow = 0;
                                             if (session.getAttribute("Cart") != null) {
@@ -152,7 +164,7 @@
                                             <td>$<%=items.getPhonePrice()%></td>
 
                                             <td><%=items.getPhoneQuantity()%></td>
-                                            <td><a><i class="fas fa-times"></i></a></td>
+                                            <td><a type="button" data-toggle="modal" data-target="#modalConfirmEdit"><i class="far fa-edit"></i></a></td>
                                         </tr>
                                         <tr class="total">
 
@@ -162,22 +174,42 @@
                                                 }
                                             %>
                                             <th scope="row"></th>
-                                            <td>Total = </td>
-                                            <td><%=total%></td>
+                                            <td>Total: </td>
+                                            <td>$<%=total%></td>
                                             <td></td>
                                         </tr>
 
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div class="modal fade" id="modalConfirmEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-sm modal-notify modal-warning" role="document">
+                                    <!--Content-->
+                                    <div class="modal-content text-center">
+                                        <p>Set Quantity</p>
+                                        <!--Header-->
+                                        <div class="modal-header d-flex justify-content-center">
+                                            <input  type="text" name="txtQuantity" value="<%%>"/>
+                                        </div>
+                                        <!--Footer-->
+                                        <div class="modal-footer flex-center">
+                                            <a type="button" href="" class="btn  btn-outline-warning">Yes</a>
+                                            <a type="button" class="btn  btn-warning waves-effect" data-dismiss="modal">No</a>
+                                        </div>
+                                    </div>
+                                    <!--/.Content-->
+                                </div>
+                            </div>
+                            <%
+
+                            %>
                             <!--Footer-->
                             <div class="modal-footer">
                                 <button type="button" class="btn  btn-outline-warning" data-dismiss="modal">Close</button>
 
-                                <%
-                                    addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
-
-                                    if (session.getAttribute("Cart") != null) {
+                                <%                                    if (session.getAttribute("Cart") != null) {
                                         if (list.length >= 2) {
                                 %>
                                 <a href="OrdersController?"><button class="btn  btn-outline-warning">Checkout</button></a>

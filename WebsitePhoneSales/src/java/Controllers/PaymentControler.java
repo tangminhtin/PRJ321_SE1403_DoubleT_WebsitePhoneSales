@@ -60,7 +60,7 @@ public class PaymentControler extends HttpServlet {
 
                     addCart.add(addCarts);
                     session.setAttribute("Cart", addCart);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    response.sendRedirect("index.jsp");
                 } else {
                     addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
                     boolean check = false;
@@ -88,7 +88,7 @@ public class PaymentControler extends HttpServlet {
                         session.setAttribute("Cart", addCart);
                     }
 
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    response.sendRedirect("index.jsp");
                 }
 
             }
