@@ -39,12 +39,12 @@
 
 
                 <div class="dropdown ht-right">
-                    <button style="border-radius: 5px 30px 5px 30px" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu6" data-toggle="dropdown"
+                    <button style="border-radius: 0px 30px 0px 30px" class="btn peach-gradient dropdown-toggle" type="button" id="dropdownMenu6" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user-tie"></i> <%=items.getValue()%>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu6">
-                        <button style="border-radius: 5px 30px 5px 30px" type="button" class="btn  btn-outline-warning" data-toggle="modal" data-target="#modalConfirmDelete">Logout</button>
+                        <button style="border-radius: 0px 30px 0px 30px" type="button" class="btn peach-gradient" data-toggle="modal" data-target="#modalConfirmDelete">Logout</button>
                     </div>
                 </div>
                 <!-- Button trigger modal-->
@@ -106,8 +106,8 @@
                 </ul>
 
                 <form class="form-inline mr-auto" action="search.jsp">
-                    <input class="form-control" type="text" name="txtSearch" placeholder="What do you need?" aria-label="Search">
-                    <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit"><i class="fas fa-search"></i></button>
+                    <input style="border-radius: 0px 20px 0px 20px" class="form-control" type="text" name="txtSearch" placeholder="What do you need?" aria-label="Search">
+                    <button style="border-radius: 0px 20px 0px 20px" class="btn blue-gradient btn-md" type="submit"><i class="fas fa-search"></i></button>
                 </form>
                 <%
                     ArrayList<AddCart> addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
@@ -121,7 +121,7 @@
                     }
                 %>
                 <!-- Button trigger modal-->
-                <button style="border-radius: 5px 20px 5px 20px"  type="button" class="btn purple-gradient px-3" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <button style="border-radius: 0px 20px 0px 20px"  type="button" class="btn purple-gradient btn-md" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart" aria-hidden="true"></i>
                     <span class="counter"><%=quantity%></span>
                 </button>
 

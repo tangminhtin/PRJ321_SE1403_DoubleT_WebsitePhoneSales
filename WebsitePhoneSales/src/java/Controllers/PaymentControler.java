@@ -88,7 +88,7 @@ public class PaymentControler extends HttpServlet {
                         session.setAttribute("Cart", addCart);
                     }
 
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("./showDetails.jsp?phoneId=" + phoneId);
                 }
 
             }

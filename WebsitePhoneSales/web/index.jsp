@@ -136,27 +136,26 @@
 
                 %>
                 <div class="col">
-                    <div class="card h-100">
+                    <div style="border-radius: 0px 35px 0px 45px" class="card h-100">
                         <!--Card image-->
                         <div class="view overlay">
-                            <img class="card-img-top" src="<%=p.getPhoneImage()%>"
-                                 alt="Card image cap">
-                            <a href="<%=p.getPhoneImage()%>" target="_blank">
-                                <div class="mask rgba-white-slight"></div>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>">
+                                <img style="border-radius: 0px 35px 0px 35px" class="card-img-top" src="<%=p.getPhoneImage()%>" alt="Card image cap">
                             </a>
+
                         </div>
 
                         <!--Card content-->
                         <div class="card-body">
 
                             <!--Title-->
-                            <h4 class="card-title"><%=p.getPhoneName()%></h4>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><h4 class="card-title"><%=p.getPhoneName()%></h4></a>
                             <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
                             <!--Text-->
                             <p class="card-text"><%=p.getPhoneShortDescription()%></p>
 
                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>" target="_blank"><button type="button"class="btn btn-light-blue btn-md">View details</button></a>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
 
                         </div>
 
@@ -188,20 +187,20 @@
                     <!-- Grid column -->
                     <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
                         <!-- Card -->
-                        <div class="card hoverable">
+                        <div style="border-radius: 50px 50px 50px 50px" class="card hoverable">
                             <!-- Card image -->
-                            <img class="card-img-top" src="<%=phones.get(i).getPhoneImage()%>" alt="Card image cap">
+                            <a href="showDetails.jsp?phoneId=<%=phones.get(i).getPhoneId()%>"><img style="border-radius: 50px 50px 0px 0px" class="card-img-top" src="<%=phones.get(i).getPhoneImage()%>" alt="Card image cap"></a>
                             <!-- Card content -->
                             <div class="card-body">
                                 <!-- Title -->
-                                <a href="#!" class="black-text"><%=phones.get(i).getPhoneName()%></a>
+                                <a href="showDetails.jsp?phoneId=<%=phones.get(i).getPhoneId()%>" class="black-text"><%=phones.get(i).getPhoneName()%></a>
                                 <!--Title-->
 
                                 <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=phones.get(i).getPhonePrice()%></i></h5>
                                 <!-- Text -->
                                 <p class="card-title text-muted font-small mt-3 mb-2"><%=phones.get(i).getPhoneShortDescription()%></p>
 
-                                <a href="showDetails.jsp?phoneId=<%=phones.get(i).getPhoneId()%>" target="_blank"><button type="button"class="btn btn-light-blue btn-md">View details</button></a>
+                                <a href="showDetails.jsp?phoneId=<%=phones.get(i).getPhoneId()%>"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
 
                             </div>
                         </div>

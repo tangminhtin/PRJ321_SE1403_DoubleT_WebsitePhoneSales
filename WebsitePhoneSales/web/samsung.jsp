@@ -34,10 +34,10 @@
 
                 %>
                 <div class="col">
-                    <div class="card h-100">
+                    <div style="border-radius: 0px 35px 0px 45px" class="card h-100">
                         <!--Card image-->
                         <div class="view overlay">
-                            <img class="card-img-top" src="<%=p.getPhoneImage()%>"
+                            <img style="border-radius: 0px 35px 0px 45px" class="card-img-top" src="<%=p.getPhoneImage()%>"
                                  alt="Card image cap">
                             <a href="#!">
                                 <div class="mask rgba-white-slight"></div>
@@ -53,7 +53,7 @@
                             <!--Text-->
                             <p class="card-text"><%=p.getPhoneShortDescription()%></p>
                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>" target="_blank"><button type="button"class="btn btn-light-blue btn-md">View details</button></a>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
 
                         </div>
 
