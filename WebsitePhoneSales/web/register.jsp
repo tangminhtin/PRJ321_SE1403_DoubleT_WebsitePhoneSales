@@ -67,7 +67,7 @@
                                     <input required name="image_file" type="file" id="image_file" class="form-control">
                                 </div>
 
-                                <button type="submit" class="site-btn register-btn">REGISTER</button>
+                                <button style="border-radius: 0px 30px 0px 30px" type="submit" class="site-btn register-btn">REGISTER</button>
                             </form>
                             <div class="switch-login">
                                 <a href="./login.jsp" class="or-login">Or Login</a>

@@ -27,13 +27,13 @@
                             <form action="LoginController?query=user" method="POST" >
                                 <div class="group-input">
                                     <label for="username">Username *</label>
-                                    <input required type="text" id="username" name="txtUsername">
+                                    <input style="border-radius: 0px 30px 0px 30px" required type="text" id="username" name="txtUsername">
                                 </div>
                                 <div class="group-input">
                                     <label for="pass">Password *</label>
-                                    <input required type="password" id="pass" name="txtPassword">
+                                    <input style="border-radius: 0px 30px 0px 30px" required type="password" id="pass" name="txtPassword">
                                 </div>
-                                <button type="submit" class="site-btn login-btn">Sign In</button>
+                                <button style="border-radius: 0px 30px 0px 30px" type="submit" class="site-btn login-btn">Sign In</button>
                             </form>
                             <div class="switch-login">
                                 <a href="./register.jsp" class="or-login">Or Create An Account</a>
