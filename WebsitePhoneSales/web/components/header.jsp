@@ -159,6 +159,10 @@
                                             if (session.getAttribute("Cart") != null) {
                                                 for (AddCart items : addCart) {
                                                     numberRow++;
+                                                    if (request.getParameter("txtQuantity")!= null) {
+                                                        int setQuantity = Integer.parseInt(request.getParameter("txtQuantity"));
+                                                            items.setPhoneQuantity(setQuantity);
+                                                        }
 
                                         %>
                                         <tr>
@@ -185,7 +189,7 @@
                                     </tbody>
                                 </table>
                             </div>
-
+                                            
                             <div class="modal fade" id="modalConfirmEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-sm modal-notify modal-warning" role="document">
@@ -194,7 +198,7 @@
                                         <p>Set Quantity</p>
                                         <!--Header-->
                                         <div class="modal-header d-flex justify-content-center">
-                                            <input  type="text" name="txtQuantity" value="<%%>"/>
+                                            <input  type="text" name="txtQuantity"/>
                                         </div>
                                         <!--Footer-->
                                         <div class="modal-footer flex-center">

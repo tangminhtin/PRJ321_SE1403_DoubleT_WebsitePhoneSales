@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        
             String user = request.getParameter("txtUsername");
             String pass = request.getParameter("txtPassword");
             UserDAO userDAO = new UserDAO();
@@ -51,26 +51,22 @@ public class LoginController extends HttpServlet {
                 }
             } else if (user!= null && pass!= null) {
                 Cookie username = new Cookie("username", user);
-                Cookie password = new Cookie("password", pass);
+//                Cookie password = new Cookie("password", pass);
 
                 username.setMaxAge(60 * 60 * 24);
-                password.setMaxAge(60 * 60 * 24);
+//                password.setMaxAge(60 * 60 * 24);
 
                 response.addCookie(username);
-                response.addCookie(password);
+//                response.addCookie(password);
 
 //            request.getRequestDispatcher("index.jsp").forward(request, response);
                 response.sendRedirect("index.jsp");
             }
-            
-            
-            
             //// LOGOUT
             else if(request.getParameter("query").equals("logout")) {
                 request.getSession().removeAttribute("aUser");
                 response.sendRedirect("./admin/login.jsp");
             }
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
