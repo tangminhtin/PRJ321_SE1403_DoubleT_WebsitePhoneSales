@@ -39,12 +39,12 @@
 
 
                 <div class="dropdown ht-right">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu6" data-toggle="dropdown"
+                    <button style="border-radius: 5px 30px 5px 30px" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu6" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                        Hello <%=items.getValue()%>
+                        <i class="fas fa-user-tie"></i> <%=items.getValue()%>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu6">
-                        <button type="button" class="btn  btn-outline-warning" data-toggle="modal" data-target="#modalConfirmDelete">Logout</button>
+                        <button style="border-radius: 5px 30px 5px 30px" type="button" class="btn  btn-outline-warning" data-toggle="modal" data-target="#modalConfirmDelete">Logout</button>
                     </div>
                 </div>
                 <!-- Button trigger modal-->
@@ -54,9 +54,9 @@
                      aria-hidden="true">
                     <div class="modal-dialog modal-sm modal-notify modal-warning" role="document">
                         <!--Content-->
-                        <div class="modal-content text-center">
+                        <div style="border-radius: 0 0 45px 45px" class="modal-content text-center">
                             <!--Header-->
-                            <div class="modal-header d-flex justify-content-center">
+                            <div style="border-radius: 0 0 45px 45px" class="modal-header d-flex justify-content-center">
                                 <p class="heading">Are you sure you want to logout?</p>
                             </div>
 
@@ -69,8 +69,8 @@
 
                             <!--Footer-->
                             <div class="modal-footer flex-center">
-                                <a href="LogoutController" class="btn  btn-outline-warning">Yes</a>
-                                <a type="button" class="btn  btn-warning waves-effect" data-dismiss="modal">No</a>
+                                <a style="border-radius: 5px 30px 5px 30px" href="LoginController?query=uLogout" class="btn  btn-outline-warning">Yes</a>
+                                <a style="border-radius: 5px 30px 5px 30px" type="button" class="btn  btn-warning waves-effect" data-dismiss="modal">No</a>
                             </div>
                         </div>
                         <!--/.Content-->
@@ -85,7 +85,7 @@
                 <%
                         }
                     } catch (Exception e) {
-                        response.sendRedirect("index.jsp");
+                        response.sendRedirect("./index.jsp");
                     }
                 %>
                 <div class="top-social">
@@ -159,10 +159,10 @@
                                             if (session.getAttribute("Cart") != null) {
                                                 for (AddCart items : addCart) {
                                                     numberRow++;
-                                                    if (request.getParameter("txtQuantity")!= null) {
+                                                    if (request.getParameter("txtQuantity") != null) {
                                                         int setQuantity = Integer.parseInt(request.getParameter("txtQuantity"));
-                                                            items.setPhoneQuantity(setQuantity);
-                                                        }
+                                                        items.setPhoneQuantity(setQuantity);
+                                                    }
 
                                         %>
                                         <tr>
@@ -189,7 +189,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                                            
+
                             <div class="modal fade" id="modalConfirmEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-sm modal-notify modal-warning" role="document">

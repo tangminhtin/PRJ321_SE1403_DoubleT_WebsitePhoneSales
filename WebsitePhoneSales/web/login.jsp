@@ -4,6 +4,7 @@
     Author     : tangminhtin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Models.Entites.User"%>
 <%@page import="Models.DAO.UserDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -23,7 +24,7 @@
                     <div class="col-lg-6 offset-lg-3">
                         <div class="login-form">
                             <h2>Login</h2>
-                            <form method="POST" >
+                            <form action="LoginController?query=user" method="POST" >
                                 <div class="group-input">
                                     <label for="username">Username or email address *</label>
                                     <input type="text" id="username" name="txtUsername">
@@ -54,42 +55,28 @@
         </div>
         <!-- Register Form Section End -->
 
-        <%
-            UserDAO userDAO = new UserDAO();
-            if (request.getParameter("txtUsername") != null && request.getParameter("txtPassword") != null) {
-                String username = request.getParameter("txtUsername");
-                String password = request.getParameter("txtPassword");
-
-                User userLogin = userDAO.login(username, password);
-                if (userLogin != null) {
-                    session = request.getSession();
-                    session.setAttribute("user", userLogin);
-                    request.getRequestDispatcher("LoginController").forward(request, response);
-                } else {
-        %>
-        
-                <!-- Frame Modal Bottom -->
-                <div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true">
-                    <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
-                    <div class="modal-dialog modal-frame modal-top" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="row d-flex justify-content-center align-items-center">
-                                    <p class="pt-3 pr-2 text-danger">Oops! Your username or password incorrect!</p>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
+       
+        <c:if test="${sessionScope.message == 'fail'}">
+            <!-- Frame Modal Bottom -->
+            <div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+                <div class="modal-dialog modal-frame modal-top" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <p class="pt-3 pr-2 text-danger">Oops! Your username or password incorrect!</p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Frame Modal Bottom -->
+            </div>
+            <!-- Frame Modal Bottom -->
+            <c:set var="message" value="" scope="session"/>
+        </c:if>
 
-        <%
-                }
-            }
-
-        %>
+       
 
 
         <%@include file="components/footer.jsp" %>

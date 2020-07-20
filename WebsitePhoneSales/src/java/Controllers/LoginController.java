@@ -8,7 +8,6 @@ package Controllers;
 import Models.DAO.UserDAO;
 import Models.Entites.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -40,7 +39,7 @@ public class LoginController extends HttpServlet {
             String pass = request.getParameter("txtPassword");
             UserDAO userDAO = new UserDAO();
                
-            //// LOGIN
+            //// LOGIN ADMIN
             if(user!= null && pass!= null && request.getParameter("query").equals("admin")) {
                 User admin = userDAO.login(user, pass);
                 if(admin!=null && admin.getUserRole().equals("admin")) {
@@ -49,23 +48,34 @@ public class LoginController extends HttpServlet {
                 } else {
                     response.sendRedirect("./admin/login.jsp");
                 }
-            } else if (user!= null && pass!= null) {
-                Cookie username = new Cookie("username", user);
-//                Cookie password = new Cookie("password", pass);
-
-                username.setMaxAge(60 * 60 * 24);
-//                password.setMaxAge(60 * 60 * 24);
-
-                response.addCookie(username);
-//                response.addCookie(password);
-
-//            request.getRequestDispatcher("index.jsp").forward(request, response);
-                response.sendRedirect("index.jsp");
+            //// LOGIN USER
+            } else if (user!= null && pass!= null && request.getParameter("query").equals("user")) {
+                User uUser = userDAO.login(user, pass);
+                if(uUser!=null) {
+                    Cookie username = new Cookie("username", uUser.getUserName());
+                    username.setMaxAge(60 * 60 * 24);
+                    response.addCookie(username);
+                    response.sendRedirect("./index.jsp");
+                } else {
+                    request.getSession().setAttribute("message", "fail");
+                    response.sendRedirect("./login.jsp");
+                }
             }
-            //// LOGOUT
+            //// LOGOUT ADMIN
             else if(request.getParameter("query").equals("logout")) {
                 request.getSession().removeAttribute("aUser");
                 response.sendRedirect("./admin/login.jsp");
+            } 
+            //// LOGOUT USER
+            else if(request.getParameter("query").equals("uLogout")) {
+                Cookie[] list = request.getCookies();
+                for (Cookie items : list) {
+                    if (items.getName().equals("username")) {
+                        items.setMaxAge(0);
+                        response.addCookie(items);
+                    }
+                }
+                response.sendRedirect("./index.jsp");
             }
     }
 
