@@ -121,7 +121,7 @@
                     }
                 %>
                 <!-- Button trigger modal-->
-                <button type="button" class="btn btn-success px-3" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <button type="button" class="btn purple-gradient px-3" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart" aria-hidden="true"></i>
                     <span class="counter"><%=quantity%></span>
                 </button>
 
@@ -145,44 +145,47 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Product name</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Edit</th>
+                                            <th style="text-align: center;width: 300px"><b>Product name</b></th>
+                                            <th style="text-align: center"><b>Price</b></th>
+                                            <th style="width: 300px;text-align: center"><b>Quantity</b></th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
 
                                             double total = 0;
+                                            double roundTotal = 0;
                                             int numberRow = 0;
                                             if (session.getAttribute("Cart") != null) {
                                                 for (AddCart items : addCart) {
                                                     numberRow++;
-                                                    if (request.getParameter("txtQuantity") != null) {
-                                                        int setQuantity = Integer.parseInt(request.getParameter("txtQuantity"));
-                                                        items.setPhoneQuantity(setQuantity);
-                                                    }
-
                                         %>
                                         <tr>
                                             <th scope="row"><%=numberRow%></th>
-                                            <td><%=items.getPhoneName()%></td>
+                                            <td style="width: 300px"><%=items.getPhoneName()%></td>
                                             <td>$<%=items.getPhonePrice()%></td>
-
-                                            <td><%=items.getPhoneQuantity()%></td>
-                                            <td><a type="button" data-toggle="modal" data-target="#modalConfirmEdit"><i class="far fa-edit"></i></a></td>
+                                            <td style="width: 300px">
+                                                <div class="def-number-input number-input safari_only ">
+                                                    <input class="quantity col-6 center" min="0" name="txtQuantity" value="<%=items.getPhoneQuantity()%>" type="number">
+                                                    <a href="./ChangeQuantity?idSet=<%=items.getPhoneId()%>&quantity=<%=items.getPhoneQuantity()%>"><button  value="SET" name="txtSetQuantity" class="btn-sm rgba-blue-slight col-4 "><i class="fas fa-check-circle center"></i></button></a>
+                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn-sm btn-warning col-5 "><i class="fas fa-minus center"></i></button>
+                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn-sm btn-success col-5"><i class="fas fa-plus center"></i></button>
+                                                </div>
+                                            </td>
                                         </tr>
                                         <tr class="total">
 
                                             <%
+
                                                         total += items.getPhonePrice() * items.getPhoneQuantity();
+                                                        roundTotal = (double) Math.round(total * 100) / 100;
                                                     }
                                                 }
                                             %>
                                             <th scope="row"></th>
                                             <td>Total: </td>
-                                            <td>$<%=total%></td>
+                                            <td>$<%=roundTotal%></td>
                                             <td></td>
                                         </tr>
 
