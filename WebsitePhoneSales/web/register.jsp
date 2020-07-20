@@ -33,12 +33,12 @@
                                 </div>
                                 <div class="md-form">
                                     <i class="fas fa-unlock prefix"></i>
-                                    <input required name="txtPassword" type="text" id="txtPass" class="form-control">
+                                    <input required name="txtPassword" type="password" id="txtPass" class="form-control">
                                     <label for="txtPass">Password</label>
                                 </div>
                                 <div class="md-form">
                                     <i class="fas fa-unlock prefix"></i>
-                                    <input required name="txtConfirmPassword" type="text" id="txtConfirm" class="form-control">
+                                    <input required name="txtConfirmPassword" type="password" id="txtConfirm" class="form-control">
                                     <label for="txtConfirm">Confirm Password</label>
                                 </div>
 
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="md-form">
                                     <i class="far fa-envelope prefix"></i>
-                                    <input required name="txtEmail" type="text" id="txtEmail" class="form-control">
+                                    <input required name="txtEmail" type="email" id="txtEmail" class="form-control">
                                     <label for="txtEmail">Email</label>
                                 </div>
                                 <div class="md-form">
