@@ -28,12 +28,12 @@
                 </div>
             </div>
             <div class="ht-right">
-                <%
-                    Cookie[] list = request.getCookies();
+                <% Cookie[] list = request.getCookies();
+                    try {
 
-                    if (list.length >= 2) {
-                        for (Cookie items : list) {
-                            if (items.getName().equals("username")) {
+                        if (list.length >= 2) {
+                            for (Cookie items : list) {
+                                if (items.getName().equals("username")) {
 
                 %>
 
@@ -83,6 +83,9 @@
                 %>
                 <a href="./login.jsp" class="login-panel"><i class="fa fa-user"></i>Login</a>
                 <%
+                        }
+                    } catch (Exception e) {
+                        response.sendRedirect("index.jsp");
                     }
                 %>
                 <div class="top-social">
@@ -211,6 +214,7 @@
 
                                 <%                                    if (session.getAttribute("Cart") != null) {
                                         if (list.length >= 2) {
+
                                 %>
                                 <a href="OrdersController?"><button class="btn  btn-outline-warning">Checkout</button></a>
                                 <%}

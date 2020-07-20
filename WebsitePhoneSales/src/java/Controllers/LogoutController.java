@@ -13,6 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,7 +36,7 @@ public class LogoutController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             Cookie[] list = request.getCookies();
-
+            HttpSession session = request.getSession();
             for (Cookie items : list) {
                 if (items.getName().equals("username")) {
                     items.setMaxAge(0);
@@ -46,6 +47,7 @@ public class LogoutController extends HttpServlet {
                     response.addCookie(items);
                 }
             }
+            session.removeAttribute("user");
             response.sendRedirect("index.jsp");
 
         }

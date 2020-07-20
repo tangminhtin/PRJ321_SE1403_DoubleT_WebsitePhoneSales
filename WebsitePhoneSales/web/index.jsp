@@ -17,7 +17,6 @@
     <head>
         <%@include file="components/head.jsp" %>
         <title >Home | Double T Shop</title>
-
     </head>
     <body>
         <%@include file="components/header.jsp" %>
@@ -47,7 +46,7 @@
                     <div class="carousel-caption">
                         <div class="animated fadeInDown">
                             <h3 class="h3-responsive">APPLE SE 2020</h3>
-                             
+
                         </div>
                     </div>
                     <!--Caption-->
@@ -69,7 +68,7 @@
                     <div class="carousel-caption">
                         <div class="animated fadeInDown">
                             <h3 class="h3-responsive">GOOGLE Pixel 4xl</h3>
-                           
+
                         </div>
                     </div>
                     <!--Caption-->
@@ -91,7 +90,7 @@
                     <div class="carousel-caption">
                         <div class="animated fadeInDown">
                             <h3 class="h3-responsive">SAMSUNG S20 Ultra 5G</h3>
-                        
+
                         </div>
                     </div>
                     <!--Caption-->
@@ -115,11 +114,6 @@
             <marquee width="86.5%" scrolldelay="10"><font size="5" face="Verdana"><b>Welcome to us, have a nice day</b></font></marquee>
 
         </div>  
-
-
-
-
-
 
         <div class="container" style="padding-bottom: 100px">
             <h3 class="text-center font-weight-bold mb-5">Best sellers</h3>
