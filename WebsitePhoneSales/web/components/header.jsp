@@ -121,7 +121,7 @@
                     }
                 %>
                 <!-- Button trigger modal-->
-                <button type="button" class="btn purple-gradient px-3" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <button style="border-radius: 5px 20px 5px 20px"  type="button" class="btn purple-gradient px-3" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart" aria-hidden="true"></i>
                     <span class="counter"><%=quantity%></span>
                 </button>
 
