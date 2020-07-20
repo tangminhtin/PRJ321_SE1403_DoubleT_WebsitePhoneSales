@@ -16,7 +16,7 @@
     </head>
     <body>
         <%@include file="components/header.jsp" %>
-          
+
         <!-- Register Section Begin -->
         <div class="register-login-section spad">
             <div class="container">
@@ -26,22 +26,12 @@
                             <h2>Login</h2>
                             <form action="LoginController?query=user" method="POST" >
                                 <div class="group-input">
-                                    <label for="username">Username or email address *</label>
-                                    <input type="text" id="username" name="txtUsername">
+                                    <label for="username">Username *</label>
+                                    <input required type="text" id="username" name="txtUsername">
                                 </div>
                                 <div class="group-input">
                                     <label for="pass">Password *</label>
-                                    <input type="password" id="pass" name="txtPassword">
-                                </div>
-                                <div class="group-input gi-check">
-                                    <div class="gi-more">
-                                        <label for="save-pass">
-                                            Save Password
-                                            <input type="checkbox" id="save-pass">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <a href="#" class="forget-pass">Forget your Password</a>
-                                    </div>
+                                    <input required type="password" id="pass" name="txtPassword">
                                 </div>
                                 <button type="submit" class="site-btn login-btn">Sign In</button>
                             </form>
@@ -55,7 +45,7 @@
         </div>
         <!-- Register Form Section End -->
 
-       
+
         <c:if test="${sessionScope.message == 'fail'}">
             <!-- Frame Modal Bottom -->
             <div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -75,9 +65,6 @@
             <!-- Frame Modal Bottom -->
             <c:set var="message" value="" scope="session"/>
         </c:if>
-
-       
-
 
         <%@include file="components/footer.jsp" %>
         <script>

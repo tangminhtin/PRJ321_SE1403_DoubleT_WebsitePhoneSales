@@ -6,6 +6,8 @@
 
 <%@page import="Models.DAO.UserDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,9 +17,6 @@
     <body>
         <%@include file="components/header.jsp" %>
 
-
-        <h1>Register Page</h1>
-
         <!-- Register Section Begin -->
         <div class="register-login-section spad">
             <div class="container">
@@ -25,19 +24,49 @@
                     <div class="col-lg-6 offset-lg-3">
                         <div class="register-form">
                             <h2>Register</h2>
-                            <form action="#" method="POST">
-                                <div class="group-input">
-                                    <label for="username">Username *</label>
-                                    <input type="text" id="username" name="txtUser">
+                            <form action="./UserController?query=addU" method="POST" enctype="multipart/form-data">
+                                <!-- Material input -->
+                                <div class="md-form">
+                                    <i class="fas fa-user prefix"></i>
+                                    <input required name="txtUsername" type="text" id="txtUser" class="form-control">
+                                    <label for="txtUser">Username</label>
                                 </div>
-                                <div class="group-input">
-                                    <label for="pass">Password *</label>
-                                    <input type="text" id="pass" name="txtPass">
+                                <div class="md-form">
+                                    <i class="fas fa-unlock prefix"></i>
+                                    <input required name="txtPassword" type="text" id="txtPass" class="form-control">
+                                    <label for="txtPass">Password</label>
                                 </div>
-                                <div class="group-input">
-                                    <label for="con-pass">Confirm Password *</label>
-                                    <input type="text" id="con-pass" name="txtConfirm">
+                                <div class="md-form">
+                                    <i class="fas fa-unlock prefix"></i>
+                                    <input required name="txtConfirmPassword" type="text" id="txtConfirm" class="form-control">
+                                    <label for="txtConfirm">Confirm Password</label>
                                 </div>
+
+                                <div class="md-form">
+                                    <i class="fas fa-signature prefix"></i>
+                                    <input required name="txtFullname" type="text" id="txtFullname" class="form-control">
+                                    <label for="txtFullname">Fullname</label>
+                                </div>
+                                <div class="md-form">
+                                    <i class="fas fa-map-marked-alt prefix"></i>
+                                    <input required name="txtAddress" type="text" id="txtAddress" class="form-control">
+                                    <label for="txtAddress">Address</label>
+                                </div>
+                                <div class="md-form">
+                                    <i class="fas fa-phone-alt prefix"></i>
+                                    <input required name="txtPhone" type="text" id="txtPhone" class="form-control">
+                                    <label for="txtPhone">Phone</label>
+                                </div>
+                                <div class="md-form">
+                                    <i class="far fa-envelope prefix"></i>
+                                    <input required name="txtEmail" type="text" id="txtEmail" class="form-control">
+                                    <label for="txtEmail">Email</label>
+                                </div>
+                                <div class="md-form">
+                                    <i class="far fa-images prefix"></i>
+                                    <input required name="image_file" type="file" id="image_file" class="form-control">
+                                </div>
+
                                 <button type="submit" class="site-btn register-btn">REGISTER</button>
                             </form>
                             <div class="switch-login">
@@ -50,40 +79,25 @@
         </div>
         <!-- Register Form Section End -->
 
-        <%
-            UserDAO udao = new UserDAO();
-
-            String user = request.getParameter("txtUser");
-            String pass = request.getParameter("txtPass");
-            String confirm = request.getParameter("txtConfirm");
-
-            if (user != null && pass != null && confirm != null) {
-                if (udao.searchUserByUserName(user) == null) {
-                    if (pass.equals(confirm)) {
-                        udao.insert(user, pass);
-                    } else {
-        %>
-                    <!-- Frame Modal Bottom -->
-                    <div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                         aria-hidden="true">
-                        <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
-                        <div class="modal-dialog modal-frame modal-top" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="row d-flex justify-content-center align-items-center">
-                                        <p class="pt-3 pr-2 text-danger">Oops! Your password not match!</p>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
+        <c:if test="${sessionScope.register == 'fail'}">
+            <!-- Frame Modal Bottom -->
+            <div class="modal fade bottom" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+                <div class="modal-dialog modal-frame modal-top" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <p class="pt-3 pr-2 text-danger">Oops! Username has been already or confirm password not match!</p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
-                    <!-- Frame Modal Bottom -->
-        <%
-                    }
-                }
-            }
-        %>
+                </div>
+            </div>
+            <!-- Frame Modal Bottom -->
+            <c:set var="register" value="" scope="session"/>
+        </c:if>
 
         <%@include file="components/footer.jsp" %>
         <script>

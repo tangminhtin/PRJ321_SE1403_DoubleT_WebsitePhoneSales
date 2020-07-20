@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -128,6 +129,23 @@ public class UserController extends HttpServlet {
                     edao.insert(fullname, address, phone, email, yourImage, userId);
                 }
             }
+            response.sendRedirect("./admin/users.jsp");
+        } else if (request.getParameter("query").equals("addU")) {
+            if (user != null && pass != null && confirm != null && fullname != null
+                    && address != null && phone != null && yourImage != null) {
+                if (pass.equals(confirm)) {
+                    int userId = udao.insert(user, pass, "customer");
+                    cdao.insert(fullname, address, phone, email, yourImage, userId);
+
+                    Cookie username = new Cookie("username", user);
+                    username.setMaxAge(60 * 60 * 24);
+                    response.addCookie(username);
+                    response.sendRedirect("./index.jsp");
+                } else {
+                    request.getSession().setAttribute("register", "fail");
+                    response.sendRedirect("./register.jsp");
+                }
+            }
         } else if (request.getParameter("query").equals("delete")) {
             String deleteUserId = request.getParameter("deleteUserId");
             if (deleteUserId != null) {
@@ -141,10 +159,10 @@ public class UserController extends HttpServlet {
                     if (commentDAO.getComments(customerId) != null) {
                         commentDAO.delete(customerId);
                     }
-                    
+
                     ArrayList<Order> orders = orderDAO.getOrders(customerId);
                     if (orders != null) {
-                        for(Order o: orders) {
+                        for (Order o : orders) {
                             orderDetailDAO.delete(o.getOrderId());
                             orderDAO.delete(o.getOrderId());
                         }
@@ -154,6 +172,7 @@ public class UserController extends HttpServlet {
                 }
                 udao.delete(userId);
             }
+            response.sendRedirect("./admin/users.jsp");
         } else if (request.getParameter("query").equals("edit")) {
             if (pass != null && confirm != null) {
                 if (roleU != null && userIdU != null && idU != null) {
@@ -167,9 +186,9 @@ public class UserController extends HttpServlet {
                     }
                 }
             }
+            response.sendRedirect("./admin/users.jsp");
         }
 
-        response.sendRedirect("./admin/users.jsp");
     }
 
     /**
