@@ -138,8 +138,13 @@ public class UserController extends HttpServlet {
                     cdao.insert(fullname, address, phone, email, yourImage, userId);
 
                     Cookie username = new Cookie("username", user);
+                    Cookie uId = new Cookie("userId", userId + "");
+
                     username.setMaxAge(60 * 60 * 24);
+                    uId.setMaxAge(60 * 60 * 24);
+
                     response.addCookie(username);
+                    response.addCookie(uId);
                     response.sendRedirect("./index.jsp");
                 } else {
                     request.getSession().setAttribute("register", "fail");
