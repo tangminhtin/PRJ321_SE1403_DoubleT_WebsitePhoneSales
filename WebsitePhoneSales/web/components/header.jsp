@@ -27,7 +27,7 @@
                     +84 39.432.8223
                 </div>
             </div>
-            
+
             <!--LOGIN-->
             <div class="ht-right">
                 <% Cookie[] list = request.getCookies();
@@ -102,9 +102,9 @@
                     <input style="border-radius: 0px 20px 0px 20px" class="form-control" type="text" name="txtSearch" placeholder="What do you need?" aria-label="Search">
                     <button style="border-radius: 0px 20px 0px 20px" class="btn blue-gradient btn-md" type="submit"><i class="fas fa-search"></i></button>
                 </form>
-                
-                
-                
+
+
+
                 <!--CART-->
                 <%
                     ArrayList<AddCart> carts = (ArrayList<AddCart>) session.getAttribute("Cart");
@@ -153,7 +153,7 @@
                                             if (session.getAttribute("Cart") != null) {
                                                 for (AddCart p : carts) {
                                                     numberRow++;
-                                                    
+
                                         %>
                                         <tr>
                                             <th scope="row"><%=numberRow%></th>
@@ -162,11 +162,11 @@
                                             <td style="width: 300px">
                                                 <div class="def-number-input number-input safari_only">
                                                     <form action="PaymentControler?query=change&phoneId=<%=p.getPhoneId()%>" method="POST" id="frmCart" >
-                                                    <div></div>
-                                                    <button style="border-radius: 0px 15px 0px 15px" name="step" value="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn-sm secondary-color"><i class="fas fa-minus center"></i></button>
-                                                    <input style="border-radius: 0px 20px 0px 20px" disabled name="txtQuantity" class="col-sm-5 text-center" min="1" max="9" type="number" value="<%=p.getPhoneQuantity()%>">
-                                                    <button style="border-radius: 0px 20px 0px 20px" name="step" value="add" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn-sm secondary-color-dark"><i class="fas fa-plus center"></i></button>
-                                                        <!--<button name="quantity" class="btn-sm success-color" type="submit" form="frmCart" value="<%=request.getParameter("txtQuantity")%>"><i class="fas fa-check-circle center"></i></button>-->
+                                                        <div></div>
+                                                        <button style="border-radius: 0px 15px 0px 15px" name="step" value="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn-sm secondary-color"><i class="fas fa-minus center"></i></button>
+                                                        <input style="border-radius: 0px 20px 0px 20px" disabled name="txtQuantity" class="col-sm-5 text-center" min="1" max="9" type="number" value="<%=p.getPhoneQuantity()%>">
+                                                        <button style="border-radius: 0px 20px 0px 20px" name="step" value="add" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn-sm secondary-color-dark"><i class="fas fa-plus center"></i></button>
+                                                            <!--<button name="quantity" class="btn-sm success-color" type="submit" form="frmCart" value="<%=request.getParameter("txtQuantity")%>"><i class="fas fa-check-circle center"></i></button>-->
                                                     </form>
 
                                                 </div>
@@ -191,25 +191,6 @@
                                 </table>
                             </div>
 
-                            <div class="modal fade" id="modalConfirmEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog modal-sm modal-notify modal-warning" role="document">
-                                    <!--Content-->
-                                    <div class="modal-content text-center">
-                                        <p>Set Quantity</p>
-                                        <!--Header-->
-                                        <div class="modal-header d-flex justify-content-center">
-                                            <input  type="text" name="txtQuantity"/>
-                                        </div>
-                                        <!--Footer-->
-                                        <div class="modal-footer flex-center">
-                                            <a type="button" href="" class="btn  btn-outline-warning">Yes</a>
-                                            <a type="button" class="btn  btn-warning waves-effect" data-dismiss="modal">No</a>
-                                        </div>
-                                    </div>
-                                    <!--/.Content-->
-                                </div>
-                            </div>
                             <%
 
                             %>

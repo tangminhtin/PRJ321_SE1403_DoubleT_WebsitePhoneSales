@@ -56,7 +56,7 @@
                         <h2 class="card-title"><%=p.getPhoneName()%></h2>
                         <h5 class="card-title" style="text-align: right"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
                         <p style="text-align: right">
-                            <a href="PaymentControler?phoneId=<%=p.getPhoneId()%>">
+                            <a href="PaymentControler?phoneId=<%=p.getPhoneId()%>&btn=ok">
                                 <button style="border-radius: 0px 30px 0px 30px" class="btn aqua-gradient">
                                     <i class="fas fa-cart-plus ml-2" aria-hidden="true"></i> Add to cart
                                 </button>

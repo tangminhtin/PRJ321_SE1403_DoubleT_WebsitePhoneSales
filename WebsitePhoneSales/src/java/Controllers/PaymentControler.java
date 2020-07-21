@@ -36,18 +36,67 @@ public class PaymentControler extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            int phoneId = Integer.parseInt(request.getParameter("phoneId"));
 
-            if (phoneId != -1) {
-                PhoneDAO phoneDAO = new PhoneDAO();
-                HttpSession session = request.getSession();
-                ArrayList<Phone> cart = new ArrayList<>();
-                ArrayList<AddCart> addCart = new ArrayList<>();
-                Phone phone = phoneDAO.getPhone(phoneId);
+        int phoneId = Integer.parseInt(request.getParameter("phoneId"));
 
-                if (session.getAttribute("Cart") == null) {
+        if (phoneId != -1) {
+            PhoneDAO phoneDAO = new PhoneDAO();
+            HttpSession session = request.getSession();
+            ArrayList<Phone> cart = new ArrayList<>();
+            ArrayList<AddCart> addCart = new ArrayList<>();
+            Phone phone = phoneDAO.getPhone(phoneId);
 
+            if (session.getAttribute("Cart") == null) {
+
+                AddCart addCarts = new AddCart();
+                int id = phone.getPhoneId();
+                String name = phone.getPhoneName();
+                double phonePrice = phone.getPhonePrice();
+                int quantity = 1;
+                addCarts.setPhoneId(id);
+                addCarts.setPhoneName(name);
+                addCarts.setPhoneQuantity(quantity);
+                addCarts.setPhonePrice(phonePrice);
+
+                addCart.add(addCarts);
+                session.setAttribute("Cart", addCart);
+                response.sendRedirect("./index.jsp");
+            } else {
+                addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
+                boolean check = false;
+                for (AddCart p : addCart) {
+
+                    if (p.getPhoneId() == phone.getPhoneId() && request.getParameter("btn") != null) {
+                        if (request.getParameter("btn").equals("ok")) {
+                            p.setPhoneQuantity(p.getPhoneQuantity() + 1);
+                            session.setAttribute("Cart", addCart);
+                            check = true;
+                            break;
+                        }
+
+                    }
+
+                    if (p.getPhoneId() == phone.getPhoneId()) {
+                        //// CHECK ADD/MINUS STEP
+
+                        if (request.getParameter("step").equals("add")) {
+                            if (p.getPhoneQuantity() < 9) {
+                                p.setPhoneQuantity(p.getPhoneQuantity() + 1);
+                            }
+                        } else if (request.getParameter("step").equals("minus")) {
+                            if (p.getPhoneQuantity() > 1) {
+                                p.setPhoneQuantity(p.getPhoneQuantity() - 1);
+                            } else {
+                                addCart.remove(p);
+                            }
+                        }
+                        session.setAttribute("Cart", addCart);
+                        check = true;
+                        break;
+                    }
+                }
+
+                if (check != true) {
                     AddCart addCarts = new AddCart();
                     int id = phone.getPhoneId();
                     String name = phone.getPhoneName();
@@ -60,48 +109,8 @@ public class PaymentControler extends HttpServlet {
 
                     addCart.add(addCarts);
                     session.setAttribute("Cart", addCart);
-                    response.sendRedirect("./index.jsp");
-                } else {
-                    addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
-                    boolean check = false;
-                    for (AddCart p : addCart) {
-                        if (p.getPhoneId() == phone.getPhoneId()) {
-                            //// CHECK ADD/MINUS STEP
-                            if (request.getParameter("step").equals("add")) {
-                                if (p.getPhoneQuantity() < 9) {
-                                    p.setPhoneQuantity(p.getPhoneQuantity() + 1);
-                                }
-                            } else if (request.getParameter("step").equals("minus")) {
-                                if (p.getPhoneQuantity() > 1) {
-                                    p.setPhoneQuantity(p.getPhoneQuantity() - 1);
-                                } else {
-                                    addCart.remove(p);
-                                }
-                            } else {
-                                p.setPhoneQuantity(p.getPhoneQuantity() + 1);
-                            }
-                            session.setAttribute("Cart", addCart);
-                            check = true;
-                            break;
-                        }
-                    }
-                    if (check != true) {
-                        AddCart addCarts = new AddCart();
-                        int id = phone.getPhoneId();
-                        String name = phone.getPhoneName();
-                        double phonePrice = phone.getPhonePrice();
-                        int quantity = 1;
-                        addCarts.setPhoneId(id);
-                        addCarts.setPhoneName(name);
-                        addCarts.setPhoneQuantity(quantity);
-                        addCarts.setPhonePrice(phonePrice);
-
-                        addCart.add(addCarts);
-                        session.setAttribute("Cart", addCart);
-                    }
-
-                    response.sendRedirect("./index.jsp");
                 }
+                response.sendRedirect("./index.jsp");
             }
         }
     }
