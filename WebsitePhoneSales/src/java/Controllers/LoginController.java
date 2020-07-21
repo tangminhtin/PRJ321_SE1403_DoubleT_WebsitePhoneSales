@@ -51,10 +51,13 @@ public class LoginController extends HttpServlet {
             //// LOGIN USER
             } else if (user!= null && pass!= null && request.getParameter("query").equals("user")) {
                 User uUser = userDAO.login(user, pass);
-                if(uUser!=null) {
+                if(uUser!=null && uUser.getUserRole().equals("customer")) {
                     Cookie username = new Cookie("username", uUser.getUserName());
+                    Cookie userId = new Cookie("userId", uUser.getUserId() + "");
                     username.setMaxAge(60 * 60 * 24);
+                    userId.setMaxAge(60 * 60 * 24);
                     response.addCookie(username);
+                    response.addCookie(userId);
                     response.sendRedirect("./index.jsp");
                 } else {
                     request.getSession().setAttribute("message", "fail");
@@ -71,6 +74,10 @@ public class LoginController extends HttpServlet {
                 Cookie[] list = request.getCookies();
                 for (Cookie items : list) {
                     if (items.getName().equals("username")) {
+                        items.setMaxAge(0);
+                        response.addCookie(items);
+                    }
+                    if (items.getName().equals("userId")) {
                         items.setMaxAge(0);
                         response.addCookie(items);
                     }

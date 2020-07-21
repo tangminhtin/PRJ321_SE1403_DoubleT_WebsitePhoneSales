@@ -107,10 +107,10 @@
                 
                 <!--CART-->
                 <%
-                    ArrayList<AddCart> addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
+                    ArrayList<AddCart> carts = (ArrayList<AddCart>) session.getAttribute("Cart");
                     int quantity = 0;
-                    if (addCart != null) {
-                        for (AddCart item : addCart) {
+                    if (carts != null) {
+                        for (AddCart item : carts) {
                             quantity += item.getPhoneQuantity();
 
                         }
@@ -126,7 +126,7 @@
                 <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div style="border-radius: 0px 50px 0px 50px" class="modal-content">
                             <!--Header-->
                             <div class="modal-header">
                                 <h4 class="modal-title" id="myModalLabel">Your cart</h4>
@@ -151,7 +151,7 @@
                                             double roundTotal = 0;
                                             int numberRow = 0;
                                             if (session.getAttribute("Cart") != null) {
-                                                for (AddCart p : addCart) {
+                                                for (AddCart p : carts) {
                                                     numberRow++;
                                                     
                                         %>
@@ -215,13 +215,13 @@
                             %>
                             <!--Footer-->
                             <div class="modal-footer">
-                                <button type="button" class="btn  btn-outline-warning" data-dismiss="modal">Close</button>
+                                <button type="button" style="border-radius: 0px 30px 0px 30px" class="btn purple-gradient" data-dismiss="modal">Close</button>
 
                                 <%                                    if (session.getAttribute("Cart") != null) {
                                         if (list.length >= 2) {
 
                                 %>
-                                <a href="OrdersController?"><button class="btn  btn-outline-warning">Checkout</button></a>
+                                <a href="./checkout.jsp"><button style="border-radius: 0px 30px 0px 30px" class="btn purple-gradient">Checkout</button></a>
                                 <%}
                                     }
                                 %>

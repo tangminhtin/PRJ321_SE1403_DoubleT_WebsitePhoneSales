@@ -41,7 +41,7 @@ public class OrdersController extends HttpServlet {
              ArrayList<AddCart> cart =(ArrayList<AddCart>)session.getAttribute("Cart");
               
              if (cart!=null) {
-               out.print("hellooo");
+               out.print("<h1>Orders Success</h>");
             }
               
         }
