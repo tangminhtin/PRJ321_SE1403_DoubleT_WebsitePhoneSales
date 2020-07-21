@@ -60,14 +60,26 @@ public class PaymentControler extends HttpServlet {
 
                     addCart.add(addCarts);
                     session.setAttribute("Cart", addCart);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("./showDetails.jsp?phoneId=" + phoneId);
                 } else {
                     addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
                     boolean check = false;
-                    for (AddCart items : addCart) {
-                        if (items.getPhoneId() == phone.getPhoneId()) {
-
-                            items.setPhoneQuantity(items.getPhoneQuantity() + 1);
+                    for (AddCart p : addCart) {
+                        if (p.getPhoneId() == phone.getPhoneId()) {
+                            //// CHECK ADD/MINUS STEP
+                            if (request.getParameter("step").equals("add")) {
+                                if (p.getPhoneQuantity() < 9) {
+                                    p.setPhoneQuantity(p.getPhoneQuantity() + 1);
+                                }
+                            } else if (request.getParameter("step").equals("minus")) {
+                                if (p.getPhoneQuantity() > 1) {
+                                    p.setPhoneQuantity(p.getPhoneQuantity() - 1);
+                                } else {
+                                    addCart.remove(p);
+                                }
+                            } else {
+                                p.setPhoneQuantity(p.getPhoneQuantity() + 1);
+                            }
                             session.setAttribute("Cart", addCart);
                             check = true;
                             break;
@@ -90,7 +102,6 @@ public class PaymentControler extends HttpServlet {
 
                     response.sendRedirect("./showDetails.jsp?phoneId=" + phoneId);
                 }
-
             }
         }
     }
