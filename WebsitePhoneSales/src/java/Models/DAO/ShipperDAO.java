@@ -110,4 +110,7 @@ public class ShipperDAO {
         return false;
     }
 
+    public int getNumberOfShipper() {
+        return shippers.size();
+    }
 }

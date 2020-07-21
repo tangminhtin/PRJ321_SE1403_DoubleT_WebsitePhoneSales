@@ -115,4 +115,8 @@ public class EmployeeDAO {
         }
         return null;
     }
+    
+    public int getNumberOfEmployee() {
+        return employees.size();
+    }
 }

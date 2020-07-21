@@ -67,16 +67,14 @@ public class OrderDAO {
         return null;
     }
 
-    public int insert(String date, int quantity, double totalPrice, String note, int phoneId, int customerId) {
+    public int insert(int quantity, double totalPrice, String note, int customerId) {
         try {
-            String sql = "INSERT INTO `order`(`orderDate`, `orderQuantity`, `orderTotalPrice`, `orderNote`, `phoneId`, `customerId`) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `order`(`orderQuantity`, `orderTotalPrice`, `orderNote`, `customerId`) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
-            pst.setDate(1, Date.valueOf(date));
-            pst.setInt(2, quantity);
-            pst.setDouble(3, totalPrice);
-            pst.setString(4, note);
-            pst.setInt(5, phoneId);
-            pst.setInt(6, customerId);
+            pst.setInt(1, quantity);
+            pst.setDouble(2, totalPrice);
+            pst.setString(3, note);
+            pst.setInt(4, customerId);
             pst.execute();
             load();
             rs = pst.executeQuery("SELECT * FROM `order`");

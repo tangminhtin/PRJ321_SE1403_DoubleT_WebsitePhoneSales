@@ -22,7 +22,7 @@
     </head>
     <body>
         <%@include file="components/header.jsp" %>
-                        
+
         <!--Main layout-->
         <main class="mt-5 pt-4">
             <div class="container wow fadeIn">
@@ -33,14 +33,14 @@
                     <!--Grid column-->
                     <div class="col-md-8 mb-4">
                         <div class="card">
-                            <form action="OrdersController" class="card-body">
-                                <%
+                            <form action="OrdersController?quantity=<%=quantity%>&totalPrice=<%=roundTotal%>" method="POST" class="card-body">
+                                <%                                    
                                     Cookie[] cookies = request.getCookies();
                                     int userId = -1;
-                                    
-                                    if(cookies!= null) {
-                                        for(Cookie c: cookies) {
-                                            if(c.getName().equals("userId")) {
+
+                                    if (cookies != null) {
+                                        for (Cookie c : cookies) {
+                                            if (c.getName().equals("userId")) {
                                                 userId = Integer.parseInt(c.getValue());
                                             }
                                         }
@@ -48,7 +48,7 @@
                                     PhoneDAO pdao = new PhoneDAO();
                                     CustomerDAO cdao = new CustomerDAO();
                                     Customer c = cdao.getCustomer(userId);
-                                
+
                                 %>
                                 <!--Customer Name-->
                                 <div class="md-form mb-5">
@@ -70,6 +70,11 @@
                                     <input value="<%=c.getCustomerAddress()%>" required name="txtAddress" type="text" id="txtAddress" class="form-control">
                                     <label for="txtAddress" class="">Address</label>
                                 </div>
+
+                                <div class="md-form">
+                                    <textarea name="txtNote" id="txtNote" class="md-textarea form-control" rows="3"></textarea>
+                                    <label for="txtNote">Note</label>
+                                </div>
                                 <button style="border-radius: 0px 30px 0px 30px" class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
                             </form>
                         </div>
@@ -78,7 +83,7 @@
 
                     <!--Grid column-->
                     <div class="col-md-4 mb-4">
-                     
+
                         <!-- Heading -->
                         <h4 class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted">Your cart</span>
@@ -88,23 +93,23 @@
                         <!-- Cart -->
                         <ul class="list-group mb-3 z-depth-1">
                             <%
-                                for(AddCart cart: carts) { %>
-                                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                    <div>
-                                        <img style="border-radius: 0px 20px 0px 20px" width="50" height="50" src="<%=pdao.getPhone(cart.getPhoneId()).getPhoneImage()%>" />
-                                        <h6 class="my-0 text-secondary"><%=cart.getPhoneName()%> <span style="border-radius: 0px 5px 0px 5px"  class="pink accent-2 text-white"><%=cart.getPhoneQuantity()%></span></h6>
-                                    </div>
-                                    <div>
-                                        <span class="text-muted">$<%=cart.getPhonePrice()%></span>
-                                    </div>
-                                </li>
-                                
-                                
-                            <%    
+                                for (AddCart cart : carts) {%>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <img style="border-radius: 0px 20px 0px 20px" width="50" height="50" src="<%=pdao.getPhone(cart.getPhoneId()).getPhoneImage()%>" />
+                                    <h6 class="my-0 text-secondary"><%=cart.getPhoneName()%> <span style="border-radius: 0px 5px 0px 5px"  class="pink accent-2 text-white"><%=cart.getPhoneQuantity()%></span></h6>
+                                </div>
+                                <div>
+                                    <span class="text-muted">$<%=cart.getPhonePrice()%></span>
+                                </div>
+                            </li>
+
+
+                            <%
                                 }
-                                
+
                             %>
-                            
+
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (USD)</span>
                                 <strong>$<%=roundTotal%></strong>

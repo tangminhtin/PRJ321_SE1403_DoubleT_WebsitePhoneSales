@@ -5,13 +5,20 @@
  */
 package Controllers;
 
+import Models.DAO.CustomerDAO;
+import Models.DAO.EmployeeDAO;
+import Models.DAO.OrderDAO;
+import Models.DAO.OrderDetailDAO;
+import Models.DAO.ShipperDAO;
 import Models.Entites.AddCart;
-import Models.Entites.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,16 +42,16 @@ public class OrdersController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-             HttpSession session = request.getSession();
-             ArrayList<AddCart> cart =(ArrayList<AddCart>)session.getAttribute("Cart");
-              
-             if (cart!=null) {
-               out.print("<h1>Orders Success</h>");
-            }
-              
-        }
+//        response.setContentType("text/html;charset=UTF-8");
+//        try (PrintWriter out = response.getWriter()) {
+//            HttpSession session = request.getSession();
+//            ArrayList<AddCart> cart = (ArrayList<AddCart>) session.getAttribute("Cart");
+//
+//            if (cart != null) {
+//                out.print("<h1>Orders Success</h>");
+//            }
+//
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,7 +80,46 @@ public class OrdersController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+        ArrayList<AddCart> carts = (ArrayList<AddCart>) session.getAttribute("Cart");
+
+        if (carts != null) {
+            OrderDAO orderDAO = new OrderDAO();
+            OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+            CustomerDAO customerDAO = new CustomerDAO();
+            ShipperDAO shipperDAO = new ShipperDAO();
+            EmployeeDAO employeeDAO = new EmployeeDAO();
+            Random rand = new Random();
+
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            double totalPrice = Double.parseDouble(request.getParameter("totalPrice"));
+            String note = request.getParameter("txtNote");
+
+            Cookie[] cookies = request.getCookies();
+            int userId = -1;
+
+            if (cookies != null) {
+                for (Cookie c : cookies) {
+                    if (c.getName().equals("userId")) {
+                        userId = Integer.parseInt(c.getValue());
+                    }
+                }
+            }
+
+//            int shipper = rand.nextInt(shipperDAO.getNumberOfShipper());
+//            
+//            int employee = rand.nextInt(employeeDAO.getNumberOfEmployee());
+            int orderId = orderDAO.insert(quantity, totalPrice, note, customerDAO.getCustomer(userId).getCustomerId());
+            for (AddCart c : carts) {
+                orderDetailDAO.insert(orderId, c.getPhoneId(), 1, 1, c.getPhonePrice() * c.getPhoneQuantity(), c.getPhoneQuantity());
+            }
+
+            carts.clear();
+
+            response.sendRedirect("./bill.jsp");
+        }
     }
 
     /**
