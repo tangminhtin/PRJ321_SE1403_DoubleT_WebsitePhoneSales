@@ -15,10 +15,8 @@
         <title>Google | Double T Shop</title>
     </head>
     <body>
-
         <%@include file="components/header.jsp" %>
     <marquee width="100%" scrolldelay="10"><i style="font-family: cursive">Welcome to us, have a nice day</i></marquee>
-
 
     <div class="container" style="padding-bottom: 200px">
         <!--<h3 class="text-center font-weight-bold mb-5">Best sellers</h3>-->
@@ -38,20 +36,17 @@
             %>
 
             <div class="container" style="padding-bottom: 75px" >
-                <div style="border-radius: 70px 70px 70px 70px" class="card h-100">
+                <div style="border-radius: 70px 70px 70px 70px; margin-bottom: 30px" class="card h-100">
                     <!--Card image-->
                     <div class="view overlay">
-
                         <img style="border-radius: 70px 70px 70px 70px" class="card-img-top" src="<%=p.getPhoneImage()%>"
                              alt="Card image cap">
                         <a href="#!">
                             <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
-
                     <!--Card content-->
                     <div class="card-body">
-
                         <!--Title-->
                         <h2 class="card-title"><%=p.getPhoneName()%></h2>
                         <h5 class="card-title" style="text-align: right"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
@@ -65,7 +60,6 @@
                                 <i class="fas fa-eye"></i> Video Review
                             </button>
                         </p>
-
                     </div>
                 </div>
                 <!-- Modal: modalAbandonedCart-->
@@ -442,9 +436,7 @@
     <% }
             }
         }%>
-</div>
-</div>
 
-<%@include file="components/footer.jsp" %>
-</body>
+    <%@include file="components/footer.jsp" %>
+    </body>
 </html>

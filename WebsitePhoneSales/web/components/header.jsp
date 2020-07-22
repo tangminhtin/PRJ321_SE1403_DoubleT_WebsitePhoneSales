@@ -91,10 +91,12 @@
         <div class="container">
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="./index.jsp">Home</a></li>
-                    <li><a href="./apple.jsp">Apple</a></li>
-                    <li><a href="./samsung.jsp">Samsung</a></li>
-                    <li><a href="./google.jsp">Google</a></li>
+                    <% String current = request.getServletPath(); %>
+                    
+                    <li class="<%if(current.endsWith("index.jsp")) out.print("active");%>"><a href="./index.jsp">Home</a></li>
+                    <li class="<%if(current.endsWith("apple.jsp")) out.print("active");%>"><a href="./apple.jsp">Apple</a></li>
+                    <li class="<%if(current.endsWith("samsung.jsp")) out.print("active");%>"><a href="./samsung.jsp">Samsung</a></li>
+                    <li class="<%if(current.endsWith("google.jsp")) out.print("active");%>"><a href="./google.jsp">Google</a></li>
                 </ul>
 
                 <!--SEARCH-->

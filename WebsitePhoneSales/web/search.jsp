@@ -24,38 +24,34 @@
             <!--<h3 class="text-center font-weight-bold mb-5">Best sellers</h3>-->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                  
-                <%                    String search = (String) request.getParameter("txtSearch");
-
+                <%                    
+                    String search = (String) request.getParameter("txtSearch");
                     ArrayList<Phone> phones = new ArrayList<>();
                     PhoneDAO phonedao = new PhoneDAO();
                     phones = phonedao.getAllPhone();
                     int k = 0;
                     for (Phone p : phones) {
                         if (p.getPhoneName().toLowerCase().contains(search.toLowerCase())) {
-
                 %>
 
-                <div class="col">
-                    <div class="card h-100">
+                <div style="margin-top: 30px" class="col">
+                    <div style="border-radius: 0px 35px 0px 45px" class="card h-100">
                         <!--Card image-->
                         <div class="view overlay">
-                            <img class="card-img-top" src="<%=p.getPhoneImage()%>"
-                                 alt="Card image cap">
-                            <a href="#!">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><img style="border-radius: 0px 35px 0px 45px" class="card-img-top" src="<%=p.getPhoneImage()%>"
+                                                                                       alt="Card image cap"></a>
                         </div>
 
                         <!--Card content-->
                         <div class="card-body">
 
                             <!--Title-->
-                            <h4 class="card-title"><%=p.getPhoneName()%></h4>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><h4 class="card-title"><%=p.getPhoneName()%></h4></a>
                             <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
                             <!--Text-->
                             <p class="card-text"><%=p.getPhoneShortDescription()%></p>
                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>" target="_blank"><button type="button"class="btn btn-light-blue btn-md">View details</button></a>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
 
                         </div>
 

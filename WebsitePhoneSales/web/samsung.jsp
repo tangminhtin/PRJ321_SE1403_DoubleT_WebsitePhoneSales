@@ -23,8 +23,7 @@
         <div class="container" style="padding-bottom: 75px">
             <!--<h3 class="text-center font-weight-bold mb-5">Best sellers</h3>-->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                <%
-                    ArrayList<Phone> phones = new ArrayList<>();
+                <%                    ArrayList<Phone> phones = new ArrayList<>();
                     PhoneDAO phonedao = new PhoneDAO();
                     phones = phonedao.getAllPhone();
                     int k = 0;
@@ -33,22 +32,19 @@
 
 
                 %>
-                <div class="col">
+                <div style="margin-top: 30px" class="col">
                     <div style="border-radius: 0px 35px 0px 45px" class="card h-100">
                         <!--Card image-->
                         <div class="view overlay">
-                            <img style="border-radius: 0px 35px 0px 45px" class="card-img-top" src="<%=p.getPhoneImage()%>"
-                                 alt="Card image cap">
-                            <a href="#!">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><img style="border-radius: 0px 35px 0px 45px" class="card-img-top" src="<%=p.getPhoneImage()%>"
+                                                                                       alt="Card image cap"></a>
                         </div>
 
                         <!--Card content-->
                         <div class="card-body">
 
                             <!--Title-->
-                            <h4 class="card-title"><%=p.getPhoneName()%></h4>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><h4 class="card-title"><%=p.getPhoneName()%></h4></a>
                             <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
                             <!--Text-->
                             <p class="card-text"><%=p.getPhoneShortDescription()%></p>

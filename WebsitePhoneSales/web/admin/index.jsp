@@ -4,6 +4,8 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Models.Entites.OrderDetail"%>
+<%@page import="Models.DAO.OrderDetailDAO"%>
 <%@page import="Models.Entites.Order"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
@@ -48,10 +50,7 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <%
                                             CustomerDAO customerDAO = new CustomerDAO();
-                                            OrderDAO orderDAO1 = new OrderDAO();
-                                            PhoneDAO phoneDAO1 = new PhoneDAO();
-
-                                            ArrayList<Order> orders = orderDAO1.getOrders();
+                                            ArrayList<Order> orders = orderDAO.getOrders();
                                         %>
                                         <thead>
                                             <tr>
@@ -64,16 +63,23 @@
                                         </thead>
                                         <tbody>
                                             <%
-                                                int i = 0;
                                                 for (Order o : orders) {
-                                                    if (i == 5) {
-                                                        break;
-                                                    }
-                                                    i++;
                                             %>
                                             <tr>
                                                 <td><%=customerDAO.getCustomerCusId(o.getCustomerId()).getCustomerFullname()%></td>
-                                                <td><%=phoneDAO1.getPhone(o.getPhoneId()).getPhoneName()%></td>
+                                                <td>
+                                                    <%
+                                                        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+                                                        ArrayList<OrderDetail> orderDetailsId = orderDetailDAO.getOrderDetails(o.getOrderId());
+                                                        String s = "";
+                                                        s += phoneDAO.getPhone(orderDetailsId.get(0).getPhoneId()).getPhoneName() + " [" + orderDetailsId.get(0).getOrderDetailQuantity() + "]";
+                                                        for (int i = 1; i < orderDetailsId.size(); i++) {
+                                                            s += ", " + phoneDAO.getPhone(orderDetailsId.get(i).getPhoneId()).getPhoneName() + " [" + orderDetailsId.get(i).getOrderDetailQuantity() + "]";
+                                                        }
+
+                                                        out.print(s);
+                                                    %>
+                                                </td>
                                                 <td><%=o.getOrderQuantity()%></td>
                                                 <td><%=o.getOrderTotalPrice()%></td>
                                                 <td><%=o.getOrderDate()%></td>

@@ -33,22 +33,19 @@
 
 
                 %>
-                <div class="col">
+                <div style="margin-top: 30px" class="col">
                     <div style="border-radius: 0px 35px 0px 45px" class="card h-100">
                         <!--Card image-->
                         <div class="view overlay">
-                            <img style="border-radius: 0px 35px 0px 45px" class="card-img-top" src="<%=p.getPhoneImage()%>"
-                                 alt="Card image cap">
-                            <a href="#!">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><img style="border-radius: 0px 35px 0px 45px" class="card-img-top" src="<%=p.getPhoneImage()%>"
+                                                                                       alt="Card image cap"></a>
                         </div>
 
                         <!--Card content-->
                         <div class="card-body">
 
                             <!--Title-->
-                            <h4 class="card-title"><%=p.getPhoneName()%></h4>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><h4 class="card-title"><%=p.getPhoneName()%></h4></a>
                             <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
                             <!--Text-->
                             <p class="card-text"><%=p.getPhoneShortDescription()%></p>

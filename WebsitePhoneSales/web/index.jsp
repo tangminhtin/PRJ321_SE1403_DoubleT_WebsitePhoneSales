@@ -34,12 +34,12 @@
                 <!-- First slide -->
                 <div class="carousel-item active">
                     <!--Mask color-->
-                    <div class="view">
+                    <div style="border-radius: 0px 150px 0px 150px" class="view">
                         <!--Video source-->
                         <video class="video-fluid" autoplay loop muted>
                             <source src="./img/TheNewIPhoneSEApple.mp4" type="video/mp4" />
                         </video>
-                        <div class="mask rgba-purple-slight"></div>
+                        <div style="border-radius: 0px 150px 0px 150px" class="mask rgba-purple-slight"></div>
                     </div>
 
                     <!--Caption-->
@@ -58,10 +58,10 @@
                     <!--Mask color-->
                     <div class="view">
                         <!--Video source-->
-                        <video class="video-fluid" autoplay loop muted>
+                        <video style="border-radius: 0px 150px 0px 150px" class="video-fluid" autoplay loop muted>
                             <source src="./img/TrailerPixel4xl.mp4" type="video/mp4" />
                         </video>
-                        <div class="mask rgba-purple-slight"></div>
+                        <div style="border-radius: 0px 150px 0px 150px" class="mask rgba-purple-slight"></div>
                     </div>
 
                     <!--Caption-->
@@ -80,10 +80,10 @@
                     <!--Mask color-->
                     <div class="view">
                         <!--Video source-->
-                        <video class="video-fluid" autoplay loop muted>
+                        <video style="border-radius: 0px 150px 0px 150px" class="video-fluid" autoplay loop muted>
                             <source src="./img/TrailerSamsungS20.mp4" type="video/mp4" />
                         </video>
-                        <div class="mask rgba-purple-slight"></div>
+                        <div style="border-radius: 0px 150px 0px 150px" class="mask rgba-purple-slight"></div>
                     </div>
 
                     <!--Caption-->
@@ -116,7 +116,7 @@
         </div>  
 
         <div class="container" style="padding-bottom: 100px">
-            <h3 class="text-center font-weight-bold mb-5">Best sellers</h3>
+            <h2 class="text-center font-weight-bold mb-5">Best sellers</h2>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
                 <%                ArrayList<Phone> phones = new ArrayList<>();
                     ArrayList<PhoneDetail> phoneDetails = new ArrayList<>();
@@ -135,7 +135,7 @@
 
 
                 %>
-                <div class="col">
+                <div class="col" style="margin-top: 30px">
                     <div style="border-radius: 0px 35px 0px 45px" class="card h-100">
                         <!--Card image-->
                         <div class="view overlay">
@@ -172,13 +172,13 @@
             <!--Section: Content-->
             <section class="">
                 <!-- Section heading -->
-                <h3 class="text-center font-weight-bold mb-5">Latest news</h3>
+                <h2 class="text-center font-weight-bold mb-5">Latest news</h2>
                 <!-- Grid row -->
                 <div class="row">
                     <%
                         phones = phonedao.getAllPhone();
                         k = 0;
-                        for (int i = phones.size() - 1; i >= 0; i--) {
+                        for (Phone p : phones) {
                             if (k >= 3) {
                                 break;
                             }
@@ -187,20 +187,20 @@
                     <!-- Grid column -->
                     <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
                         <!-- Card -->
-                        <div style="border-radius: 50px 50px 50px 50px" class="card hoverable">
+                        <div style="border-radius: 50px 50px 50px 50px; margin-top: 30px" class="card hoverable">
                             <!-- Card image -->
-                            <a href="showDetails.jsp?phoneId=<%=phones.get(i).getPhoneId()%>"><img style="border-radius: 50px 50px 0px 0px" class="card-img-top" src="<%=phones.get(i).getPhoneImage()%>" alt="Card image cap"></a>
+                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><img style="border-radius: 50px 50px 0px 0px" class="card-img-top" src="<%=p.getPhoneImage()%>" alt="Card image cap"></a>
                             <!-- Card content -->
                             <div class="card-body">
                                 <!-- Title -->
-                                <a href="showDetails.jsp?phoneId=<%=phones.get(i).getPhoneId()%>" class="black-text"><%=phones.get(i).getPhoneName()%></a>
+                                <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>" class="black-text"><%=p.getPhoneName()%></a>
                                 <!--Title-->
 
-                                <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=phones.get(i).getPhonePrice()%></i></h5>
+                                <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
                                 <!-- Text -->
-                                <p class="card-title text-muted font-small mt-3 mb-2"><%=phones.get(i).getPhoneShortDescription()%></p>
+                                <p class="card-title text-muted font-small mt-3 mb-2"><%=p.getPhoneShortDescription()%></p>
 
-                                <a href="showDetails.jsp?phoneId=<%=phones.get(i).getPhoneId()%>"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
+                                <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
 
                             </div>
                         </div>

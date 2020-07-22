@@ -118,7 +118,7 @@ public class OrderDetailDAO {
 
     public ArrayList<OrderDetail> getOrderDetails(int orderId) {
         ArrayList<OrderDetail> orders = new ArrayList<>();
-        for(OrderDetail od : orders) {
+        for(OrderDetail od : orderDetails) {
             if(od.getOrderId()==orderId) {
                 orders.add(od);
             }
