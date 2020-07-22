@@ -20,7 +20,6 @@ public class Order implements Serializable {
     private String orderNote;
     private int phoneId;
     private int customerId;
-
     public Order() {
     }
 

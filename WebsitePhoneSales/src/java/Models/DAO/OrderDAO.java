@@ -67,7 +67,7 @@ public class OrderDAO {
         return null;
     }
 
-    public int insert(int quantity, double totalPrice, String note, int customerId) {
+    public int insert( int quantity, double totalPrice, String note, int customerId) {
         try {
             String sql = "INSERT INTO `order`(`orderQuantity`, `orderTotalPrice`, `orderNote`, `customerId`) VALUES (?, ?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
@@ -145,6 +145,17 @@ public class OrderDAO {
     
     public int getNumberOfOrder() {
         return orders.size();
+    }
+    
+    public int getMaxOrderId(){
+        try {
+            String sql = "SELECT MAX(`orderId`)FROM`order`";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            return pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 
 }

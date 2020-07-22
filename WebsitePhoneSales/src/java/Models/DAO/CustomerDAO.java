@@ -124,4 +124,13 @@ public class CustomerDAO {
         return null;
     }
     
+    public Customer getCustomerCusUserId(int userId) {
+        for(Customer c: customers) {
+            if(c.getUserId()==userId) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
 }

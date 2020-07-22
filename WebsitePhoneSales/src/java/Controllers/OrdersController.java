@@ -11,6 +11,8 @@ import Models.DAO.OrderDAO;
 import Models.DAO.OrderDetailDAO;
 import Models.DAO.ShipperDAO;
 import Models.Entites.AddCart;
+import Models.Entites.Employee;
+import Models.Entites.Shipper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -107,18 +109,25 @@ public class OrdersController extends HttpServlet {
                     }
                 }
             }
-
-//            int shipper = rand.nextInt(shipperDAO.getNumberOfShipper());
-//            
+            ArrayList<Shipper> shippers = shipperDAO.getShippers();
+            int randShipper = rand.nextInt(shippers.size());
+            int shipperId = shippers.get(randShipper).getShipperId();
+            
+            ArrayList<Employee> employees = employeeDAO.getEmployees();
+            int randEmployee = rand.nextInt(employees.size());
+            int employeeId = employees.get(randEmployee).getEmployeeId();
+            
+//            Shipper shipper = shipperDAO.getShipperById(ranShipperId);
+            
+//            int shipperId = shipper.getShipperId();
 //            int employee = rand.nextInt(employeeDAO.getNumberOfEmployee());
             int orderId = orderDAO.insert(quantity, totalPrice, note, customerDAO.getCustomer(userId).getCustomerId());
             for (AddCart c : carts) {
-                orderDetailDAO.insert(orderId, c.getPhoneId(), 1, 1, c.getPhonePrice() * c.getPhoneQuantity(), c.getPhoneQuantity());
+                orderDetailDAO.insert(orderId, c.getPhoneId(), shipperId, employeeId, c.getPhonePrice() * c.getPhoneQuantity(), c.getPhoneQuantity());
             }
 
             carts.clear();
-
-            response.sendRedirect("./bill.jsp");
+            response.sendRedirect("./bill.jsp?orderId="+orderId+"&shipperId="+shipperId+"");
         }
     }
 
