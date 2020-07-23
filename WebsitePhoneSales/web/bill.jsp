@@ -4,6 +4,7 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="Helpers.SendEmail"%>
 <%@page import="Models.DAO.PhoneDAO"%>
 <%@page import="Models.DAO.ShipperDAO"%>
 <%@page import="Models.Entites.Shipper"%>
@@ -127,12 +128,64 @@
                                             double totals = 0;
                                             double price = 0;
                                             String phoneName = "";
+                                            String invoice = "<h3>Thank you for purchasing our products!</h3>"
+                                                    + "<table style='width:100%'>"
+                                                    + "<tr>"
+                                                    + "<th style='text-align: left'>Billed To:</th>"
+                                                    + "<th style='text-align: right'>Shipped To:</th>"
+                                                    + "</tr>"
+                                                    + "<tr>"
+                                                    + "<td style='text-align: left'>"
+                                                    + "<address>"
+                                                    + customer.getCustomerFullname() + "<br>"
+                                                    + customer.getCustomerAddress() + "V<br>"
+                                                    + customer.getCustomerPhone() + "<br>"
+                                                    + "</address>"
+                                                    + "</td>"
+                                                    + "<td style='text-align: right'>"
+                                                    + "<address>"
+                                                    + shipper.getShipperName() + "<br>"
+                                                    + shipper.getShipperPhone() + "<br>"
+                                                    + "<br>"
+                                                    + "</address>"
+                                                    +"</td>"
+                                                    + "</tr>"
+                                                    + "<tr>"
+                                                    + "<th style='text-align: left'>Payment Method:</th>"
+                                                    + "<th style='text-align: right'>Order Date:</th> "
+                                                    + "</tr>"
+                                                    + "<tr>"
+                                                    + "<td tyle='text-align: left'>Payment on delivery</td>"
+                                                    + "<td style='text-align: right'>" + order.getOrderDate()+ "</td>"
+                                                    + "</tr>"
+                                                    + "</table>";
+                                                 
+                                                    
+                                                    invoice += "<h4>Bill #" + orderId + "</h4>"
+                                                                + "<table style='width:100%' border='1' cellspacing='0'>"
+                                                                + "<tr>"
+                                                                + "<th style='background-color: #4CAF50; color: white;'>No</th>"
+                                                                + "<th style='background-color: #4CAF50; color: white;'>Name</th>"
+                                                                + "<th style='background-color: #4CAF50; color: white;'>Quantity</th>"
+                                                                + "<th style='background-color: #4CAF50; color: white;'>Price</th>"
+                                                                + "<th style='background-color: #4CAF50; color: white;'>Total</th>"
+                                                                + "</tr>";
+                                            int k = 0;
                                             for (OrderDetail items : orderDetails) {
                                                 sub = (items.getOrderDetailTotalPrice() * items.getOrderDetailQuantity());
                                                 subTotal+=sub;
                                                 price = items.getOrderDetailTotalPrice() / items.getOrderDetailQuantity();
                                                 
                                                 phoneName = phoneDAO.getPhone(items.getPhoneId()).getPhoneName();
+
+                                                invoice += "<tr>"
+                                                                + "<td style='text-align: center'>" + ++k +"</td>"
+                                                                + "<td>" + phoneName + "</td>"
+                                                                + "<td style='text-align: center'>" + items.getOrderDetailQuantity() + "</td>"
+                                                                + "<td style='text-align: right'>$" + price + "</td>"
+                                                                + "<td style='text-align: right'>$" + items.getOrderDetailTotalPrice() + "</td>"
+                                                            + "</tr>";
+                                                        
                                         %>
                                         <tr>
                                             <td><%=phoneName%></td>
@@ -143,6 +196,24 @@
                                         <%
                                             }
                                             totals = subTotal+15;
+
+                                            invoice += "<tr>"
+                                                    + "<td colspan='4' style='text-align: right'><b>Subtotal</b></td>"
+                                                    + "<td style='text-align: right'><b>$" + subTotal + "</b></td>"
+                                                    + "</tr>"
+                                                    + "<tr>"
+                                                    + "<td colspan='4' style='text-align: right'><b>Shipping</b></td>"
+                                                    + "<td style='text-align: right'><b>$15</b></td>"
+                                                    + "</tr>"
+                                                    + "<tr>"
+                                                    + "<td colspan='4' style='text-align: right'><b>Total</b></td>"
+                                                    + "<td style='text-align: right'><b>$" + totals + "</b></td>"
+                                                    + "</tr>";
+
+
+                                            invoice += "</table>"
+                                                     + "<br><br><hr><br>Thanks, <br>Double T Shop";
+                                            SendEmail.sendEmail(customer.getCustomerEmail(), "Order Successful", invoice);
                                         %>
                                         <tr>
                                             <td class="thick-line"></td>

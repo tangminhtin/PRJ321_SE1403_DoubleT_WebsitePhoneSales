@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Helpers.SendEmail;
 import Models.DAO.CustomerDAO;
 import Models.DAO.UserDAO;
 import Models.Entites.Customer;
@@ -104,10 +105,10 @@ public class LoginController extends HttpServlet {
             Customer customer = cdao.getCustomer(email);
 
             if (customer != null) {
-                int newPassword = new Random().nextInt(999999);
+                int newPassword = new Random().nextInt(99999999);
                 int userId = customer.getUserId();
-                String msg = "Hi, this is your new password: " + newPassword + "\nNote: for security reason, you must change your password after logging in.";
-                sendEmail("minhtintang@gmail.com", "", email, "Your password has been reset", msg);
+                String msg = "Hi, this is your new code: <b>" + newPassword + "</b><br>Note: for security reason, you must change your password after logging in.";
+                SendEmail.sendEmail(email, "Your password has been reset", msg);
                 userDAO.update(newPassword + "", "customer", userId);
                 response.sendRedirect("./forget_password.jsp?message=reset&uId=" + userId);
             } else {
@@ -169,36 +170,6 @@ public class LoginController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public void sendEmail(String from, String password, String to, String sub, String msg) {
-        //Get properties object    
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
-        //get Session   
-        Session session = Session.getDefaultInstance(props,
-                new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, password);
-            }
-        });
-        //compose message    
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject(sub);
-            message.setText(msg);
-            //send message  
-            Transport.send(message);
-            System.out.println("message sent successfully");
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     public static String getMd5(String input) {
         try {

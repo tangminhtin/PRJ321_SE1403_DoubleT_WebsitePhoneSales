@@ -71,13 +71,14 @@
                                                     <%
                                                         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
                                                         ArrayList<OrderDetail> orderDetailsId = orderDetailDAO.getOrderDetails(o.getOrderId());
-                                                        String s = "";
-                                                        s += phoneDAO.getPhone(orderDetailsId.get(0).getPhoneId()).getPhoneName() + " [" + orderDetailsId.get(0).getOrderDetailQuantity() + "]";
-                                                        for (int i = 1; i < orderDetailsId.size(); i++) {
-                                                            s += ", " + phoneDAO.getPhone(orderDetailsId.get(i).getPhoneId()).getPhoneName() + " [" + orderDetailsId.get(i).getOrderDetailQuantity() + "]";
-                                                        }
+                                                        if(orderDetailsId!= null) {
+                                                            String s = "";
+                                                            for (int i = 0; i < orderDetailsId.size(); i++) {
+                                                                s += " - " + phoneDAO.getPhone(orderDetailsId.get(i).getPhoneId()).getPhoneName() + " [" + orderDetailsId.get(i).getOrderDetailQuantity() + "]";
+                                                            }
 
-                                                        out.print(s);
+                                                            out.print(s);
+                                                        }
                                                     %>
                                                 </td>
                                                 <td><%=o.getOrderQuantity()%></td>
