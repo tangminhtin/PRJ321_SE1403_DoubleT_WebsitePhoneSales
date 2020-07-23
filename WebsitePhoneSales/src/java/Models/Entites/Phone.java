@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
-public class Phone implements Serializable {
+public class Phone implements Serializable, Comparable<Phone> {
     private int phoneId;
     private String phoneImage;
     private String phoneName;
@@ -102,6 +102,11 @@ public class Phone implements Serializable {
     @Override
     public String toString() {
         return "Phone{" + "phoneId=" + phoneId + ", phoneImage=" + phoneImage + ", phoneName=" + phoneName + ", phoneDiscount=" + phoneDiscount + ", phonePrice=" + phonePrice + ", phoneShortDescription=" + phoneShortDescription + ", branchId=" + brandId + ", phoneDetailId=" + phoneDetailId + '}';
+    }
+
+    @Override
+    public int compareTo(Phone o) {
+        return (int) (this.getPhonePrice() - o.getPhonePrice());
     }
     
 }

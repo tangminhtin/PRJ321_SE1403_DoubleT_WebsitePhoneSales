@@ -23,7 +23,7 @@ public class SendEmail {
 
     public static void sendEmail(String to, String sub, String msg) {
         final String FROM = "minhtintang@gmail.com";
-        final String PASSWORD = "669954784";
+        final String PASSWORD = "";
         
         //Get properties object    
         Properties props = new Properties();

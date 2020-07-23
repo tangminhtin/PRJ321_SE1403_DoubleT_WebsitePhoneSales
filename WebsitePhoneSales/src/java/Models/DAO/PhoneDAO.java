@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -156,5 +158,35 @@ public class PhoneDAO {
         return false;
     }
 
-    
+    public ArrayList<Phone> getAllPhone(int min, int max) {
+        ArrayList<Phone> phonesList = new ArrayList<>();
+
+        for (Phone p : phone) {
+            if (p.getPhonePrice() >= min && p.getPhonePrice() <= max) {
+                phonesList.add(p);
+            }
+        }
+        return phonesList;
+    }
+
+    public ArrayList<Phone> getAllPhone(String order) {
+        try {
+            ArrayList<Phone> orderPhones = new ArrayList<>();
+            String sql = "SELECT * FROM `phone` ORDER BY phonePrice " + order;
+            PreparedStatement pst = connection.prepareStatement(sql);
+//            pst.setString(1, order);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                orderPhones.add(new Phone(rs.getInt("phoneId"), rs.getString("phoneImage"),
+                        rs.getString("phoneName"), rs.getDouble("phoneDiscount"),
+                        rs.getDouble("phonePrice"), rs.getString("phoneShortDescription"),
+                        rs.getInt("brandId"), rs.getInt("phoneDetailId")));
+            }
+            return orderPhones;
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

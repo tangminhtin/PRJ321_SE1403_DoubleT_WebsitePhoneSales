@@ -12,6 +12,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Entites.Phone"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -115,58 +118,46 @@
 
         </div>  
 
+
         <div class="container" style="padding-bottom: 100px">
             <h2 class="text-center font-weight-bold mb-5">Best sellers</h2>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                <%                ArrayList<Phone> phones = new ArrayList<>();
-                    ArrayList<PhoneDetail> phoneDetails = new ArrayList<>();
-                    PhoneDAO phonedao = new PhoneDAO();
-                    PhoneDetailDAO phoneDetailDaos = new PhoneDetailDAO();
+                <sql:setDataSource var="conn" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/db_website_phone_sales" user="root" password="" scope="application"/>
+                <sql:query var="bestSellers" dataSource="${conn}">
+                    SELECT phone.phoneId, phone.phoneImage, phone.phoneName, phone.phonePrice, phone.phoneShortDescription, SUM(orderdetail.orderDetailQuantity) AS quantity
+                    FROM phone
+                    INNER JOIN orderdetail ON phone.phoneId = orderdetail.phoneId
+                    GROUP BY orderdetail.phoneId
+                    ORDER BY quantity DESC
+                    LIMIT 0, 8
+                </sql:query>
 
-                    phones = phonedao.getAllPhone();
-                    int k = 0;
-
-                    for (Phone p : phones) {
-
-                        if (k >= 4) {
-                            break;
-                        }
-                        k++;
-
-
-                %>
-                <div class="col" style="margin-top: 30px">
-                    <div style="border-radius: 0px 35px 0px 45px" class="card h-100">
-                        <!--Card image-->
-                        <div class="view overlay">
-                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>">
-                                <img style="border-radius: 0px 35px 0px 35px" class="card-img-top" src="<%=p.getPhoneImage()%>" alt="Card image cap">
-                            </a>
-
+                <c:forEach var="p" items="${bestSellers.rows}">
+                    <div class="col" style="margin-top: 30px">
+                        <div style="border-radius: 0px 35px 0px 45px" class="card h-100">
+                            <!--Card image-->
+                            <div class="view overlay">
+                                <a href="showDetails.jsp?phoneId=${p.phoneId}">
+                                    <img style="border-radius: 0px 35px 0px 35px" class="card-img-top" src="${p.phoneImage}" alt="Card image cap">
+                                </a>
+                            </div>
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <a href="showDetails.jsp?phoneId=${p.phoneId}"><h4 class="card-title">${p.phoneName}</h4></a>
+                                <h5 class="card-title"><i class="fas fa-dollar-sign text-info">${p.phonePrice}</i></h5>
+                                <!--Text-->
+                                <p class="card-text">${p.phoneShortDescription}</p>
+                                <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                <a href="showDetails.jsp?phoneId=${p.phoneId}"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
+                            </div>
                         </div>
-
-                        <!--Card content-->
-                        <div class="card-body">
-
-                            <!--Title-->
-                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><h4 class="card-title"><%=p.getPhoneName()%></h4></a>
-                            <h5 class="card-title"><i class="fas fa-dollar-sign text-info"><%=p.getPhonePrice()%></i></h5>
-                            <!--Text-->
-                            <p class="card-text"><%=p.getPhoneShortDescription()%></p>
-
-                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                            <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
-
-                        </div>
-
+                        <!-- Card -->
                     </div>
-                    <!-- Card -->
-                </div>
-
-                <% }
-                %>
+                </c:forEach>
             </div>
-        </div>
+        </div> 
+
 
         <div class="container mt-5" style="padding-bottom: 75px">
             <!--Section: Content-->
@@ -175,7 +166,12 @@
                 <h2 class="text-center font-weight-bold mb-5">Latest news</h2>
                 <!-- Grid row -->
                 <div class="row">
-                    <%
+                    <%                        
+                        ArrayList<Phone> phones = new ArrayList<>();
+                        PhoneDAO phonedao = new PhoneDAO();
+
+                        phones = phonedao.getAllPhone();
+                        int k = 0;
                         phones = phonedao.getAllPhone();
                         k = 0;
                         for (Phone p : phones) {
@@ -201,7 +197,6 @@
                                 <p class="card-title text-muted font-small mt-3 mb-2"><%=p.getPhoneShortDescription()%></p>
 
                                 <a href="showDetails.jsp?phoneId=<%=p.getPhoneId()%>"><button type="button" style="border-radius: 0px 20px 0px 20px" class="btn aqua-gradient btn-md">View details</button></a>
-
                             </div>
                         </div>
                         <!-- Card -->
@@ -213,7 +208,7 @@
             </section>
             <!--Section: Content-->
         </div>
-
+                
         <%@include file="components/footer.jsp" %>
     </body>
 </html>
