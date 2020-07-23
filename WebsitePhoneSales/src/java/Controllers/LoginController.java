@@ -5,9 +5,23 @@
  */
 package Controllers;
 
+import Models.DAO.CustomerDAO;
 import Models.DAO.UserDAO;
+import Models.Entites.Customer;
 import Models.Entites.User;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
+import java.util.Random;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -34,56 +48,86 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-            String user = request.getParameter("txtUsername");
-            String pass = request.getParameter("txtPassword");
-            UserDAO userDAO = new UserDAO();
-               
-            //// LOGIN ADMIN
-            if(user!= null && pass!= null && request.getParameter("query").equals("admin")) {
-                User admin = userDAO.login(user, pass);
-                if(admin!=null && admin.getUserRole().equals("admin")) {
-                    request.getSession().setAttribute("aUser", user);
-                    response.sendRedirect("./admin/index.jsp");
-                } else {
-                    response.sendRedirect("./admin/login.jsp");
-                }
+
+        String user = request.getParameter("txtUsername");
+        String pass = request.getParameter("txtPassword");
+        UserDAO userDAO = new UserDAO();
+
+        //// LOGIN ADMIN
+        if (user != null && pass != null && request.getParameter("query").equals("admin")) {
+            User admin = userDAO.login(user, pass);
+            if (admin != null && admin.getUserRole().equals("admin")) {
+                request.getSession().setAttribute("aUser", user);
+                response.sendRedirect("./admin/index.jsp");
+            } else {
+                response.sendRedirect("./admin/login.jsp");
+            }
             //// LOGIN USER
-            } else if (user!= null && pass!= null && request.getParameter("query").equals("user")) {
-                User uUser = userDAO.login(user, pass);
-                if(uUser!=null && uUser.getUserRole().equals("customer")) {
-                    Cookie username = new Cookie("username", uUser.getUserName());
-                    Cookie userId = new Cookie("userId", uUser.getUserId() + "");
-                    username.setMaxAge(60 * 60 * 24);
-                    userId.setMaxAge(60 * 60 * 24);
-                    response.addCookie(username);
-                    response.addCookie(userId);
-                    response.sendRedirect("./index.jsp");
-                } else {
-                    request.getSession().setAttribute("message", "fail");
+        } else if (user != null && pass != null && request.getParameter("query").equals("user")) {
+            User uUser = userDAO.login(user, pass);
+            if (uUser != null && uUser.getUserRole().equals("customer")) {
+                Cookie username = new Cookie("username", uUser.getUserName());
+                Cookie userId = new Cookie("userId", uUser.getUserId() + "");
+                username.setMaxAge(60 * 60 * 24);
+                userId.setMaxAge(60 * 60 * 24);
+                response.addCookie(username);
+                response.addCookie(userId);
+                response.sendRedirect("./index.jsp");
+            } else {
+                request.getSession().setAttribute("message", "fail");
+                response.sendRedirect("./login.jsp");
+            }
+        } //// LOGOUT ADMIN
+        else if (request.getParameter("query").equals("logout")) {
+            request.getSession().removeAttribute("aUser");
+            response.sendRedirect("./admin/login.jsp");
+        } //// LOGOUT USER
+        else if (request.getParameter("query").equals("uLogout")) {
+            Cookie[] list = request.getCookies();
+            for (Cookie items : list) {
+                if (items.getName().equals("username")) {
+                    items.setMaxAge(0);
+                    response.addCookie(items);
+                }
+                if (items.getName().equals("userId")) {
+                    items.setMaxAge(0);
+                    response.addCookie(items);
+                }
+            }
+            response.sendRedirect("./index.jsp");
+        }
+
+        CustomerDAO cdao = new CustomerDAO();
+        String email = request.getParameter("txtEmail");
+        if (email != null && request.getParameter("query").equals("reset")) {
+
+            Customer customer = cdao.getCustomer(email);
+
+            if (customer != null) {
+                int newPassword = new Random().nextInt(999999);
+                int userId = customer.getUserId();
+                String msg = "Hi, this is your new password: " + newPassword + "\nNote: for security reason, you must change your password after logging in.";
+                sendEmail("minhtintang@gmail.com", "", email, "Your password has been reset", msg);
+                userDAO.update(newPassword + "", "customer", userId);
+                response.sendRedirect("./forget_password.jsp?message=reset&uId=" + userId);
+            } else {
+                response.sendRedirect("./forget_password.jsp");
+            }
+        }
+
+        String code = request.getParameter("txtCode");
+        String uId = request.getParameter("userId");
+        String newPass = request.getParameter("textPass");
+        String confirm = request.getParameter("txtConfirm");
+        if (code != null && newPass != null && confirm != null) {
+            int userId = Integer.parseInt(uId);
+            if (getMd5(code).equals(userDAO.getUser(userId).getUserPassword())) {
+                if (newPass.equals(confirm)) {
+                    userDAO.update(newPass, "customer", userId);
                     response.sendRedirect("./login.jsp");
                 }
             }
-            //// LOGOUT ADMIN
-            else if(request.getParameter("query").equals("logout")) {
-                request.getSession().removeAttribute("aUser");
-                response.sendRedirect("./admin/login.jsp");
-            } 
-            //// LOGOUT USER
-            else if(request.getParameter("query").equals("uLogout")) {
-                Cookie[] list = request.getCookies();
-                for (Cookie items : list) {
-                    if (items.getName().equals("username")) {
-                        items.setMaxAge(0);
-                        response.addCookie(items);
-                    }
-                    if (items.getName().equals("userId")) {
-                        items.setMaxAge(0);
-                        response.addCookie(items);
-                    }
-                }
-                response.sendRedirect("./index.jsp");
-            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -124,5 +168,59 @@ public class LoginController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    public void sendEmail(String from, String password, String to, String sub, String msg) {
+        //Get properties object    
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+        //get Session   
+        Session session = Session.getDefaultInstance(props,
+                new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        });
+        //compose message    
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject(sub);
+            message.setText(msg);
+            //send message  
+            Transport.send(message);
+            System.out.println("message sent successfully");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static String getMd5(String input) {
+        try {
+            // Static getInstance method is called with hashing MD5 
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            // digest() method is called to calculate message digest 
+            //  of an input digest() return array of byte 
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation 
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value 
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        } // For specifying wrong message digest algorithms 
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

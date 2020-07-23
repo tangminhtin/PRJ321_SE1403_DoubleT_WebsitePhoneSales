@@ -133,4 +133,13 @@ public class CustomerDAO {
         return null;
     }
     
+    public Customer getCustomer(String email) {
+        for(Customer c: customers) {
+            if(c.getCustomerEmail().equals(email)) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
 }

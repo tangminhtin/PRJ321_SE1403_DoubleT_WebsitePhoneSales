@@ -33,6 +33,11 @@
                                     <label for="pass">Password *</label>
                                     <input style="border-radius: 0px 30px 0px 30px" required type="password" id="pass" name="txtPassword">
                                 </div>
+                                 <div class="group-input gi-check">
+                                    <div class="gi-more">
+                                        <a href="./forget_password.jsp" class="forget-pass">Forget your Password</a>
+                                    </div>
+                                </div>
                                 <button style="border-radius: 0px 30px 0px 30px" type="submit" class="site-btn login-btn">Sign In</button>
                             </form>
                             <div class="switch-login">
