@@ -84,7 +84,7 @@
                                                 <div class="form-group row">
                                                     <label for="phonePrice" class="col-sm-2 col-form-label">Price</label>
                                                     <div class="col-sm-10">
-                                                        <input name="txtPhonePrice" type="number" step="0.1" min="0" class="form-control" id="phonePrice" placeholder="$998">
+                                                        <input name="txtPhonePrice" type="number" step="0.01" min="0" class="form-control" id="phonePrice" placeholder="$998">
                                                     </div>
                                                 </div>
                                                 
@@ -92,7 +92,7 @@
                                                 <div class="form-group row">
                                                     <label for="phoneDiscount" class="col-sm-2 col-form-label">Discount</label>
                                                     <div class="col-sm-10">
-                                                        <input name="txtPhoneDiscount" type="number" step="0.1" min="0" class="form-control" id="phoneDiscount" placeholder="$30">
+                                                        <input name="txtPhoneDiscount" type="number" step="0.01" min="0" class="form-control" id="phoneDiscount" placeholder="$30">
                                                     </div>
                                                 </div>
                                                 
