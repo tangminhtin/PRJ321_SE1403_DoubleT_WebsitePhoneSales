@@ -18,9 +18,19 @@ public class Comment implements Serializable {
     private Date commentDate;
     private int customerId;
 
+    /**
+     *
+     */
     public Comment() {
     }
 
+    /**
+     *
+     * @param commentId
+     * @param commentContent
+     * @param commentDate
+     * @param customerId
+     */
     public Comment(int commentId, String commentContent, Date commentDate, int customerId) {
         this.commentId = commentId;
         this.commentContent = commentContent;
@@ -28,34 +38,66 @@ public class Comment implements Serializable {
         this.customerId = customerId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCommentId() {
         return commentId;
     }
 
+    /**
+     *
+     * @param commentId
+     */
     public void setCommentId(int commentId) {
         this.commentId = commentId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCommentContent() {
         return commentContent;
     }
 
+    /**
+     *
+     * @param commentContent
+     */
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getCommentDate() {
         return commentDate;
     }
 
+    /**
+     *
+     * @param commentDate
+     */
     public void setCommentDate(Date commentDate) {
         this.commentDate = commentDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCustomerId() {
         return customerId;
     }
 
+    /**
+     *
+     * @param customerId
+     */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }

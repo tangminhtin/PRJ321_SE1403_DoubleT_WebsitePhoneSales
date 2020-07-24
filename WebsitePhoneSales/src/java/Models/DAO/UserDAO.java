@@ -26,6 +26,9 @@ public class UserDAO {
     ResultSet rs = null;
     ArrayList<User> users;
 
+    /**
+     *
+     */
     public UserDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -33,6 +36,9 @@ public class UserDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `user` WHERE userRole!='admin' ORDER BY userId DESC";
@@ -50,6 +56,13 @@ public class UserDAO {
         }
     }
 
+    /**
+     *
+     * @param userName
+     * @param userPassword
+     * @param userRole
+     * @return
+     */
     public int insert(String userName, String userPassword, String userRole) {
         try {
             String sql = "INSERT INTO `user`(`userName`, `userPassword`, `userRole`) VALUES (?, MD5(?), ?)";
@@ -69,6 +82,13 @@ public class UserDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param userPassword
+     * @param userRole
+     * @param userId
+     * @return
+     */
     public boolean update(String userPassword, String userRole, int userId) {
         try {
             String sql = "UPDATE `user` SET `userPassword`=MD5(?),`userRole`=? WHERE `userId`=?";
@@ -84,6 +104,11 @@ public class UserDAO {
         return false;
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public boolean delete(int userId) {
         try {
             String sql = "DELETE FROM `user` WHERE `userId`=?";
@@ -98,6 +123,12 @@ public class UserDAO {
         return false;
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public User login(String username, String password) {
         try {
             String sql = "SELECT * FROM `user` WHERE `userName`=? AND `userPassword`=MD5(?)";
@@ -114,6 +145,11 @@ public class UserDAO {
         return null;
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public User searchUserByUserName(String username) {
         for (User u : users) {
             if (u.getUserName().equals(username)) {
@@ -123,6 +159,11 @@ public class UserDAO {
         return null;
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public User searchUserByUserId(int userId) {
         for (User u : users) {
             if (u.getUserId() == userId) {
@@ -132,10 +173,19 @@ public class UserDAO {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<User> getUsers() {
         return users;
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public String getRoleByUserId(int userId) {
         for (User u : users) {
             if (u.getUserId() == userId) {
@@ -145,6 +195,12 @@ public class UserDAO {
         return null;
     }
 
+    /**
+     *
+     * @param start
+     * @param limit
+     * @return
+     */
     public ArrayList<User> getUsersInRange(int start, int limit) {
         try {
             ArrayList<User> userLimit = new ArrayList<>();
@@ -164,10 +220,19 @@ public class UserDAO {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumberOfUser() {
         return users.size();
     }
     
+    /**
+     *
+     * @param id
+     * @return
+     */
     public User getUser(int id) {
         for(User u: users) {
             if(u.getUserId() == id) {

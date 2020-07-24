@@ -25,6 +25,9 @@ public class BodyDAO {
     ResultSet rs;
     ArrayList<Body> bodies;
 
+    /**
+     *
+     */
     public BodyDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class BodyDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `body`";
@@ -51,10 +57,19 @@ public class BodyDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Body> getAllPhone() {
         return bodies;
     }
 
+    /**
+     *
+     * @param bodyId
+     * @return
+     */
     public Body getBody(int bodyId) {
         for (Body bd : bodies) {
             if (bd.getBodyId() == bodyId) {
@@ -65,6 +80,14 @@ public class BodyDAO {
         return null;
     }
     
+    /**
+     *
+     * @param bodyId
+     * @param dimensions
+     * @param weight
+     * @param build
+     * @return
+     */
     public int insert(int bodyId, String dimensions, String weight, String build) {
         try {
             String sql = "INSERT INTO `body`(`bodyId`, `bodyDimensions`, `bodyWeight`, `bodyBuild`) VALUES (?, ?, ?, ?)";
@@ -85,6 +108,14 @@ public class BodyDAO {
         return -1;
     }
     
+    /**
+     *
+     * @param dimensions
+     * @param weight
+     * @param build
+     * @param bodyId
+     * @return
+     */
     public boolean update(String dimensions, String weight, String build, int bodyId) {
         try {
             String sql = "UPDATE `body` SET `bodyDimensions`=?,`bodyWeight`=?,`bodyBuild`=? WHERE `bodyId`=?";
@@ -102,6 +133,11 @@ public class BodyDAO {
         return false;
     }
     
+    /**
+     *
+     * @param bodyId
+     * @return
+     */
     public boolean delete(int bodyId) {
         try {
             String sql = "DELETE FROM `body` WHERE bodyId=?";

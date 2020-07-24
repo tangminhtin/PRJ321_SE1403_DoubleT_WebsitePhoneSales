@@ -25,6 +25,9 @@ public class ShipperDAO {
     ResultSet rs;
     ArrayList<Shipper> shippers;
 
+    /**
+     *
+     */
     public ShipperDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class ShipperDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `shipper`";
@@ -49,10 +55,19 @@ public class ShipperDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Shipper> getShippers() {
         return shippers;
     }
 
+    /**
+     *
+     * @param shipperId
+     * @return
+     */
     public Shipper getShipperById(int shipperId) {
         for (Shipper s : shippers) {
             if (s.getShipperId() == shipperId) {
@@ -62,6 +77,12 @@ public class ShipperDAO {
         return null;
     }
 
+    /**
+     *
+     * @param name
+     * @param phone
+     * @return
+     */
     public int insert(String name, String phone) {
         try {
             String sql = "INSERT INTO `shipper`(`shipperName`, `shipperPhone`) VALUES (?, ?)";
@@ -80,6 +101,13 @@ public class ShipperDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param name
+     * @param phone
+     * @param shipperId
+     * @return
+     */
     public boolean update(String name, String phone, int shipperId) {
         try {
             String sql = "UPDATE `shipper` SET `shipperName`=?,`shipperPhone`=? WHERE `shipperId`=?";
@@ -96,6 +124,11 @@ public class ShipperDAO {
         return false;
     }
 
+    /**
+     *
+     * @param shipperId
+     * @return
+     */
     public boolean delete(int shipperId) {
         try {
             String sql = "DELETE FROM `shipper` WHERE shipperId=?";
@@ -110,6 +143,10 @@ public class ShipperDAO {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumberOfShipper() {
         return shippers.size();
     }

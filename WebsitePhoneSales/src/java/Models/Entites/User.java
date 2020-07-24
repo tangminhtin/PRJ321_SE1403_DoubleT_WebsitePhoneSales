@@ -17,9 +17,19 @@ public class User implements Serializable {
     private String userPassword;
     private String userRole;
 
+    /**
+     *
+     */
     public User() {
     }
 
+    /**
+     *
+     * @param userId
+     * @param userName
+     * @param userPassword
+     * @param userRole
+     */
     public User(int userId, String userName, String userPassword, String userRole) {
         this.userId = userId;
         this.userName = userName;
@@ -27,34 +37,66 @@ public class User implements Serializable {
         this.userRole = userRole;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getUserId() {
         return userId;
     }
 
+    /**
+     *
+     * @param userId
+     */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserPassword() {
         return userPassword;
     }
 
+    /**
+     *
+     * @param userPassword
+     */
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserRole() {
         return userRole;
     }
 
+    /**
+     *
+     * @param userRole
+     */
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }

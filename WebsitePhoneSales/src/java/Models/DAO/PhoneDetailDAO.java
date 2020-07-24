@@ -25,6 +25,9 @@ public class PhoneDetailDAO {
     ResultSet rs;
     ArrayList<PhoneDetail> phoneDetail;
 
+    /**
+     *
+     */
     public PhoneDetailDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class PhoneDetailDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `phonedetail`";
@@ -62,10 +68,19 @@ public class PhoneDetailDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<PhoneDetail> getAllPhone() {
         return phoneDetail;
     }
 
+    /**
+     *
+     * @param phoneDetailId
+     * @return
+     */
     public PhoneDetail getPhoneDetail(int phoneDetailId) {
         for (PhoneDetail pd : phoneDetail) {
             if (pd.getPhoneDetailId() == phoneDetailId) {
@@ -75,6 +90,23 @@ public class PhoneDetailDAO {
         return null;
     }
 
+    /**
+     *
+     * @param phoneDetailId
+     * @param image
+     * @param description
+     * @param video
+     * @param specialFeatures
+     * @param displayId
+     * @param bodyId
+     * @param platformId
+     * @param mainCameraId
+     * @param selfieCameraId
+     * @param storageId
+     * @param batteryId
+     * @param connectionId
+     * @return
+     */
     public int insert(int phoneDetailId, String image, String description, String video, String specialFeatures, int displayId, int bodyId, int platformId, int mainCameraId, int selfieCameraId, int storageId, int batteryId, int connectionId) {
         try {
             String sql = "INSERT INTO `phonedetail`(`phoneDetailId`, `phoneDetailImage`, `phoneDetailDescription`, `phoneDetailVideo`, `phoneDetailSpecialFeatures`, `displayId`, `bodyId`, `platformId`, `mainCameraId`, `selfieCameraId`, `storageId`, `batteryId`, `connectionId`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -104,6 +136,15 @@ public class PhoneDetailDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param image
+     * @param description
+     * @param video
+     * @param specialFeatures
+     * @param phoneDetailId
+     * @return
+     */
     public boolean update(String image, String description, String video, String specialFeatures, int phoneDetailId) {
         try {
             String sql = "UPDATE `phonedetail` SET `phoneDetailImage`=?,`phoneDetailDescription`=?,`phoneDetailVideo`=?,`phoneDetailSpecialFeatures`=? WHERE `phoneDetailId`=?";
@@ -122,6 +163,11 @@ public class PhoneDetailDAO {
         return false;
     }
 
+    /**
+     *
+     * @param phoneDetailId
+     * @return
+     */
     public boolean delete(int phoneDetailId) {
         try {
             String sql = "DELETE FROM `phonedetail` WHERE phoneDetailId=?";

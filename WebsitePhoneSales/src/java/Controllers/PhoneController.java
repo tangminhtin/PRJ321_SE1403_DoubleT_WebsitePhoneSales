@@ -35,7 +35,6 @@ import javax.servlet.http.Part;
 public class PhoneController extends HttpServlet {
 
     final String UPLOAD_DIRECTORY = "img/phones";
-    private BrandDAO brandDAO = null;
     private PhoneDetailDAO phoneDetailDAO = null;
     private PhoneDAO phoneDAO = null;
     private DisplayDAO displayDAO = null;
@@ -46,10 +45,11 @@ public class PhoneController extends HttpServlet {
     private StorageDAO storageDAO = null;
     private BatteryDAO batteryDAO = null;
     private ConnectionDAO connectionDAO = null;
-    private CommentDAO commentDAO = null;
 
+    /**
+     *
+     */
     public PhoneController() {
-        brandDAO = new BrandDAO();
         phoneDetailDAO = new PhoneDetailDAO();
         phoneDAO = new PhoneDAO();
         displayDAO = new DisplayDAO();
@@ -60,7 +60,6 @@ public class PhoneController extends HttpServlet {
         selfieCameraDAO = new SelfieCameraDAO();
         batteryDAO = new BatteryDAO();
         connectionDAO = new ConnectionDAO();
-        commentDAO = new CommentDAO();
     }
 
     /**

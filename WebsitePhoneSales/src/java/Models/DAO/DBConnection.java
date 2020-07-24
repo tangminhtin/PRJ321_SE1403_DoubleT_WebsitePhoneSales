@@ -18,6 +18,9 @@ import java.util.logging.Logger;
 public class DBConnection {
     private Connection connection;
 
+    /**
+     *
+     */
     public DBConnection() {
         try {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -27,6 +30,10 @@ public class DBConnection {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Connection getConnection() {
         return connection;
     }

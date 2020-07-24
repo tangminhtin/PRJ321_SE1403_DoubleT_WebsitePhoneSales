@@ -7,10 +7,8 @@ package Controllers;
 
 import Models.DAO.PhoneDAO;
 import Models.Entites.AddCart;
-import Models.Entites.Order;
 import Models.Entites.Phone;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,27 +35,28 @@ public class PaymentControler extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        int phoneId = Integer.parseInt(request.getParameter("phoneId"));
+        int phoneId = Integer.parseInt(request.getParameter("phoneId")); // get phone Id
 
         if (phoneId != -1) {
             PhoneDAO phoneDAO = new PhoneDAO();
             HttpSession session = request.getSession();
-            ArrayList<Phone> cart = new ArrayList<>();
             ArrayList<AddCart> addCart = new ArrayList<>();
             Phone phone = phoneDAO.getPhone(phoneId);
 
+            // if session Cart is null, then set attribute for session Cart
             if (session.getAttribute("Cart") == null) {
-
                 AddCart addCarts = new AddCart();
                 int id = phone.getPhoneId();
                 String name = phone.getPhoneName();
                 double phonePrice = phone.getPhonePrice();
                 int quantity = 1;
+                // set attribute for cart
                 addCarts.setPhoneId(id);
                 addCarts.setPhoneName(name);
                 addCarts.setPhoneQuantity(quantity);
                 addCarts.setPhonePrice(phonePrice);
 
+                // add cart into array list, then store cart in session
                 addCart.add(addCarts);
                 session.setAttribute("Cart", addCart);
                 response.sendRedirect("./index.jsp");
@@ -65,7 +64,7 @@ public class PaymentControler extends HttpServlet {
                 addCart = (ArrayList<AddCart>) session.getAttribute("Cart");
                 boolean check = false;
                 for (AddCart p : addCart) {
-
+                    // check if user booking in the item exist in cart, then update quantity
                     if (p.getPhoneId() == phone.getPhoneId() && request.getParameter("btn") != null) {
                         if (request.getParameter("btn").equals("ok")) {
                             p.setPhoneQuantity(p.getPhoneQuantity() + 1);
@@ -73,12 +72,10 @@ public class PaymentControler extends HttpServlet {
                             check = true;
                             break;
                         }
-
                     }
 
                     if (p.getPhoneId() == phone.getPhoneId()) {
                         //// CHECK ADD/MINUS STEP
-
                         if (request.getParameter("step").equals("add")) {
                             if (p.getPhoneQuantity() < 9) {
                                 p.setPhoneQuantity(p.getPhoneQuantity() + 1);
@@ -96,6 +93,7 @@ public class PaymentControler extends HttpServlet {
                     }
                 }
 
+                // item not in cart then create new item
                 if (check != true) {
                     AddCart addCarts = new AddCart();
                     int id = phone.getPhoneId();

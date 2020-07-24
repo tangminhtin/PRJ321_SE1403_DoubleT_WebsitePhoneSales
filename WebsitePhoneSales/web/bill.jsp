@@ -4,7 +4,7 @@
     Author     : tangminhtin
 --%>
 
-<%@page import="Helpers.SendEmail"%>
+<%@page import="Helpers.Helper"%>
 <%@page import="Models.DAO.PhoneDAO"%>
 <%@page import="Models.DAO.ShipperDAO"%>
 <%@page import="Models.Entites.Shipper"%>
@@ -48,14 +48,13 @@
                                     userId = Integer.parseInt(c.getValue());
                                 }
                             }
-                            int orderId =  Integer.parseInt(request.getParameter("orderId"));
-                            
-                             
+                            int orderId = Integer.parseInt(request.getParameter("orderId"));
+
                             Customer customer = customerDAO.getCustomerCusUserId(userId);
                             int shipperId = Integer.parseInt(request.getParameter("shipperId"));
                             Shipper shipper = shipperDAO.getShipperById(shipperId);
 
-                            
+
                         %>
                         <h2>Invoice</h2><h3 class="pull-right">Order # <%=orderId%></h3>
                     </div>
@@ -90,9 +89,9 @@
                                 <%
 
                                     Order order = orderDAO.getOrderById(orderId);
-                                   
+
                                 %>
-                                 <%=order.getOrderDate()%><br><br>
+                                <%=order.getOrderDate()%><br><br>
                             </address>
                         </div>
                     </div>
@@ -123,7 +122,6 @@
                                             ArrayList<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
                                             orderDetails = orderDetailDAO.getOrderDetails(orderId);
                                             System.out.println("Orderdetail" + orderDetails);
-                                            double sub = 0;
                                             double subTotal = 0;
                                             double totals = 0;
                                             double price = 0;
@@ -148,7 +146,7 @@
                                                     + shipper.getShipperPhone() + "<br>"
                                                     + "<br>"
                                                     + "</address>"
-                                                    +"</td>"
+                                                    + "</td>"
                                                     + "</tr>"
                                                     + "<tr>"
                                                     + "<th style='text-align: left'>Payment Method:</th>"
@@ -156,36 +154,34 @@
                                                     + "</tr>"
                                                     + "<tr>"
                                                     + "<td tyle='text-align: left'>Payment on delivery</td>"
-                                                    + "<td style='text-align: right'>" + order.getOrderDate()+ "</td>"
+                                                    + "<td style='text-align: right'>" + order.getOrderDate() + "</td>"
                                                     + "</tr>"
                                                     + "</table>";
-                                                 
-                                                    
-                                                    invoice += "<h4>Bill #" + orderId + "</h4>"
-                                                                + "<table style='width:100%' border='1' cellspacing='0'>"
-                                                                + "<tr>"
-                                                                + "<th style='background-color: #4CAF50; color: white;'>No</th>"
-                                                                + "<th style='background-color: #4CAF50; color: white;'>Name</th>"
-                                                                + "<th style='background-color: #4CAF50; color: white;'>Quantity</th>"
-                                                                + "<th style='background-color: #4CAF50; color: white;'>Price</th>"
-                                                                + "<th style='background-color: #4CAF50; color: white;'>Total</th>"
-                                                                + "</tr>";
+
+                                            invoice += "<h4>Bill #" + orderId + "</h4>"
+                                                    + "<table style='width:100%' border='1' cellspacing='0'>"
+                                                    + "<tr>"
+                                                    + "<th style='background-color: #4CAF50; color: white;'>No</th>"
+                                                    + "<th style='background-color: #4CAF50; color: white;'>Name</th>"
+                                                    + "<th style='background-color: #4CAF50; color: white;'>Quantity</th>"
+                                                    + "<th style='background-color: #4CAF50; color: white;'>Price</th>"
+                                                    + "<th style='background-color: #4CAF50; color: white;'>Total</th>"
+                                                    + "</tr>";
                                             int k = 0;
                                             for (OrderDetail items : orderDetails) {
-                                                sub = (items.getOrderDetailTotalPrice() * items.getOrderDetailQuantity());
-                                                subTotal+=sub;
+                                                subTotal += items.getOrderDetailTotalPrice();
                                                 price = items.getOrderDetailTotalPrice() / items.getOrderDetailQuantity();
                                                 
                                                 phoneName = phoneDAO.getPhone(items.getPhoneId()).getPhoneName();
 
                                                 invoice += "<tr>"
-                                                                + "<td style='text-align: center'>" + ++k +"</td>"
-                                                                + "<td>" + phoneName + "</td>"
-                                                                + "<td style='text-align: center'>" + items.getOrderDetailQuantity() + "</td>"
-                                                                + "<td style='text-align: right'>$" + price + "</td>"
-                                                                + "<td style='text-align: right'>$" + items.getOrderDetailTotalPrice() + "</td>"
-                                                            + "</tr>";
-                                                        
+                                                        + "<td style='text-align: center'>" + ++k + "</td>"
+                                                        + "<td>" + phoneName + "</td>"
+                                                        + "<td style='text-align: center'>" + items.getOrderDetailQuantity() + "</td>"
+                                                        + "<td style='text-align: right'>$" + price + "</td>"
+                                                        + "<td style='text-align: right'>$" + items.getOrderDetailTotalPrice() + "</td>"
+                                                        + "</tr>";
+
                                         %>
                                         <tr>
                                             <td><%=phoneName%></td>
@@ -195,7 +191,7 @@
                                         </tr>
                                         <%
                                             }
-                                            totals = subTotal+15;
+                                            totals = subTotal + 15;
 
                                             invoice += "<tr>"
                                                     + "<td colspan='4' style='text-align: right'><b>Subtotal</b></td>"
@@ -210,10 +206,9 @@
                                                     + "<td style='text-align: right'><b>$" + totals + "</b></td>"
                                                     + "</tr>";
 
-
                                             invoice += "</table>"
-                                                     + "<br><br><hr><br>Thanks, <br>Double T Shop";
-                                            SendEmail.sendEmail(customer.getCustomerEmail(), "Order Successful", invoice);
+                                                    + "<br><br><hr><br>Thanks, <br>Double T Shop";
+                                            Helper.sendEmail(customer.getCustomerEmail(), "Order Successfull", invoice);
                                         %>
                                         <tr>
                                             <td class="thick-line"></td>

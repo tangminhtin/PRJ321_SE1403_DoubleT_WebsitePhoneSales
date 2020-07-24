@@ -25,6 +25,9 @@ public class SelfieCameraDAO {
     ResultSet rs;
     ArrayList<SelfieCamera> selfieCamera;
 
+    /**
+     *
+     */
     public SelfieCameraDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class SelfieCameraDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `selfiecamera`";
@@ -51,10 +57,19 @@ public class SelfieCameraDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<SelfieCamera> getAllPhone() {
         return selfieCamera;
     }
 
+    /**
+     *
+     * @param selfieCameraId
+     * @return
+     */
     public SelfieCamera getSelfieCamera(int selfieCameraId) {
         for (SelfieCamera sc : selfieCamera) {
             if (sc.getSelfieCameraId() == selfieCameraId) {
@@ -64,6 +79,14 @@ public class SelfieCameraDAO {
         return null;
     }
 
+    /**
+     *
+     * @param selfieCameraId
+     * @param resolution
+     * @param features
+     * @param video
+     * @return
+     */
     public int insert(int selfieCameraId, String resolution, String features, String video) {
         try {
             String sql = "INSERT INTO `selfiecamera`(`selfieCameraId`, `selfieCameraResolution`, `selfieCameraFeatures`, `selfieCameraVideo`) VALUES (?, ?, ?, ?)";
@@ -84,6 +107,14 @@ public class SelfieCameraDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param resolution
+     * @param features
+     * @param video
+     * @param selfieCameraId
+     * @return
+     */
     public boolean update(String resolution, String features, String video, int selfieCameraId) {
         try {
             String sql = "UPDATE `selfiecamera` SET `selfieCameraResolution`=?,`selfieCameraFeatures`=?,`selfieCameraVideo`=? WHERE  `selfieCameraId`=?";
@@ -101,6 +132,11 @@ public class SelfieCameraDAO {
         return false;
     }
 
+    /**
+     *
+     * @param selfieCameraId
+     * @return
+     */
     public boolean delete(int selfieCameraId) {
         try {
             String sql = "DELETE FROM `selfiecamera` WHERE selfieCameraId=?";

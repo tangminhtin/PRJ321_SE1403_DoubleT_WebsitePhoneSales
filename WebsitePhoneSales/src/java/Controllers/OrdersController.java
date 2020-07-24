@@ -14,9 +14,7 @@ import Models.Entites.AddCart;
 import Models.Entites.Employee;
 import Models.Entites.Shipper;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,16 +42,6 @@ public class OrdersController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            HttpSession session = request.getSession();
-//            ArrayList<AddCart> cart = (ArrayList<AddCart>) session.getAttribute("Cart");
-//
-//            if (cart != null) {
-//                out.print("<h1>Orders Success</h>");
-//            }
-//
-//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,7 +73,7 @@ public class OrdersController extends HttpServlet {
 //        processRequest(request, response);
 
         HttpSession session = request.getSession();
-        ArrayList<AddCart> carts = (ArrayList<AddCart>) session.getAttribute("Cart");
+        ArrayList<AddCart> carts = (ArrayList<AddCart>) session.getAttribute("Cart"); // get cart from session
 
         if (carts != null) {
             OrderDAO orderDAO = new OrderDAO();
@@ -95,6 +83,7 @@ public class OrdersController extends HttpServlet {
             EmployeeDAO employeeDAO = new EmployeeDAO();
             Random rand = new Random();
 
+            // get quantity, total price, note
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             double totalPrice = Double.parseDouble(request.getParameter("totalPrice"));
             String note = request.getParameter("txtNote");
@@ -102,6 +91,7 @@ public class OrdersController extends HttpServlet {
             Cookie[] cookies = request.getCookies();
             int userId = -1;
 
+            // get userId from cookie
             if (cookies != null) {
                 for (Cookie c : cookies) {
                     if (c.getName().equals("userId")) {
@@ -109,25 +99,27 @@ public class OrdersController extends HttpServlet {
                     }
                 }
             }
+
+            // rand shipper in array list then get id
             ArrayList<Shipper> shippers = shipperDAO.getShippers();
             int randShipper = rand.nextInt(shippers.size());
             int shipperId = shippers.get(randShipper).getShipperId();
-            
+
+            // rand employee in array list then get id
             ArrayList<Employee> employees = employeeDAO.getEmployees();
             int randEmployee = rand.nextInt(employees.size());
             int employeeId = employees.get(randEmployee).getEmployeeId();
-            
-//            Shipper shipper = shipperDAO.getShipperById(ranShipperId);
-            
-//            int shipperId = shipper.getShipperId();
-//            int employee = rand.nextInt(employeeDAO.getNumberOfEmployee());
+
+            // insert order into database and return orderId
             int orderId = orderDAO.insert(quantity, totalPrice, note, customerDAO.getCustomer(userId).getCustomerId());
             for (AddCart c : carts) {
+                // add each item in cart to orderDetails
                 orderDetailDAO.insert(orderId, c.getPhoneId(), shipperId, employeeId, c.getPhonePrice() * c.getPhoneQuantity(), c.getPhoneQuantity());
             }
 
+            // after insert data, then clear carts
             carts.clear();
-            response.sendRedirect("./bill.jsp?orderId="+orderId+"&shipperId="+shipperId+"");
+            response.sendRedirect("./bill.jsp?orderId=" + orderId + "&shipperId=" + shipperId + "");
         }
     }
 

@@ -21,9 +21,23 @@ public class Phone implements Serializable, Comparable<Phone> {
     private int brandId;
     private int phoneDetailId;
 
+    /**
+     *
+     */
     public Phone() {
     }
 
+    /**
+     *
+     * @param phoneId
+     * @param phoneImage
+     * @param phoneName
+     * @param phoneDiscount
+     * @param phonePrice
+     * @param phoneShortDescription
+     * @param brandId
+     * @param phoneDetailId
+     */
     public Phone(int phoneId, String phoneImage, String phoneName, double phoneDiscount, double phonePrice, String phoneShortDescription, int brandId, int phoneDetailId) {
         this.phoneId = phoneId;
         this.phoneImage = phoneImage;
@@ -35,66 +49,130 @@ public class Phone implements Serializable, Comparable<Phone> {
         this.phoneDetailId = phoneDetailId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPhoneId() {
         return phoneId;
     }
 
+    /**
+     *
+     * @param phoneId
+     */
     public void setPhoneId(int phoneId) {
         this.phoneId = phoneId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPhoneImage() {
         return phoneImage;
     }
 
+    /**
+     *
+     * @param phoneImage
+     */
     public void setPhoneImage(String phoneImage) {
         this.phoneImage = phoneImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPhoneName() {
         return phoneName;
     }
 
+    /**
+     *
+     * @param phoneName
+     */
     public void setPhoneName(String phoneName) {
         this.phoneName = phoneName;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPhoneDiscount() {
         return phoneDiscount;
     }
 
+    /**
+     *
+     * @param phoneDiscount
+     */
     public void setPhoneDiscount(double phoneDiscount) {
         this.phoneDiscount = phoneDiscount;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPhonePrice() {
         return phonePrice;
     }
 
+    /**
+     *
+     * @param phonePrice
+     */
     public void setPhonePrice(double phonePrice) {
         this.phonePrice = phonePrice;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPhoneShortDescription() {
         return phoneShortDescription;
     }
 
+    /**
+     *
+     * @param phoneShortDescription
+     */
     public void setPhoneShortDescription(String phoneShortDescription) {
         this.phoneShortDescription = phoneShortDescription;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBrandId() {
         return brandId;
     }
 
+    /**
+     *
+     * @param branchId
+     */
     public void setBranchId(int branchId) {
         this.brandId = brandId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPhoneDetailId() {
         return phoneDetailId;
     }
 
+    /**
+     *
+     * @param phoneDetailId
+     */
     public void setPhoneDetailId(int phoneDetailId) {
         this.phoneDetailId = phoneDetailId;
     }

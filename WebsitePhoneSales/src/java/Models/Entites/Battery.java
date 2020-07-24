@@ -17,9 +17,19 @@ public class Battery implements Serializable{
     private String batteryType;
     private String batteryTechnology;
 
+    /**
+     *
+     */
     public Battery() {
     }
 
+    /**
+     *
+     * @param batteryId
+     * @param batteryCapacity
+     * @param batteryType
+     * @param batteryTechnology
+     */
     public Battery(int batteryId, int batteryCapacity, String batteryType, String batteryTechnology) {
         this.batteryId = batteryId;
         this.batteryCapacity = batteryCapacity;
@@ -27,34 +37,66 @@ public class Battery implements Serializable{
         this.batteryTechnology = batteryTechnology;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBatteryId() {
         return batteryId;
     }
 
+    /**
+     *
+     * @param batteryId
+     */
     public void setBatteryId(int batteryId) {
         this.batteryId = batteryId;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBatteryCapacity() {
         return batteryCapacity;
     }
 
+    /**
+     *
+     * @param batteryCapacity
+     */
     public void setBatteryCapacity(int batteryCapacity) {
         this.batteryCapacity = batteryCapacity;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBatteryType() {
         return batteryType;
     }
 
+    /**
+     *
+     * @param batteryType
+     */
     public void setBatteryType(String batteryType) {
         this.batteryType = batteryType;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBatteryTechnology() {
         return batteryTechnology;
     }
 
+    /**
+     *
+     * @param batteryTechnology
+     */
     public void setBatteryTechnology(String batteryTechnology) {
         this.batteryTechnology = batteryTechnology;
     }

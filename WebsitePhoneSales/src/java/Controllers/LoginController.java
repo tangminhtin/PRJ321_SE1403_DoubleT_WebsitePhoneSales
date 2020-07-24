@@ -5,24 +5,13 @@
  */
 package Controllers;
 
-import Helpers.SendEmail;
+import Helpers.Helper;
 import Models.DAO.CustomerDAO;
 import Models.DAO.UserDAO;
 import Models.Entites.Customer;
 import Models.Entites.User;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 import java.util.Random;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -50,21 +39,25 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String user = request.getParameter("txtUsername");
-        String pass = request.getParameter("txtPassword");
+        String user = request.getParameter("txtUsername"); // get username
+        String pass = request.getParameter("txtPassword"); // get password
         UserDAO userDAO = new UserDAO();
 
         //// LOGIN ADMIN
         if (user != null && pass != null && request.getParameter("query").equals("admin")) {
+
+            // check if admin is exist, then store user to username into session, redirect to index page
             User admin = userDAO.login(user, pass);
             if (admin != null && admin.getUserRole().equals("admin")) {
                 request.getSession().setAttribute("aUser", user);
                 response.sendRedirect("./admin/index.jsp");
-            } else {
+            } else { // otherwise redirect to login page
                 response.sendRedirect("./admin/login.jsp");
             }
             //// LOGIN USER
         } else if (user != null && pass != null && request.getParameter("query").equals("user")) {
+
+            // if user is exist, then store username and userId into cookies with 1 day, redirect to index page
             User uUser = userDAO.login(user, pass);
             if (uUser != null && uUser.getUserRole().equals("customer")) {
                 Cookie username = new Cookie("username", uUser.getUserName());
@@ -74,15 +67,15 @@ public class LoginController extends HttpServlet {
                 response.addCookie(username);
                 response.addCookie(userId);
                 response.sendRedirect("./index.jsp");
-            } else {
+            } else { // otherwise redirect to login
                 request.getSession().setAttribute("message", "fail");
                 response.sendRedirect("./login.jsp");
             }
-        } //// LOGOUT ADMIN
+        } //// LOGOUT ADMIN remove session if admin click logout, redirect to login page
         else if (request.getParameter("query").equals("logout")) {
             request.getSession().removeAttribute("aUser");
             response.sendRedirect("./admin/login.jsp");
-        } //// LOGOUT USER
+        } //// LOGOUT USER  remove cookies if user click logout, redirect to index page
         else if (request.getParameter("query").equals("uLogout")) {
             Cookie[] list = request.getCookies();
             for (Cookie items : list) {
@@ -100,29 +93,34 @@ public class LoginController extends HttpServlet {
 
         CustomerDAO cdao = new CustomerDAO();
         String email = request.getParameter("txtEmail");
-        if (email != null && request.getParameter("query").equals("reset")) {
 
+        // check if user want to reset password by email
+        if (email != null && request.getParameter("query").equals("reset")) {
             Customer customer = cdao.getCustomer(email);
 
+            // if customer is exist, then random code, send code to user by email
             if (customer != null) {
                 int newPassword = new Random().nextInt(99999999);
                 int userId = customer.getUserId();
                 String msg = "Hi, this is your new code: <b>" + newPassword + "</b><br>Note: for security reason, you must change your password after logging in.";
-                SendEmail.sendEmail(email, "Your password has been reset", msg);
-                userDAO.update(newPassword + "", "customer", userId);
+                Helper.sendEmail(email, "Your password has been reset", msg);
+                userDAO.update(newPassword + "", "customer", userId); // store random code as a password
                 response.sendRedirect("./forget_password.jsp?message=reset&uId=" + userId);
             } else {
                 response.sendRedirect("./forget_password.jsp");
             }
         }
 
+        // get information of reset password
         String code = request.getParameter("txtCode");
         String uId = request.getParameter("userId");
         String newPass = request.getParameter("textPass");
         String confirm = request.getParameter("txtConfirm");
+
+        // check user entered code, pass, confirm if ok then update password, redirect to login page
         if (code != null && newPass != null && confirm != null) {
             int userId = Integer.parseInt(uId);
-            if (getMd5(code).equals(userDAO.getUser(userId).getUserPassword())) {
+            if (Helper.getMd5(code).equals(userDAO.getUser(userId).getUserPassword())) {
                 if (newPass.equals(confirm)) {
                     userDAO.update(newPass, "customer", userId);
                     response.sendRedirect("./login.jsp");
@@ -169,29 +167,5 @@ public class LoginController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-
-    public static String getMd5(String input) {
-        try {
-            // Static getInstance method is called with hashing MD5 
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            // digest() method is called to calculate message digest 
-            //  of an input digest() return array of byte 
-            byte[] messageDigest = md.digest(input.getBytes());
-
-            // Convert byte array into signum representation 
-            BigInteger no = new BigInteger(1, messageDigest);
-
-            // Convert message digest into hex value 
-            String hashtext = no.toString(16);
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext;
-        } // For specifying wrong message digest algorithms 
-        catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 }

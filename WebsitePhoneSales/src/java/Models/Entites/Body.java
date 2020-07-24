@@ -17,9 +17,19 @@ public class Body implements Serializable {
     private String bodyWeight;
     private String bodyBuild;
 
+    /**
+     *
+     */
     public Body() {
     }
 
+    /**
+     *
+     * @param bodyId
+     * @param bodyDimensions
+     * @param bodyWeight
+     * @param bodyBuild
+     */
     public Body(int bodyId, String bodyDimensions, String bodyWeight, String bodyBuild) {
         this.bodyId = bodyId;
         this.bodyDimensions = bodyDimensions;
@@ -27,34 +37,66 @@ public class Body implements Serializable {
         this.bodyBuild = bodyBuild;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getBodyId() {
         return bodyId;
     }
 
+    /**
+     *
+     * @param bodyId
+     */
     public void setBodyId(int bodyId) {
         this.bodyId = bodyId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBodyDimensions() {
         return bodyDimensions;
     }
 
+    /**
+     *
+     * @param bodyDimensions
+     */
     public void setBodyDimensions(String bodyDimensions) {
         this.bodyDimensions = bodyDimensions;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBodyWeight() {
         return bodyWeight;
     }
 
+    /**
+     *
+     * @param bodyWeight
+     */
     public void setBodyWeight(String bodyWeight) {
         this.bodyWeight = bodyWeight;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBodyBuild() {
         return bodyBuild;
     }
 
+    /**
+     *
+     * @param bodyBuild
+     */
     public void setBodyBuild(String bodyBuild) {
         this.bodyBuild = bodyBuild;
     }

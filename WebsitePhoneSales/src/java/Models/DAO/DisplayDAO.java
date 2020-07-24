@@ -25,6 +25,9 @@ public class DisplayDAO {
     ResultSet rs;
     ArrayList<Display> displays;
 
+    /**
+     *
+     */
     public DisplayDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class DisplayDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `display`";
@@ -52,10 +58,19 @@ public class DisplayDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Display> getAllPhone() {
         return displays;
     }
 
+    /**
+     *
+     * @param displayId
+     * @return
+     */
     public Display getDisplay(int displayId) {
         for (Display display : displays) {
             if (display.getDisplayId() == displayId) {
@@ -65,6 +80,14 @@ public class DisplayDAO {
         return null;
     }
     
+    /**
+     *
+     * @param type
+     * @param size
+     * @param resolution
+     * @param protection
+     * @return
+     */
     public int insert(String type, String size, String resolution, String protection) {
         try {
             String sql = "INSERT INTO `display`(`displayType`, `displaySize`, `displayResolution`, `displayProtection`) VALUES (?, ?, ?, ?)";
@@ -86,7 +109,15 @@ public class DisplayDAO {
         return -1;
     }
     
-    
+    /**
+     *
+     * @param type
+     * @param size
+     * @param resolution
+     * @param protection
+     * @param displayId
+     * @return
+     */
     public boolean update(String type, String size, String resolution, String protection, int displayId) {
         try {
             String sql = "UPDATE `display` SET `displayType`=?,`displaySize`=?,`displayResolution`=?, `displayProtection`=? WHERE  `displayId`=?";
@@ -105,6 +136,11 @@ public class DisplayDAO {
         return false;
     }
     
+    /**
+     *
+     * @param displayId
+     * @return
+     */
     public boolean delete(int displayId) {
         try {
             String sql = "DELETE FROM `display` WHERE displayId=?";

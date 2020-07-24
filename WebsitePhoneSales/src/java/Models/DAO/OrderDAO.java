@@ -26,6 +26,9 @@ public class OrderDAO {
     ResultSet rs;
     ArrayList<Order> orders;
 
+    /**
+     *
+     */
     public OrderDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -33,6 +36,9 @@ public class OrderDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `order` ORDER BY orderDate DESC";
@@ -54,10 +60,19 @@ public class OrderDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Order> getOrders() {
         return orders;
     }
 
+    /**
+     *
+     * @param orderId
+     * @return
+     */
     public Order getOrderById(int orderId) {
         for (Order o : orders) {
             if (o.getOrderId() == orderId) {
@@ -67,6 +82,14 @@ public class OrderDAO {
         return null;
     }
 
+    /**
+     *
+     * @param quantity
+     * @param totalPrice
+     * @param note
+     * @param customerId
+     * @return
+     */
     public int insert( int quantity, double totalPrice, String note, int customerId) {
         try {
             String sql = "INSERT INTO `order`(`orderQuantity`, `orderTotalPrice`, `orderNote`, `customerId`) VALUES (?, ?, ?, ?)";
@@ -87,6 +110,15 @@ public class OrderDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param date
+     * @param quantity
+     * @param totalPrice
+     * @param note
+     * @param orderId
+     * @return
+     */
     public boolean update(String date, int quantity, double totalPrice, String note, int orderId) {
         try {
             String sql = "UPDATE `order` SET `orderDate`=?,`orderQuantity`=?,`orderTotalPrice`=?,`orderNote`=? WHERE `orderId`=?";
@@ -105,6 +137,11 @@ public class OrderDAO {
         return false;
     }
 
+    /**
+     *
+     * @param orderId
+     * @return
+     */
     public boolean delete(int orderId) {
         try {
             String sql = "DELETE FROM `order` WHERE orderId=?";
@@ -119,6 +156,11 @@ public class OrderDAO {
         return false;
     }
 
+    /**
+     *
+     * @param customerId
+     * @return
+     */
     public boolean deleteByCusId(int customerId) {
         try {
             String sql = "DELETE FROM `order` WHERE customerId=?";
@@ -133,6 +175,11 @@ public class OrderDAO {
         return false;
     }
 
+    /**
+     *
+     * @param customerId
+     * @return
+     */
     public ArrayList<Order> getOrders(int customerId) {
         ArrayList<Order> ors = new ArrayList<>();
         for (Order o : ors) {
@@ -143,10 +190,18 @@ public class OrderDAO {
         return ors;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getNumberOfOrder() {
         return orders.size();
     }
     
+    /**
+     *
+     * @return
+     */
     public int getMaxOrderId(){
         try {
             String sql = "SELECT MAX(`orderId`)FROM`order`";

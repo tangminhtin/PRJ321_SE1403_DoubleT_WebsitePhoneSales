@@ -38,7 +38,7 @@
             <div class="container" style="padding-bottom: 75px" >
                 <div style="border-radius: 70px 70px 70px 70px; margin-bottom: 30px" class="card h-100">
                     <!--Card image-->
-                    <div class="view overlay">
+                    <div width="300px"class="view overlay">
                         <img style="border-radius: 70px 70px 70px 70px" class="card-img-top" src="<%=p.getPhoneImage()%>"
                              alt="Card image cap">
                         <a href="#!">

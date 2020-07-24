@@ -25,6 +25,9 @@ public class MainCameraDAO {
     ResultSet rs;
     ArrayList<MainCamera> mainCamera;
 
+    /**
+     *
+     */
     public MainCameraDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class MainCameraDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `maincamera`";
@@ -51,10 +57,19 @@ public class MainCameraDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<MainCamera> getAllPhone() {
         return mainCamera;
     }
 
+    /**
+     *
+     * @param maincameraId
+     * @return
+     */
     public MainCamera getMainCamera(int maincameraId) {
         for (MainCamera mc : mainCamera) {
             if (mc.getMainCameraId() == maincameraId) {
@@ -64,6 +79,14 @@ public class MainCameraDAO {
         return null;
     }
 
+    /**
+     *
+     * @param mainCameraId
+     * @param resolution
+     * @param features
+     * @param video
+     * @return
+     */
     public int insert(int mainCameraId, String resolution, String features, String video) {
         try {
             String sql = "INSERT INTO `maincamera`(`mainCameraId` ,`mainCameraResolution`, `mainCameraFeatures`, `mainCameraVideo`) VALUES (?, ?, ?, ?)";
@@ -84,6 +107,14 @@ public class MainCameraDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param resolution
+     * @param features
+     * @param video
+     * @param mainCameraId
+     * @return
+     */
     public boolean update(String resolution, String features, String video, int mainCameraId) {
         try {
             String sql = "UPDATE `maincamera` SET `mainCameraResolution`=?,`mainCameraFeatures`=?,`mainCameraVideo`=? WHERE `mainCameraId`=?";
@@ -101,6 +132,11 @@ public class MainCameraDAO {
         return false;
     }
 
+    /**
+     *
+     * @param mainCameraId
+     * @return
+     */
     public boolean delete(int mainCameraId) {
         try {
             String sql = "DELETE FROM `maincamera` WHERE mainCameraId=?";

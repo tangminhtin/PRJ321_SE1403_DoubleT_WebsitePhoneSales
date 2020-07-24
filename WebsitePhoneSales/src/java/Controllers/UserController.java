@@ -33,6 +33,9 @@ public class UserController extends HttpServlet {
     private CommentDAO commentDAO = null;
     private OrderDetailDAO orderDetailDAO = null;
 
+    /**
+     *
+     */
     public UserController() {
         // call udao method to get the list of users
         udao = new UserDAO();

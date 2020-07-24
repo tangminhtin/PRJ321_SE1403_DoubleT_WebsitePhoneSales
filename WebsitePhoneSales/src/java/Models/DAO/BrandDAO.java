@@ -26,6 +26,9 @@ public class BrandDAO {
     private ResultSet rs = null;
     private ArrayList<Brand> brands;
 
+    /**
+     *
+     */
     public BrandDAO() {
         DBConnection dbc = new DBConnection();
         connection = dbc.getConnection();
@@ -33,10 +36,17 @@ public class BrandDAO {
         load();
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Brand> getBrands() {
         return brands;
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             sql = "SELECT * FROM `brand`";
@@ -53,6 +63,11 @@ public class BrandDAO {
         }
     }
 
+    /**
+     *
+     * @param brandId
+     * @return
+     */
     public Brand getBrand(int brandId) {
         for (Brand b : brands) {
             if (b.getBrandId() == brandId) {
@@ -62,6 +77,10 @@ public class BrandDAO {
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getNumberOfBrand() {
         return brands.size();
     }

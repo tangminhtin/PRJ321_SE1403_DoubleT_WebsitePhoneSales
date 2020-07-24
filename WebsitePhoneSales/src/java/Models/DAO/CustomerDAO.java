@@ -25,6 +25,9 @@ public class CustomerDAO {
     private ArrayList<Customer> customers;
     private String sql = "";
 
+    /**
+     *
+     */
     public CustomerDAO() {
         DBConnection dbc = new DBConnection();
         connection = dbc.getConnection();
@@ -32,6 +35,9 @@ public class CustomerDAO {
         load();
     }
     
+    /**
+     *
+     */
     public void load() {
         try {
             sql = "SELECT * FROM `customer`";
@@ -49,11 +55,24 @@ public class CustomerDAO {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Customer> getCustomers() {
         return customers;
     }
     
-    
+    /**
+     *
+     * @param customerFullname
+     * @param customerAddress
+     * @param customerPhone
+     * @param customerEmail
+     * @param customerImage
+     * @param userId
+     * @return
+     */
     public boolean insert(String customerFullname, String customerAddress, String customerPhone, String customerEmail, String customerImage, int userId) {
         try {
             String sql = "INSERT INTO `customer`(`customerFullname`, `customerAddress`, `customerPhone`, `customerEmail`, `customerImage`, `userId`) VALUES (?, ?, ?, ?, ?, ?)";
@@ -74,6 +93,16 @@ public class CustomerDAO {
         return false;
     }
     
+    /**
+     *
+     * @param customerFullname
+     * @param customerAddress
+     * @param customerPhone
+     * @param customerEmail
+     * @param customerImage
+     * @param customerId
+     * @return
+     */
     public boolean update(String customerFullname, String customerAddress, String customerPhone, String customerEmail, String customerImage, int customerId) {
         try {
             String sql = "UPDATE `customer` SET `customerFullname`=?,`customerAddress`=?,`customerPhone`=?,`customerEmail`=?,`customerImage`=? WHERE `customerId`=?";
@@ -93,6 +122,11 @@ public class CustomerDAO {
         return false;
     }
     
+    /**
+     *
+     * @param customerId
+     * @return
+     */
     public boolean delete(int customerId) {
         try {
             String sql = "DELETE FROM `customer` WHERE `customerId`=?";
@@ -106,6 +140,11 @@ public class CustomerDAO {
         return false;
     }
     
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public Customer getCustomer(int userId) {
         for(Customer c: customers) {
             if(c.getUserId()==userId) {
@@ -115,6 +154,11 @@ public class CustomerDAO {
         return null;
     }
     
+    /**
+     *
+     * @param customerId
+     * @return
+     */
     public Customer getCustomerCusId(int customerId) {
         for(Customer c: customers) {
             if(c.getCustomerId()==customerId) {
@@ -124,6 +168,11 @@ public class CustomerDAO {
         return null;
     }
     
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public Customer getCustomerCusUserId(int userId) {
         for(Customer c: customers) {
             if(c.getUserId()==userId) {
@@ -133,6 +182,11 @@ public class CustomerDAO {
         return null;
     }
     
+    /**
+     *
+     * @param email
+     * @return
+     */
     public Customer getCustomer(String email) {
         for(Customer c: customers) {
             if(c.getCustomerEmail().equals(email)) {

@@ -18,9 +18,20 @@ public class Display implements Serializable {
     private String displayResolution;
     private String displayProtection;
 
+    /**
+     *
+     */
     public Display() {
     }
 
+    /**
+     *
+     * @param displayId
+     * @param displayType
+     * @param displaySize
+     * @param displayResolution
+     * @param displayProtection
+     */
     public Display(int displayId, String displayType, String displaySize, String displayResolution, String displayProtection) {
         this.displayId = displayId;
         this.displayType = displayType;
@@ -29,42 +40,82 @@ public class Display implements Serializable {
         this.displayProtection = displayProtection;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDisplayId() {
         return displayId;
     }
 
+    /**
+     *
+     * @param displayId
+     */
     public void setDisplayId(int displayId) {
         this.displayId = displayId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDisplayType() {
         return displayType;
     }
 
+    /**
+     *
+     * @param displayType
+     */
     public void setDisplayType(String displayType) {
         this.displayType = displayType;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDisplaySize() {
         return displaySize;
     }
 
+    /**
+     *
+     * @param displaySize
+     */
     public void setDisplaySize(String displaySize) {
         this.displaySize = displaySize;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDisplayResolution() {
         return displayResolution;
     }
 
+    /**
+     *
+     * @param displayResolution
+     */
     public void setDisplayResolution(String displayResolution) {
         this.displayResolution = displayResolution;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDisplayProtection() {
         return displayProtection;
     }
 
+    /**
+     *
+     * @param displayProtection
+     */
     public void setDisplayProtection(String displayProtection) {
         this.displayProtection = displayProtection;
     }

@@ -25,6 +25,9 @@ public class BatteryDAO {
     ResultSet rs;
     ArrayList<Battery> battery;
 
+    /**
+     *
+     */
     public BatteryDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class BatteryDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `battery`";
@@ -51,10 +57,19 @@ public class BatteryDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Battery> getAllPhone() {
         return battery;
     }
 
+    /**
+     *
+     * @param batteryId
+     * @return
+     */
     public Battery getBattery(int batteryId) {
         for (Battery batterys : battery) {
             if (batterys.getBatteryId() == batteryId) {
@@ -64,6 +79,14 @@ public class BatteryDAO {
         return null;
     }
 
+    /**
+     *
+     * @param batteryId
+     * @param capacity
+     * @param type
+     * @param technology
+     * @return
+     */
     public int insert(int batteryId, int capacity, String type, String technology) {
         try {
             String sql = "INSERT INTO `battery`(`batteryId`, `batteryCapacity`, `batteryType`, `batteryTechnology`) VALUES (?, ?, ?, ?)";
@@ -84,6 +107,14 @@ public class BatteryDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param capacity
+     * @param type
+     * @param technology
+     * @param batteryId
+     * @return
+     */
     public boolean update(int capacity, String type, String technology, int batteryId) {
         try {
             String sql = "UPDATE `battery` SET `batteryCapacity`=?,`batteryType`=?,`batteryTechnology`=? WHERE `batteryId`=?";
@@ -101,6 +132,11 @@ public class BatteryDAO {
         return false;
     }
 
+    /**
+     *
+     * @param batteryId
+     * @return
+     */
     public boolean delete(int batteryId) {
         try {
             String sql = "DELETE FROM `battery` WHERE batteryId=?";

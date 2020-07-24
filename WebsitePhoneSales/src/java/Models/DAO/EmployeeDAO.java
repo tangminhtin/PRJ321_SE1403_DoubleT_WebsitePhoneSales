@@ -26,6 +26,9 @@ public class EmployeeDAO {
     private ArrayList<Employee> employees;
     private String sql = "";
 
+    /**
+     *
+     */
     public EmployeeDAO() {
         DBConnection dbc = new DBConnection();
         connection = dbc.getConnection();
@@ -33,6 +36,9 @@ public class EmployeeDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             sql = "SELECT * FROM `employee`";
@@ -50,10 +56,24 @@ public class EmployeeDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
 
+    /**
+     *
+     * @param employeeFullname
+     * @param employeeAddress
+     * @param employeePhone
+     * @param employeeEmail
+     * @param employeeImage
+     * @param userId
+     * @return
+     */
     public boolean insert(String employeeFullname, String employeeAddress, String employeePhone, String employeeEmail, String employeeImage, int userId) {
         try {
             String sql = "INSERT INTO `employee`(`employeeFullname`, `employeeAddress`, `employeePhone`, `employeeEmail`, `employeeImage`, `userId`) VALUES (?, ?, ?, ?, ?, ?)";
@@ -74,6 +94,16 @@ public class EmployeeDAO {
         return false;
     }
 
+    /**
+     *
+     * @param employeeFullname
+     * @param employeeAddress
+     * @param employeePhone
+     * @param employeeEmail
+     * @param employeeImage
+     * @param employeeId
+     * @return
+     */
     public boolean update(String employeeFullname, String employeeAddress, String employeePhone, String employeeEmail, String employeeImage, int employeeId) {
         try {
             String sql = "UPDATE `employee` SET `employeeFullname`=?,`employeeAddress`=?,`employeePhone`=?,`employeeEmail`=?,`employeeImage`=? WHERE `employeeId`=?";
@@ -94,6 +124,11 @@ public class EmployeeDAO {
         return false;
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public boolean delete(int userId) {
         try {
             String sql = "DELETE FROM `employee` WHERE `userId`=?";
@@ -107,6 +142,11 @@ public class EmployeeDAO {
         return false;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Employee getEmployee(int id) {
         for (Employee e : employees) {
             if (e.getUserId() == id) {
@@ -116,6 +156,10 @@ public class EmployeeDAO {
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getNumberOfEmployee() {
         return employees.size();
     }

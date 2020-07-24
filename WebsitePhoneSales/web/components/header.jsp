@@ -9,9 +9,9 @@
 <%@page import="Models.Entites.Phone"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Page Preloder -->
-<div id="preloder">
+<!--<div id="preloder">
     <div class="loader"></div>
-</div>
+</div>-->
 
 <!-- Header Section Begin -->
 <header class="header-section">

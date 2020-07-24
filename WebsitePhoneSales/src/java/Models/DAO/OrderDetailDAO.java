@@ -24,6 +24,9 @@ public class OrderDetailDAO {
     ResultSet rs;
     ArrayList<OrderDetail> orderDetails;
 
+    /**
+     *
+     */
     public OrderDetailDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -31,6 +34,9 @@ public class OrderDetailDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `orderdetail`";
@@ -51,10 +57,19 @@ public class OrderDetailDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
+    /**
+     *
+     * @param orderId
+     * @return
+     */
     public OrderDetail getOrderDetail(int orderId) {
         for (OrderDetail od : orderDetails) {
             if (od.getOrderId()== orderId) {
@@ -64,6 +79,16 @@ public class OrderDetailDAO {
         return null;
     }
 
+    /**
+     *
+     * @param orderId
+     * @param phoneId
+     * @param shipperId
+     * @param employeeId
+     * @param totalPrice
+     * @param quantity
+     * @return
+     */
     public int insert(int orderId, int phoneId, int shipperId, int employeeId, double totalPrice, int quantity) {
         try {
             String sql = "INSERT INTO `orderdetail`(`orderId`, `phoneId`, `shipperId`, `employeeId`, `orderDetailTotalPrice`, `orderDetailQuantity`) VALUES (?, ?, ?, ?, ?, ?)";
@@ -86,6 +111,13 @@ public class OrderDetailDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param totalPrice
+     * @param quantity
+     * @param orderId
+     * @return
+     */
     public boolean update(double totalPrice, int quantity, int orderId) {
         try {
             String sql = "UPDATE `orderdetail` SET `orderDetailTotalPrice`=?,`orderDetailQuantity`=? WHERE `orderId`=?";
@@ -102,6 +134,11 @@ public class OrderDetailDAO {
         return false;
     }
 
+    /**
+     *
+     * @param orderId
+     * @return
+     */
     public boolean delete(int orderId) {
         try {
             String sql = "DELETE FROM `orderdetail` WHERE orderId=?";
@@ -116,6 +153,11 @@ public class OrderDetailDAO {
         return false;
     }
 
+    /**
+     *
+     * @param orderId
+     * @return
+     */
     public ArrayList<OrderDetail> getOrderDetails(int orderId) {
         ArrayList<OrderDetail> orders = new ArrayList<>();
         for(OrderDetail od : orderDetails) {

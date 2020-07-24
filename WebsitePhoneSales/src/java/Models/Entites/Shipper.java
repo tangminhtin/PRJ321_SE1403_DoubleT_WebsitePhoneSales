@@ -16,35 +16,68 @@ public class Shipper implements Serializable {
     private String shipperName;
     private String shipperPhone;
 
+    /**
+     *
+     */
     public Shipper() {
     }
 
+    /**
+     *
+     * @param shipperId
+     * @param shipperName
+     * @param shipperPhone
+     */
     public Shipper(int shipperId, String shipperName, String shipperPhone) {
         this.shipperId = shipperId;
         this.shipperName = shipperName;
         this.shipperPhone = shipperPhone;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getShipperId() {
         return shipperId;
     }
 
+    /**
+     *
+     * @param shipperId
+     */
     public void setShipperId(int shipperId) {
         this.shipperId = shipperId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getShipperName() {
         return shipperName;
     }
 
+    /**
+     *
+     * @param shipperName
+     */
     public void setShipperName(String shipperName) {
         this.shipperName = shipperName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getShipperPhone() {
         return shipperPhone;
     }
 
+    /**
+     *
+     * @param shipperPhone
+     */
     public void setShipperPhone(String shipperPhone) {
         this.shipperPhone = shipperPhone;
     }

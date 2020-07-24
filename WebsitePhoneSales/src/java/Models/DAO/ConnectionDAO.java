@@ -24,6 +24,9 @@ public class ConnectionDAO {
     ResultSet rs;
     ArrayList<Models.Entites.Connection> connArray;
 
+    /**
+     *
+     */
     public ConnectionDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -31,10 +34,19 @@ public class ConnectionDAO {
         load();
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Models.Entites.Connection> getAllPhone() {
         return connArray;
     }
 
+    /**
+     *
+     * @param connectionId
+     * @return
+     */
     public Models.Entites.Connection getConnection(int connectionId) {
         for (Models.Entites.Connection connection : connArray) {
             if (connection.getConnectionId() == connectionId) {
@@ -45,6 +57,9 @@ public class ConnectionDAO {
         return null;
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `connection`";
@@ -71,6 +86,20 @@ public class ConnectionDAO {
         }
     }
 
+    /**
+     *
+     * @param connectionId
+     * @param SIM
+     * @param mobileNetwork
+     * @param WLAN
+     * @param bluetooth
+     * @param GPS
+     * @param NFC
+     * @param radio
+     * @param USB
+     * @param jack
+     * @return
+     */
     public int insert(int connectionId, String SIM, String mobileNetwork, String WLAN, String bluetooth, String GPS, int NFC, int radio, String USB, int jack) {
         try {
             String sql = "INSERT INTO `connection`(`connectionId`, `connectionSIM`, `connectionMobileNetwork`, `connectionWLAN`, `connectionBluetooth`, `connectionGPS`, `connectionNFC`, `connectionRadio`, `connectionUSB`, `connectionJack`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -97,6 +126,20 @@ public class ConnectionDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param SIM
+     * @param mobileNetwork
+     * @param WLAN
+     * @param bluetooth
+     * @param GPS
+     * @param NFC
+     * @param radio
+     * @param USB
+     * @param jack
+     * @param connectionId
+     * @return
+     */
     public boolean update(String SIM, String mobileNetwork, String WLAN, String bluetooth, String GPS, int NFC, int radio, String USB, int jack, int connectionId) {
         try {
             String sql = "UPDATE `connection` SET `connectionSIM`=?,`connectionMobileNetwork`=?,`connectionWLAN`=?,`connectionBluetooth`=?,`connectionGPS`=?,`connectionNFC`=?,`connectionRadio`=?,`connectionUSB`=?,`connectionJack`=? WHERE `connectionId`=?";
@@ -120,6 +163,11 @@ public class ConnectionDAO {
         return false;
     }
 
+    /**
+     *
+     * @param connectionId
+     * @return
+     */
     public boolean delete(int connectionId) {
         try {
             String sql = "DELETE FROM `connection` WHERE connectionId=?";

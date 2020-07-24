@@ -27,6 +27,9 @@ public class PhoneDAO {
     ResultSet rs;
     ArrayList<Phone> phone;
 
+    /**
+     *
+     */
     public PhoneDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -34,10 +37,17 @@ public class PhoneDAO {
         load();
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Phone> getAllPhone() {
         return phone;
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `phone` ORDER BY phoneId DESC";
@@ -60,10 +70,20 @@ public class PhoneDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumberOfPhone() {
         return phone.size();
     }
 
+    /**
+     *
+     * @param start
+     * @param limit
+     * @return
+     */
     public ArrayList<Phone> getPhonesInRange(int start, int limit) {
         try {
             ArrayList<Phone> phonesLimit = new ArrayList<>();
@@ -91,6 +111,11 @@ public class PhoneDAO {
         return null;
     }
 
+    /**
+     *
+     * @param phoneId
+     * @return
+     */
     public Phone getPhone(int phoneId) {
         for (Phone item : phone) {
             if (item.getPhoneId() == phoneId) {
@@ -100,6 +125,18 @@ public class PhoneDAO {
         return null;
     }
 
+    /**
+     *
+     * @param phoneId
+     * @param image
+     * @param name
+     * @param discount
+     * @param price
+     * @param shortDescription
+     * @param brandId
+     * @param phoneDetailId
+     * @return
+     */
     public int insert(int phoneId, String image, String name, double discount, double price, String shortDescription, int brandId, int phoneDetailId) {
         try {
             String sql = "INSERT INTO `phone`(`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `brandId`, `phoneDetailId`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -124,6 +161,17 @@ public class PhoneDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param image
+     * @param name
+     * @param discount
+     * @param price
+     * @param shortDescription
+     * @param brandId
+     * @param phoneId
+     * @return
+     */
     public boolean update(String image, String name, double discount, double price, String shortDescription, int brandId, int phoneId) {
         try {
             String sql = "UPDATE `phone` SET `phoneImage`=?, `phoneName`=?,`phoneDiscount`=?,`phonePrice`=?,`phoneShortDescription`=?,`brandId`=? WHERE `phoneId`=?";
@@ -144,6 +192,11 @@ public class PhoneDAO {
         return false;
     }
 
+    /**
+     *
+     * @param phoneId
+     * @return
+     */
     public boolean delete(int phoneId) {
         try {
             String sql = "DELETE FROM `phone` WHERE phoneId=?";
@@ -158,6 +211,12 @@ public class PhoneDAO {
         return false;
     }
 
+    /**
+     *
+     * @param min
+     * @param max
+     * @return
+     */
     public ArrayList<Phone> getAllPhone(int min, int max) {
         ArrayList<Phone> phonesList = new ArrayList<>();
 
@@ -169,6 +228,11 @@ public class PhoneDAO {
         return phonesList;
     }
 
+    /**
+     *
+     * @param order
+     * @return
+     */
     public ArrayList<Phone> getAllPhone(String order) {
         try {
             ArrayList<Phone> orderPhones = new ArrayList<>();

@@ -25,6 +25,9 @@ public class PlatformDAO {
     ResultSet rs;
     ArrayList<Platform> platform;
 
+    /**
+     *
+     */
     public PlatformDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class PlatformDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `platform`";
@@ -52,10 +58,19 @@ public class PlatformDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Platform> getAllPhone() {
         return platform;
     }
 
+    /**
+     *
+     * @param platformId
+     * @return
+     */
     public Platform getPlatform(int platformId) {
         for (Platform platforms : platform) {
             if (platforms.getPlatformId() == platformId) {
@@ -65,6 +80,15 @@ public class PlatformDAO {
         return null;
     }
 
+    /**
+     *
+     * @param platformId
+     * @param OS
+     * @param chipset
+     * @param CPU
+     * @param GPU
+     * @return
+     */
     public int insert(int platformId, String OS, String chipset, String CPU, String GPU) {
         try {
             String sql = "INSERT INTO `platform`(`platformId` ,`platformOS`, `platformChipset`, `platformCPU`, `platformGPU`) VALUES (?, ?, ?, ?, ?)";
@@ -86,6 +110,15 @@ public class PlatformDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param OS
+     * @param chipset
+     * @param CPU
+     * @param GPU
+     * @param platformId
+     * @return
+     */
     public boolean update(String OS, String chipset, String CPU, String GPU, int platformId) {
         try {
             String sql = "UPDATE `platform` SET `platformOS`=?,`platformChipset`=?,`platformCPU`=?,`platformGPU`=? WHERE `platformId`=?";
@@ -104,6 +137,11 @@ public class PlatformDAO {
         return false;
     }
 
+    /**
+     *
+     * @param platformId
+     * @return
+     */
     public boolean delete(int platformId) {
         try {
             String sql = "DELETE FROM `platform` WHERE platformId=?";

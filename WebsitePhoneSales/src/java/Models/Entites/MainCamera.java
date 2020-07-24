@@ -17,9 +17,19 @@ public class MainCamera implements Serializable {
     private String mainCameraFeatures;
     private String mainCameraVideo;
 
+    /**
+     *
+     */
     public MainCamera() {
     }
 
+    /**
+     *
+     * @param mainCameraId
+     * @param mainCameraResolution
+     * @param mainCameraFeatures
+     * @param mainCameraVideo
+     */
     public MainCamera(int mainCameraId, String mainCameraResolution, String mainCameraFeatures, String mainCameraVideo) {
         this.mainCameraId = mainCameraId;
         this.mainCameraResolution = mainCameraResolution;
@@ -27,34 +37,66 @@ public class MainCamera implements Serializable {
         this.mainCameraVideo = mainCameraVideo;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMainCameraId() {
         return mainCameraId;
     }
 
+    /**
+     *
+     * @param mainCameraId
+     */
     public void setMainCameraId(int mainCameraId) {
         this.mainCameraId = mainCameraId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMainCameraResolution() {
         return mainCameraResolution;
     }
 
+    /**
+     *
+     * @param mainCameraResolution
+     */
     public void setMainCameraResolution(String mainCameraResolution) {
         this.mainCameraResolution = mainCameraResolution;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMainCameraFeatures() {
         return mainCameraFeatures;
     }
 
+    /**
+     *
+     * @param mainCameraFeatures
+     */
     public void setMainCameraFeatures(String mainCameraFeatures) {
         this.mainCameraFeatures = mainCameraFeatures;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMainCameraVideo() {
         return mainCameraVideo;
     }
 
+    /**
+     *
+     * @param mainCameraVideo
+     */
     public void setMainCameraVideo(String mainCameraVideo) {
         this.mainCameraVideo = mainCameraVideo;
     }

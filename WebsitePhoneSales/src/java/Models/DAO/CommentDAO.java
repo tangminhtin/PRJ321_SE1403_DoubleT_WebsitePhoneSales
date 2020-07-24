@@ -26,6 +26,9 @@ public class CommentDAO {
     ResultSet rs;
     ArrayList<Comment> comments;
 
+    /**
+     *
+     */
     public CommentDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -33,6 +36,9 @@ public class CommentDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `comment` ORDER BY commentDate DESC";
@@ -52,10 +58,19 @@ public class CommentDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Comment> getComments() {
         return comments;
     }
 
+    /**
+     *
+     * @param commentId
+     * @return
+     */
     public Comment getComment(int commentId) {
         for (Comment cmt : comments) {
             if (cmt.getCommentId() == commentId) {
@@ -65,6 +80,13 @@ public class CommentDAO {
         return null;
     }
 
+    /**
+     *
+     * @param content
+     * @param date
+     * @param customerId
+     * @return
+     */
     public int insert(String content, Date date, int customerId) {
         try {
             String sql = "INSERT INTO `comment`(`commentContent`, `commentDate`, `customerId`) VALUES (?, ?, ?)";
@@ -84,6 +106,14 @@ public class CommentDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param content
+     * @param date
+     * @param customerId
+     * @param commentId
+     * @return
+     */
     public boolean update(String content, Date date, int customerId, int commentId) {
         try {
             String sql = "UPDATE `comment` SET `commentContent`=?,`commentDate`=?,`customerId`=? WHERE `commentId`=?";
@@ -101,6 +131,11 @@ public class CommentDAO {
         return false;
     }
 
+    /**
+     *
+     * @param customerId
+     * @return
+     */
     public boolean delete(int customerId) {
         try {
             String sql = "SELECT * FROM `comment` WHERE customerId=?";
@@ -115,6 +150,11 @@ public class CommentDAO {
         return false;
     }
 
+    /**
+     *
+     * @param customerId
+     * @return
+     */
     public ArrayList<Comment> getComments(int customerId) {
         ArrayList<Comment> cmts = new ArrayList<>();
         for (Comment cmt : comments) {
@@ -125,10 +165,20 @@ public class CommentDAO {
         return cmts;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumberOfComment() {
         return comments.size();
     }
 
+    /**
+     *
+     * @param start
+     * @param limit
+     * @return
+     */
     public ArrayList<Comment> getCommentsInRange(int start, int limit) {
         try {
             ArrayList<Comment> cmts = new ArrayList<>();

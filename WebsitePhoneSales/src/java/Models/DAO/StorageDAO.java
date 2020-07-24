@@ -25,6 +25,9 @@ public class StorageDAO {
     ResultSet rs;
     ArrayList<Storage> storage;
 
+    /**
+     *
+     */
     public StorageDAO() {
         dBConnection = new DBConnection();
         connection = dBConnection.getConnection();
@@ -32,6 +35,9 @@ public class StorageDAO {
         load();
     }
 
+    /**
+     *
+     */
     public void load() {
         try {
             String sql = "SELECT * FROM `storage`";
@@ -51,10 +57,19 @@ public class StorageDAO {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Storage> getAllPhone() {
         return storage;
     }
 
+    /**
+     *
+     * @param storageId
+     * @return
+     */
     public Storage getStorage(int storageId) {
         for (Storage s : storage) {
             if (s.getStorageId() == storageId) {
@@ -64,6 +79,14 @@ public class StorageDAO {
         return null;
     }
 
+    /**
+     *
+     * @param storageId
+     * @param RAM
+     * @param internal
+     * @param external
+     * @return
+     */
     public int insert(int storageId, int RAM, int internal, int external) {
         try {
             String sql = "INSERT INTO `storage`(`storageId`, `storageRAM`, `storageInternal`, `storageExternal`) VALUES (?, ?, ?, ?)";
@@ -84,6 +107,14 @@ public class StorageDAO {
         return -1;
     }
 
+    /**
+     *
+     * @param RAM
+     * @param internal
+     * @param external
+     * @param storageId
+     * @return
+     */
     public boolean update(int RAM, int internal, int external, int storageId) {
         try {
             String sql = "UPDATE `storage` SET `storageRAM`=?,`storageInternal`=?,`storageExternal`=? WHERE `storageId`=?";
@@ -101,6 +132,11 @@ public class StorageDAO {
         return false;
     }
 
+    /**
+     *
+     * @param storageId
+     * @return
+     */
     public boolean delete(int storageId) {
         try {
             String sql = "DELETE FROM `storage` WHERE storageId=?";
