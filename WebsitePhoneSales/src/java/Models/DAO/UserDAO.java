@@ -41,7 +41,7 @@ public class UserDAO {
      */
     public void load() {
         try {
-            String sql = "SELECT * FROM `user` WHERE userRole!='admin' ORDER BY userId DESC";
+            String sql = "SELECT * FROM `user` WHERE userRole!='admin' AND userStatus!=0 ORDER BY userId DESC";
             pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             users.clear();
@@ -49,7 +49,8 @@ public class UserDAO {
                 users.add(new User(rs.getInt("userId"),
                         rs.getString("userName"),
                         rs.getString("userPassword"),
-                        rs.getString("userRole")));
+                        rs.getString("userRole"),
+                        rs.getInt("userStatus")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,6 +104,20 @@ public class UserDAO {
         }
         return false;
     }
+    
+    public boolean update(int userStatus, int userId) {
+        try {
+            String sql = "UPDATE `user` SET `userStatus`=? WHERE `userId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, userStatus);
+            pst.setInt(2, userId);
+            pst.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     /**
      *
@@ -137,7 +152,11 @@ public class UserDAO {
             pst.setString(2, password);
             rs = pst.executeQuery();
             if (rs.first()) {
-                return new User(rs.getInt("userId"), rs.getString("userName"), rs.getString("userPassword"), rs.getString("userRole"));
+                return new User(rs.getInt("userId"), 
+                        rs.getString("userName"), 
+                        rs.getString("userPassword"), 
+                        rs.getString("userRole"),
+                        rs.getInt("userStatus"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -210,8 +229,11 @@ public class UserDAO {
             pst.setInt(2, limit);
             rs = pst.executeQuery();
             while (rs.next()) {
-                userLimit.add(new User(rs.getInt("userId"), rs.getString("userName"),
-                        rs.getString("userPassword"), rs.getString("userRole")));
+                userLimit.add(new User(rs.getInt("userId"), 
+                        rs.getString("userName"),
+                        rs.getString("userPassword"), 
+                        rs.getString("userRole"),
+                        rs.getInt("userStatus")));
             }
             return userLimit;
         } catch (SQLException ex) {

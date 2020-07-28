@@ -122,7 +122,8 @@
         <div class="container" style="padding-bottom: 100px">
             <h2 class="text-center font-weight-bold mb-5">Best sellers</h2>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                <sql:setDataSource var="conn" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/db_website_phone_sales" user="root" password="" scope="application"/>
+                <sql:setDataSource var="conn" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/db_website_phone_sales" user="root" password="" scope="page"/>
+                <%--<sql:setDataSource var="conn" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://node229237-doubletshop.j.layershift.co.uk/db_website_phone_sales" user="jelastic-4371733" password="3g1D57c0N7gGD4dLo6M8" scope="application"/>--%>
                 <sql:query var="bestSellers" dataSource="${conn}">
                     SELECT phone.phoneId, phone.phoneImage, phone.phoneName, phone.phonePrice, phone.phoneShortDescription, SUM(orderdetail.orderDetailQuantity) AS quantity
                     FROM phone

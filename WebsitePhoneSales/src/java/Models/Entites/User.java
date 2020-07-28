@@ -16,6 +16,7 @@ public class User implements Serializable {
     private String userName;
     private String userPassword;
     private String userRole;
+    private int userStatus;
 
     /**
      *
@@ -30,11 +31,12 @@ public class User implements Serializable {
      * @param userPassword
      * @param userRole
      */
-    public User(int userId, String userName, String userPassword, String userRole) {
+    public User(int userId, String userName, String userPassword, String userRole, int userStatus) {
         this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
         this.userRole = userRole;
+        this.userStatus = userStatus;
     }
 
     /**
@@ -100,6 +102,15 @@ public class User implements Serializable {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
+
+    public int getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
+    }
+    
 
     @Override
     public String toString() {

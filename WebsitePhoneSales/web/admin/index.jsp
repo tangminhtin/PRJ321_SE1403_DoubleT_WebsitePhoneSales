@@ -4,6 +4,8 @@
     Author     : tangminhtin
 --%>
 
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.File"%>
 <%@page import="Models.Entites.OrderDetail"%>
 <%@page import="Models.DAO.OrderDetailDAO"%>
 <%@page import="Models.Entites.Order"%>
@@ -40,6 +42,15 @@
                         <div class="row">
                             <div class="col-md-10" id="columnchart_material" style="width: 800px; height: 500px;"></div>
                         </div>
+
+                        <form action="./report.jsp">
+                            <div style="margin: 30px">
+                                <span>Report</span>
+                                <input type="month" id="start" name="date" min="2018-03" value="2020-07">
+                                <button type="submit" class="btn btn-default btn-sm" >Get Report</button>
+                            </div>
+                        </form>
+
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
@@ -71,10 +82,12 @@
                                                     <%
                                                         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
                                                         ArrayList<OrderDetail> orderDetailsId = orderDetailDAO.getOrderDetails(o.getOrderId());
-                                                        if(orderDetailsId!= null) {
+                                                        if (orderDetailsId != null) {
                                                             String s = "";
                                                             for (int i = 0; i < orderDetailsId.size(); i++) {
-                                                                s += " - " + phoneDAO.getPhone(orderDetailsId.get(i).getPhoneId()).getPhoneName() + " [" + orderDetailsId.get(i).getOrderDetailQuantity() + "]";
+                                                                if (phoneDAO.getPhone(orderDetailsId.get(i).getPhoneId()) != null) {
+                                                                    s += " - " + phoneDAO.getPhone(orderDetailsId.get(i).getPhoneId()).getPhoneName() + " [" + orderDetailsId.get(i).getOrderDetailQuantity() + "]";
+                                                                }
                                                             }
 
                                                             out.print(s);

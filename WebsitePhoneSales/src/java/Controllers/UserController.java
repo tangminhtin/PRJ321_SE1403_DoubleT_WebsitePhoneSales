@@ -158,27 +158,28 @@ public class UserController extends HttpServlet {
             String deleteUserId = request.getParameter("deleteUserId");
             if (deleteUserId != null) {
                 int userId = Integer.parseInt(deleteUserId);
-                String role = udao.getRoleByUserId(userId);
-                if (role.equals("staff")) {
-                    edao.delete(userId);
-                } else if (role.equals("customer")) {
-                    int customerId = cdao.getCustomer(userId).getCustomerId();
-
-                    if (commentDAO.getComments(customerId) != null) {
-                        commentDAO.delete(customerId);
-                    }
-
-                    ArrayList<Order> orders = orderDAO.getOrders(customerId);
-                    if (orders != null) {
-                        for (Order o : orders) {
-                            orderDetailDAO.delete(o.getOrderId());
-                            orderDAO.delete(o.getOrderId());
-                        }
-//                        orderDAO.deleteByCusId(customerId);
-                    }
-                    cdao.delete(customerId);
-                }
-                udao.delete(userId);
+//                String role = udao.getRoleByUserId(userId);
+//                if (role.equals("staff")) {
+//                    edao.delete(userId);
+//                } else if (role.equals("customer")) {
+//                    int customerId = cdao.getCustomer(userId).getCustomerId();
+//
+//                    if (commentDAO.getComments(customerId) != null) {
+//                        commentDAO.delete(customerId);
+//                    }
+//
+//                    ArrayList<Order> orders = orderDAO.getOrders(customerId);
+//                    if (orders != null) {
+//                        for (Order o : orders) {
+//                            orderDetailDAO.delete(o.getOrderId());
+//                            orderDAO.delete(o.getOrderId());
+//                        }
+////                        orderDAO.deleteByCusId(customerId);
+//                    }
+//                    cdao.delete(customerId);
+//                }
+//                udao.delete(userId);
+                udao.update(0, userId);
             }
             response.sendRedirect("./admin/users.jsp");
         } else if (request.getParameter("query").equals("edit")) {

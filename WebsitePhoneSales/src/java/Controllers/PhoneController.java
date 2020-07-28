@@ -7,8 +7,6 @@ package Controllers;
 
 import Models.DAO.BatteryDAO;
 import Models.DAO.BodyDAO;
-import Models.DAO.BrandDAO;
-import Models.DAO.CommentDAO;
 import Models.DAO.ConnectionDAO;
 import Models.DAO.DisplayDAO;
 import Models.DAO.MainCameraDAO;
@@ -295,16 +293,17 @@ public class PhoneController extends HttpServlet {
         } else if (request.getParameter("query").equals("delete") && request.getParameter("phoneId") != null) {
             int id = Integer.parseInt(request.getParameter("phoneId"));
 
-            phoneDAO.delete(id);
-            phoneDetailDAO.delete(id);
-            displayDAO.delete(id);
-            bodyDAO.delete(id);
-            platformDAO.delete(id);
-            mainCameraDAO.delete(id);
-            selfieCameraDAO.delete(id);
-            storageDAO.delete(id);
-            batteryDAO.delete(id);
-            connectionDAO.delete(id);
+            phoneDAO.update(0, id);
+//            phoneDAO.delete(id);
+//            phoneDetailDAO.delete(id);
+//            displayDAO.delete(id);
+//            bodyDAO.delete(id);
+//            platformDAO.delete(id);
+//            mainCameraDAO.delete(id);
+//            selfieCameraDAO.delete(id);
+//            storageDAO.delete(id);
+//            batteryDAO.delete(id);
+//            connectionDAO.delete(id);
         }
 
         response.sendRedirect("./admin/phones.jsp");

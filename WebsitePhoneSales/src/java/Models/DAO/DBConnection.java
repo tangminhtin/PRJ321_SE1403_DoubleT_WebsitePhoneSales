@@ -25,6 +25,7 @@ public class DBConnection {
         try {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/db_website_phone_sales", "root", "");
+//            connection = (Connection) DriverManager.getConnection("jdbc:mysql://node229237-doubletshop.j.layershift.co.uk/db_website_phone_sales", "jelastic-4371733", "3g1D57c0N7gGD4dLo6M8");
         } catch (SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,6 +37,14 @@ public class DBConnection {
      */
     public Connection getConnection() {
         return connection;
+    }
+    
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

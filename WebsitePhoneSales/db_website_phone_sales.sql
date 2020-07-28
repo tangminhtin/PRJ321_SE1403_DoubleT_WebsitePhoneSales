@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 26, 2020 at 07:33 AM
+-- Generation Time: Jul 27, 2020 at 09:09 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -199,7 +199,8 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`customerId`, `customerFullname`, `customerEmail`, `customerImage`, `customerAddress`, `customerPhone`, `userId`) VALUES
 (1, 'Bach Nguyen Phuc Thinh', 'phucthinhbach@gmail.com', 'img/users/thinh.jpg', 'Hau Giang', '0346845768', 2),
 (2, 'Tang Minh Tin', 'minhtintang@gmail.com', 'img/users/user.png', 'Tien Giang', '0394328223', 5),
-(3, 'Hua Quoc Vinh', 'huaquocvinh@gmail.com', 'img/users/vinh.jpg', 'Can Tho', '0394534758', 7);
+(3, 'Hua Quoc Vinh', 'huaquocvinh@gmail.com', 'img/users/vinh.jpg', 'Can Tho', '0394534758', 7),
+(4, 'Tin', 'tin1@gmail.com', 'img/users/user.png', 'TG', '0394328223', 8);
 
 -- --------------------------------------------------------
 
@@ -328,7 +329,8 @@ INSERT INTO `order` (`orderId`, `orderDate`, `orderQuantity`, `orderTotalPrice`,
 (8, '2020-07-24 15:52:05', 3, 3748.68, '', NULL, 1),
 (9, '2020-07-24 21:20:57', 6, 3692.98, '', NULL, 2),
 (10, '2020-07-24 21:26:06', 5, 4601.84, '', NULL, 2),
-(11, '2020-07-26 12:15:46', 3, 1691.98, 'Gift for girlfriend', NULL, 3);
+(11, '2020-06-26 12:15:46', 3, 1691.98, 'Gift for girlfriend', NULL, 3),
+(12, '2020-07-27 20:23:08', 1, 540, '', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -375,7 +377,8 @@ INSERT INTO `orderdetail` (`orderId`, `phoneId`, `shipperId`, `employeeId`, `ord
 (10, 4, 2, 2, 2625, 3),
 (11, 15, 2, 2, 749, 1),
 (11, 16, 2, 2, 399.98, 1),
-(11, 5, 2, 2, 543, 1);
+(11, 5, 2, 2, 543, 1),
+(12, 6, 3, 1, 540, 1);
 
 -- --------------------------------------------------------
 
@@ -390,6 +393,7 @@ CREATE TABLE `phone` (
   `phoneDiscount` double DEFAULT NULL,
   `phonePrice` double DEFAULT NULL,
   `phoneShortDescription` varchar(250) DEFAULT NULL,
+  `phoneStatus` int(11) NOT NULL DEFAULT 1,
   `brandId` int(11) DEFAULT NULL,
   `phoneDetailId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -398,23 +402,23 @@ CREATE TABLE `phone` (
 -- Dumping data for table `phone`
 --
 
-INSERT INTO `phone` (`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `brandId`, `phoneDetailId`) VALUES
-(1, 'img/phones/Apple iPhone SE.jpg', 'Apple iPhone SE (2020)', 0, 378.26, 'The Apple iPhone SE (2020) retail box contains the prehistoric 5W charger and the usual Lightning cable. We do appreciate the EarPods that are included with every iPhone, though. Two Apple logo stickers and the SIM ejector complete the SE bundle.', 1, 1),
-(2, 'img/phones/Apple iPhone 11 Pro Max.jpg', 'Apple iPhone 11 Pro Max', 0, 1436.84, 'The iPhone 11 Pro phones put an end to Apple\'s 3D Touch era and the Taptic Engine has assumed its role, too. Once full of potential, the 3D Touch tech was failed by Apple itself and from innovation it had become more of a burden.', 1, 1),
-(3, 'img/phones/Apple iPhone 11.jpg', 'Apple iPhone 11', 0, 849, 'Apple managed to squeeze a larger battery in the same body as last year - now the iPhone 11 gets a 3,110mAh battery compared to 2,942mAh unit within the XR.', 1, 3),
-(4, 'img/phones/Google Pixel 4 XL.jpg', 'Google Pixel 4 XL', 0, 875, 'The Google Pixel 4 duo was not Google\'s best-kept secret. We saw pictures of the phone weeks before the event, and we even learned about Face unlock while Google teased the Motion Sense features ahead of its event.', 3, 4),
-(5, 'img/phones/Samsung Galaxy Z Flip 5G.jpg', 'Samsung Galaxy Z Flip 5G', 0, 543, 'The Galaxy Z Flip\'s box features a dual-layered logo shaped like a \"Z\". Our Mirror Purple model showed a purple \"Z\" and after cutting the seals, we can slide the sleeve off the actual box. Now you can lift the lid off the box and see the Z Flip.', 2, 5),
-(6, 'img/phones/Samsung Galaxy A Quantum.jpg', 'Samsung Galaxy A Quantum', 0, 540, 'The rear camera of the smartphone consists of a 64 MP (wide) + 12 MP (ultrawide) + 5 MP (macro) + 5 MP (depth) while on the front there is a 32 MP (wide) camera for shooting selfies. ', 2, 6),
-(7, 'img/phones/Apple iPhone XS Max.jpg', 'Apple iPhone XS Max', 0, 654.98, 'The iPhone XS Max supports both wireless charging and fast wired charging, though obviously, you can\'t benefit from either out of the box.', 1, 7),
-(8, 'img/phones/Google Pixel 3 XL.jpg', 'Google Pixel 3 XL', 0, 529, 'The Pixel 3 XL is Google\'s latest flagship smartphone. It promises to bring everything we have come to expect with the Pixel brand, fast performance, quality camera and some cool software tricks that only Google can come up with.', 3, 8),
-(9, 'img/phones/Google Pixel 3a XL.jpg', 'Google Pixel 3a XL', 0, 299.99, 'The price in question is $400 for the Pixel 3a and $480 for the Pixel 3a XL, half of what the Pixel 3/3 XL normally cost ($800/$900).', 3, 9),
-(10, 'img/phones/Google Pixel 2 XL.jpg', 'Google Pixel 2 XL', 0, 525.99, 'The Pixel 2 XL\'s camera did get a bump in specs. The camera now has OIS and the aperture has been bumped to f/1.8 from last year\'s f/2.0. ', 3, 10),
-(11, 'img/phones/Samsung Galaxy Note10 5G.png', 'Samsung Galaxy Note10 5G', 0, 949.99, 'Galaxy Note10\'s Dynamic AMOLED screen gives you seemingly endless light and only a tiny, front-facing camera lens, so you have brilliant color in all conditions.', 2, 11),
-(12, 'img/phones/Samsung Galaxy Fold 5G.jpg', 'Samsung Galaxy Fold 5G', 0, 3999.99, 'For starters the box contains all the usual necessities - an 18W charger that hasn\'t been changed for years and a USB-C cable. ', 2, 12),
-(13, 'img/phones/Apple iPhone X.jpg', 'Apple iPhone X', 0, 699.95, 'The iPhone X gets the best of everything Apple and its providers have had in the lab. A new AMOLED HDR screen. A new steel frame.', 1, 13),
-(14, 'img/phones/Apple iPhone 8 Plus.jpg', 'Apple iPhone 8 Plus', 0, 539.99, 'The iPhone 8 Plus is fresh off the assembly lines, but the iPhone X is just around the corner, while the iPhone 7 Plus is still relevant and cheaper.', 1, 14),
-(15, 'img/phones/Apple iPhone XR.jpg', 'Apple iPhone XR', 0, 749, 'The packaging is where the iPhone XR and the iPhone XS are identical. Both include the same accessories, which feature the measly 5W charger, Lightning to USB cable', 1, 15),
-(16, 'img/phones/Apple iPhone 7 Plus.jpg', 'Apple iPhone 7 Plus', 0, 399.98, 'The iPhone 7 Plus comes with a more refined design, it packs even more processing power, and ups the game with a new dual-camera setup on the back.', 1, 16);
+INSERT INTO `phone` (`phoneId`, `phoneImage`, `phoneName`, `phoneDiscount`, `phonePrice`, `phoneShortDescription`, `phoneStatus`, `brandId`, `phoneDetailId`) VALUES
+(1, 'img/phones/Apple iPhone SE.jpg', 'Apple iPhone SE (2020)', 0, 378.26, 'The Apple iPhone SE (2020) retail box contains the prehistoric 5W charger and the usual Lightning cable. We do appreciate the EarPods that are included with every iPhone, though. Two Apple logo stickers and the SIM ejector complete the SE bundle.', 1, 1, 1),
+(2, 'img/phones/Apple iPhone 11 Pro Max.jpg', 'Apple iPhone 11 Pro Max', 0, 1436.84, 'The iPhone 11 Pro phones put an end to Apple\'s 3D Touch era and the Taptic Engine has assumed its role, too. Once full of potential, the 3D Touch tech was failed by Apple itself and from innovation it had become more of a burden.', 1, 1, 1),
+(3, 'img/phones/Apple iPhone 11.jpg', 'Apple iPhone 11', 0, 849, 'Apple managed to squeeze a larger battery in the same body as last year - now the iPhone 11 gets a 3,110mAh battery compared to 2,942mAh unit within the XR.', 1, 1, 3),
+(4, 'img/phones/Google Pixel 4 XL.jpg', 'Google Pixel 4 XL', 0, 875, 'The Google Pixel 4 duo was not Google\'s best-kept secret. We saw pictures of the phone weeks before the event, and we even learned about Face unlock while Google teased the Motion Sense features ahead of its event.', 1, 3, 4),
+(5, 'img/phones/Samsung Galaxy Z Flip 5G.jpg', 'Samsung Galaxy Z Flip 5G', 0, 543, 'The Galaxy Z Flip\'s box features a dual-layered logo shaped like a \"Z\". Our Mirror Purple model showed a purple \"Z\" and after cutting the seals, we can slide the sleeve off the actual box. Now you can lift the lid off the box and see the Z Flip.', 1, 2, 5),
+(6, 'img/phones/Samsung Galaxy A Quantum.jpg', 'Samsung Galaxy A Quantum', 0, 540, 'The rear camera of the smartphone consists of a 64 MP (wide) + 12 MP (ultrawide) + 5 MP (macro) + 5 MP (depth) while on the front there is a 32 MP (wide) camera for shooting selfies. ', 1, 2, 6),
+(7, 'img/phones/Apple iPhone XS Max.jpg', 'Apple iPhone XS Max', 0, 654.98, 'The iPhone XS Max supports both wireless charging and fast wired charging, though obviously, you can\'t benefit from either out of the box.', 1, 1, 7),
+(8, 'img/phones/Google Pixel 3 XL.jpg', 'Google Pixel 3 XL', 0, 529, 'The Pixel 3 XL is Google\'s latest flagship smartphone. It promises to bring everything we have come to expect with the Pixel brand, fast performance, quality camera and some cool software tricks that only Google can come up with.', 1, 3, 8),
+(9, 'img/phones/Google Pixel 3a XL.jpg', 'Google Pixel 3a XL', 0, 299.99, 'The price in question is $400 for the Pixel 3a and $480 for the Pixel 3a XL, half of what the Pixel 3/3 XL normally cost ($800/$900).', 1, 3, 9),
+(10, 'img/phones/Google Pixel 2 XL.jpg', 'Google Pixel 2 XL', 0, 525.99, 'The Pixel 2 XL\'s camera did get a bump in specs. The camera now has OIS and the aperture has been bumped to f/1.8 from last year\'s f/2.0. ', 1, 3, 10),
+(11, 'img/phones/Samsung Galaxy Note10 5G.png', 'Samsung Galaxy Note10 5G', 0, 949.99, 'Galaxy Note10\'s Dynamic AMOLED screen gives you seemingly endless light and only a tiny, front-facing camera lens, so you have brilliant color in all conditions.', 1, 2, 11),
+(12, 'img/phones/Samsung Galaxy Fold 5G.jpg', 'Samsung Galaxy Fold 5G', 0, 3999.99, 'For starters the box contains all the usual necessities - an 18W charger that hasn\'t been changed for years and a USB-C cable. ', 1, 2, 12),
+(13, 'img/phones/Apple iPhone X.jpg', 'Apple iPhone X', 0, 699.95, 'The iPhone X gets the best of everything Apple and its providers have had in the lab. A new AMOLED HDR screen. A new steel frame.', 1, 1, 13),
+(14, 'img/phones/Apple iPhone 8 Plus.jpg', 'Apple iPhone 8 Plus', 0, 539.99, 'The iPhone 8 Plus is fresh off the assembly lines, but the iPhone X is just around the corner, while the iPhone 7 Plus is still relevant and cheaper.', 1, 1, 14),
+(15, 'img/phones/Apple iPhone XR.jpg', 'Apple iPhone XR', 0, 749, 'The packaging is where the iPhone XR and the iPhone XS are identical. Both include the same accessories, which feature the measly 5W charger, Lightning to USB cable', 1, 1, 15),
+(16, 'img/phones/Apple iPhone 7 Plus.jpg', 'Apple iPhone 7 Plus', 0, 399.98, 'The iPhone 7 Plus comes with a more refined design, it packs even more processing power, and ups the game with a new dual-camera setup on the back.', 1, 1, 16);
 
 -- --------------------------------------------------------
 
@@ -598,21 +602,23 @@ CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `userName` varchar(50) DEFAULT NULL,
   `userPassword` varchar(32) DEFAULT NULL,
-  `userRole` varchar(10) DEFAULT NULL
+  `userRole` varchar(10) DEFAULT NULL,
+  `userStatus` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`userId`, `userName`, `userPassword`, `userRole`) VALUES
-(1, 'admin', '865bedd2fba8fe20b828ed07600c64a4', 'admin'),
-(2, 'phucthinhbach', '202cb962ac59075b964b07152d234b70', 'customer'),
-(3, 'nguyensonhao', '202cb962ac59075b964b07152d234b70', 'staff'),
-(4, 'truongnhatnam', '202cb962ac59075b964b07152d234b70', 'staff'),
-(5, 'minhtin', '202cb962ac59075b964b07152d234b70', 'customer'),
-(6, 'nguyentranquanghien', '202cb962ac59075b964b07152d234b70', 'staff'),
-(7, 'huaquocvinh', '202cb962ac59075b964b07152d234b70', 'customer');
+INSERT INTO `user` (`userId`, `userName`, `userPassword`, `userRole`, `userStatus`) VALUES
+(1, 'admin', '865bedd2fba8fe20b828ed07600c64a4', 'admin', 1),
+(2, 'phucthinhbach', '202cb962ac59075b964b07152d234b70', 'customer', 1),
+(3, 'nguyensonhao', '202cb962ac59075b964b07152d234b70', 'staff', 1),
+(4, 'truongnhatnam', '202cb962ac59075b964b07152d234b70', 'staff', 1),
+(5, 'minhtin', '202cb962ac59075b964b07152d234b70', 'customer', 1),
+(6, 'nguyentranquanghien', '202cb962ac59075b964b07152d234b70', 'staff', 1),
+(7, 'huaquocvinh', '202cb962ac59075b964b07152d234b70', 'customer', 1),
+(8, 'tin', '202cb962ac59075b964b07152d234b70', 'customer', 1);
 
 --
 -- Indexes for dumped tables
@@ -784,7 +790,7 @@ ALTER TABLE `connection`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `customerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `display`
@@ -808,7 +814,7 @@ ALTER TABLE `maincamera`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `phone`
@@ -850,7 +856,7 @@ ALTER TABLE `storage`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

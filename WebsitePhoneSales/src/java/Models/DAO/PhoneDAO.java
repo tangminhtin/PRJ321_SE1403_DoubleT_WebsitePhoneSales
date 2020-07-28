@@ -11,8 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,7 +48,7 @@ public class PhoneDAO {
      */
     public void load() {
         try {
-            String sql = "SELECT * FROM `phone` ORDER BY phoneId DESC";
+            String sql = "SELECT * FROM `phone` WHERE phoneStatus != 0 ORDER BY phoneId DESC";
             PreparedStatement pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             phone.clear();
@@ -63,7 +61,8 @@ public class PhoneDAO {
                 String phoneShortDescription = rs.getString("phoneShortDescription");
                 int brandId = rs.getInt("brandId");
                 int phoneDetailId = rs.getInt("phoneDetailId");
-                phone.add(new Phone(phoneId, phoneImage, phoneName, phoneDiscount, phonePrice, phoneShortDescription, brandId, phoneDetailId));
+                int phoneStatus = rs.getInt("phoneStatus");
+                phone.add(new Phone(phoneId, phoneImage, phoneName, phoneDiscount, phonePrice, phoneShortDescription, brandId, phoneDetailId, phoneStatus));
             }
         } catch (SQLException ex) {
             Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,7 +100,8 @@ public class PhoneDAO {
                         rs.getDouble("phonePrice"),
                         rs.getString("phoneShortDescription"),
                         rs.getInt("brandId"),
-                        rs.getInt("phoneDetailId")
+                        rs.getInt("phoneDetailId"),
+                        rs.getInt("phoneStatus")
                 ));
             }
             return phonesLimit;
@@ -191,6 +191,21 @@ public class PhoneDAO {
         }
         return false;
     }
+    
+    public boolean update(int phoneStatus, int phoneId) {
+        try {
+            String sql = "UPDATE `phone` SET `phoneStatus`=? WHERE `phoneId`=?";
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setInt(1, phoneStatus);
+            pst.setInt(2, phoneId);
+            pst.execute();
+            load();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     /**
      *
@@ -245,12 +260,21 @@ public class PhoneDAO {
                 orderPhones.add(new Phone(rs.getInt("phoneId"), rs.getString("phoneImage"),
                         rs.getString("phoneName"), rs.getDouble("phoneDiscount"),
                         rs.getDouble("phonePrice"), rs.getString("phoneShortDescription"),
-                        rs.getInt("brandId"), rs.getInt("phoneDetailId")));
+                        rs.getInt("brandId"), rs.getInt("phoneDetailId"),
+                        rs.getInt("phoneStatus")));
             }
             return orderPhones;
         } catch (SQLException ex) {
             Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PhoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

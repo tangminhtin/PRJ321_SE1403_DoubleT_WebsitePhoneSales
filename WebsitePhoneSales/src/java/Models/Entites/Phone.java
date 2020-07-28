@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author TangMinhTin - CE130438 - tintmce130438@fpt.edu.vn
  */
 public class Phone implements Serializable, Comparable<Phone> {
+
     private int phoneId;
     private String phoneImage;
     private String phoneName;
@@ -20,6 +21,7 @@ public class Phone implements Serializable, Comparable<Phone> {
     private String phoneShortDescription;
     private int brandId;
     private int phoneDetailId;
+    private int phoneStatus;
 
     /**
      *
@@ -38,7 +40,7 @@ public class Phone implements Serializable, Comparable<Phone> {
      * @param brandId
      * @param phoneDetailId
      */
-    public Phone(int phoneId, String phoneImage, String phoneName, double phoneDiscount, double phonePrice, String phoneShortDescription, int brandId, int phoneDetailId) {
+    public Phone(int phoneId, String phoneImage, String phoneName, double phoneDiscount, double phonePrice, String phoneShortDescription, int brandId, int phoneDetailId, int phoneStatus) {
         this.phoneId = phoneId;
         this.phoneImage = phoneImage;
         this.phoneName = phoneName;
@@ -47,6 +49,7 @@ public class Phone implements Serializable, Comparable<Phone> {
         this.phoneShortDescription = phoneShortDescription;
         this.brandId = brandId;
         this.phoneDetailId = phoneDetailId;
+        this.phoneStatus = phoneStatus;
     }
 
     /**
@@ -177,6 +180,14 @@ public class Phone implements Serializable, Comparable<Phone> {
         this.phoneDetailId = phoneDetailId;
     }
 
+    public int getPhoneStatus() {
+        return phoneStatus;
+    }
+
+    public void setPhoneStatus(int phoneStatus) {
+        this.phoneStatus = phoneStatus;
+    }
+
     @Override
     public String toString() {
         return "Phone{" + "phoneId=" + phoneId + ", phoneImage=" + phoneImage + ", phoneName=" + phoneName + ", phoneDiscount=" + phoneDiscount + ", phonePrice=" + phonePrice + ", phoneShortDescription=" + phoneShortDescription + ", branchId=" + brandId + ", phoneDetailId=" + phoneDetailId + '}';
@@ -186,5 +197,5 @@ public class Phone implements Serializable, Comparable<Phone> {
     public int compareTo(Phone o) {
         return (int) (this.getPhonePrice() - o.getPhonePrice());
     }
-    
+
 }
